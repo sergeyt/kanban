@@ -23,14 +23,15 @@ Boards = new Meteor.Collection("boards");
 /*
 WorkItems: [{
   id: int,
-  text: String,
+  title: String,
   status: 'active', // 'dev', ''
   tags: [String, ...],
   board: String,
   created: timestamp,
   modified: timestamp,
   createdBy: String,
-  modifiedBy: String
+  modifiedBy: String,
+  comments: [] // TODO maybe events?
 }]
 */
 WorkItems = new Meteor.Collection("workItems");

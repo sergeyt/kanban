@@ -1,6 +1,30 @@
 // TODO init from fogbugz
+
+function resolveCaseStatus(c){
+    var s = c.status.name.toLowerCase();
+    if (s.indexOf('review')) return 'review';
+    if (s.indexOf('resolved')) return 'test';
+    if (s.indexOf('close')) return 'done';
+    return 'active';
+}
+
+function caseToWorkItem(c){
+    var timestamp = (new Date()).getTime();
+    return {
+        id: c.id,
+        title: c.title,
+        status: resolveCaseStatus(c),
+        // TODO provide dates in fogbugz.js
+        created: timestamp,
+        modified: timestamp
+    };
+}
+
 // if the database is empty on server start, create some sample data.
 Meteor.startup(function () {
+
+    console.log('init db...');
+
     Boards.remove({});
     WorkItems.remove({});
 
@@ -15,15 +39,19 @@ Meteor.startup(function () {
         ]
     });
 
-    var timestamp = (new Date()).getTime();
-
-    WorkItems.insert({
-        text: "AR8 Setup should install the documentation on the user's machine",
-        status: 'active',
-        tags: ['goal'],
-        board: ['AR8'],
-        created: timestamp,
-        modified: timestamp
+    // fetch data from fogbugz
+    FOGBUGZ.connect({
+        url: Meteor.settings.fogbugz,
+        user: Meteor.settings.user,
+        password: Meteor.settings.password
+    }).then(function(fb){
+            return fb.search();
+    }).then(function(list){
+        console.log('fetched %d cases', list.length);
+        list.map(caseToWorkItem).forEach(function(it){
+            WorkItems.insert(it);
+        });
+        console.log('db updated!');
     });
 
 });
