@@ -1,0 +1,157 @@
+{
+  "dependencies": {
+    "fogbugz.js": {
+      "version": "0.0.8",
+      "dependencies": {
+        "request": {
+          "version": "2.27.0",
+          "dependencies": {
+            "qs": {
+              "version": "0.6.5"
+            },
+            "json-stringify-safe": {
+              "version": "5.0.0"
+            },
+            "forever-agent": {
+              "version": "0.5.0"
+            },
+            "tunnel-agent": {
+              "version": "0.3.0"
+            },
+            "http-signature": {
+              "version": "0.10.0",
+              "dependencies": {
+                "assert-plus": {
+                  "version": "0.1.2"
+                },
+                "asn1": {
+                  "version": "0.1.11"
+                },
+                "ctype": {
+                  "version": "0.5.2"
+                }
+              }
+            },
+            "hawk": {
+              "version": "1.0.0",
+              "dependencies": {
+                "hoek": {
+                  "version": "0.9.1"
+                },
+                "boom": {
+                  "version": "0.4.2"
+                },
+                "cryptiles": {
+                  "version": "0.2.2"
+                },
+                "sntp": {
+                  "version": "0.2.4"
+                }
+              }
+            },
+            "aws-sign": {
+              "version": "0.3.0"
+            },
+            "oauth-sign": {
+              "version": "0.3.0"
+            },
+            "cookie-jar": {
+              "version": "0.3.0"
+            },
+            "node-uuid": {
+              "version": "1.4.1"
+            },
+            "mime": {
+              "version": "1.2.11"
+            },
+            "form-data": {
+              "version": "0.1.2",
+              "dependencies": {
+                "combined-stream": {
+                  "version": "0.0.4",
+                  "dependencies": {
+                    "delayed-stream": {
+                      "version": "0.0.5"
+                    }
+                  }
+                },
+                "async": {
+                  "version": "0.2.9"
+                }
+              }
+            }
+          }
+        },
+        "xml2js": {
+          "version": "0.2.8",
+          "dependencies": {
+            "sax": {
+              "version": "0.5.5"
+            }
+          }
+        },
+        "q": {
+          "version": "0.9.7"
+        },
+        "extend": {
+          "version": "1.2.1"
+        },
+        "isarray": {
+          "version": "0.0.1"
+        },
+        "askfor": {
+          "version": "0.0.2"
+        },
+        "read": {
+          "version": "1.0.5",
+          "dependencies": {
+            "mute-stream": {
+              "version": "0.0.4"
+            }
+          }
+        },
+        "cli-table": {
+          "version": "0.2.0",
+          "dependencies": {
+            "colors": {
+              "version": "0.3.0"
+            }
+          }
+        },
+        "memoizee": {
+          "version": "0.2.6",
+          "dependencies": {
+            "es5-ext": {
+              "version": "0.9.2"
+            },
+            "event-emitter": {
+              "version": "0.2.2"
+            },
+            "next-tick": {
+              "version": "0.1.0"
+            }
+          }
+        },
+        "iz": {
+          "version": "0.3.0"
+        },
+        "pretty-date": {
+          "version": "0.1.1"
+        },
+        "node-more": {
+          "version": "0.0.2",
+          "dependencies": {
+            "waitkey": {
+              "version": "0.0.4",
+              "dependencies": {
+                "keypress": {
+                  "version": "0.2.1"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
