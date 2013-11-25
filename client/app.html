@@ -1,0 +1,19 @@
+<head>
+  <title>Kanban</title>
+</head>
+
+<body>
+    <div id="toolbar" class="btn-toolbar" style="margin-bottom: 10px">
+        <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                Board <span class="caret"></span>
+            </button>
+            {{> boards}}
+        </div>
+    </div>
+    <div class="board-host">
+        <!-- render active board -->
+        {{> board}}
+    </div>
+</body>
+

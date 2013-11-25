@@ -1,0 +1,10 @@
+.board {
+    width: 100%;
+    height: 100%;
+}
+.board .column {
+    float: left;
+    width: 200px;
+    height: 600px;
+    border: black solid 1px;
+}

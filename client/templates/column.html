@@ -1,0 +1,12 @@
+<template name="column">
+    <div class="column">
+        <p style="text-align: center"><b>{{name}}</b></p>
+        <ul class="item-list">
+            {{#each items}}
+            <li class="work-item">
+                <span>{{text}}</span>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+</template>
