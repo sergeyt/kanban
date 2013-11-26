@@ -1,12 +1,15 @@
 // get column items
 Template.column.items = function () {
-	var items = WorkItems.find({status: this.status}, {}).fetch();
-	console.log('fetched %d items', items.length);
-	return items;
+	return WorkItems.find({status: this.status});
 };
 
 Template.column.count = function () {
-	return WorkItems.find({status: this.status}, {}).count();
+	return WorkItems.find({status: this.status}).count() + '/' + WorkItems.find().count();
+};
+
+Template.column.percentage = function () {
+	var p = WorkItems.find({status: this.status}).count() / WorkItems.find().count();
+	return (p * 100).toFixed(2);
 };
 
 Template.column.view = function () {
