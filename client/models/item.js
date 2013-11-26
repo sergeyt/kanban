@@ -14,13 +14,15 @@ Template.items.loading = function () {
 	return !(workItemsHandle && workItemsHandle.ready());
 };
 
-Template.item.assigneeShortName = function () {
-	return shortName(this.assignee);
-};
+Template.item.helpers({
+	assigneeShortName: function () {
+		return shortName(this.assignee);
+	},
 
-Template.item.avatarUrl = function () {
-	return Gravatar.imageUrl(this.assignee.email, {s: 20});
-};
+	avatarUrl: function () {
+		return Gravatar.imageUrl(this.assignee.email, {s: 20});
+	}
+});
 
 function shortName(user) {
 	if (!user || !user.name) {

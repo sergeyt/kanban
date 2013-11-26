@@ -9,16 +9,20 @@ var boardsHandle = Meteor.subscribe('boards', function () {
 	}
 });
 
-Template.boards.loading = function () {
-	return !boardsHandle.ready();
-};
+Template.boards.helpers({
+	loading: function() {
+		return !boardsHandle.ready();
+	},
+	boards: function() {
+		return Boards.find({}, {sort: {name: 1}});
+	}
+});
 
-Template.boards.boards = function () {
-	return Boards.find({}, {sort: {name: 1}});
-};
+Template.board.helpers({
+	// selected board
+	board: function() {
+		var name = Session.get('board');
+		return Boards.findOne({name: name});
+	}
+});
 
-// selected board
-Template.board.board = function () {
-	var name = Session.get('board');
-	return Boards.findOne({name: name});
-};
