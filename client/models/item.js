@@ -24,6 +24,18 @@ Template.item.helpers({
 	}
 });
 
+Template.item.rendered = function(){
+	var id = this.data._id;
+	$(this.firstNode).draggable({
+		cursor: "move",
+		opacity: 0.7,
+		helper: "clone",
+		start: function(){
+			Session.set('dragItem', id);
+		}
+	});
+};
+
 function shortName(user) {
 	if (!user || !user.name) {
 		return '';

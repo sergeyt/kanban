@@ -23,6 +23,9 @@ Template.board.helpers({
 	board: function() {
 		var name = Session.get('board');
 		return Boards.findOne({name: name});
+	},
+	view: function() {
+		return Session.get('view') || 'comfort';
 	}
 });
 

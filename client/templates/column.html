@@ -1,5 +1,5 @@
 <template name="column">
-	<div class="column panel panel-default {{view}}">
+	<div class="column panel panel-default">
 		<div class="panel-heading">
 			<span>{{name}}</span>
 			<span class="badge badge-inverse">{{count}}</span>
@@ -8,7 +8,7 @@
 		<div class="panel-body">
 			<ul class="item-list">
 				{{#each items}}
-				{{> item}}
+					{{> item}}
 				{{/each}}
 			</ul>
 		</div>

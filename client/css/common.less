@@ -1,0 +1,12 @@
+@bug: #faa;
+@feature: #ffc;
+@task: #cfc;
+@inquiry: #aaf;
+
+.line-clamp (@lines: 3) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* number of lines to show */
+  -webkit-box-orient: vertical;
+}
