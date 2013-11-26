@@ -7,7 +7,6 @@
     float: left;
     width: 200px;
     height: 600px;
-    border: black solid 1px;
     overflow: auto;
 }
 
