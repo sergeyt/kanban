@@ -1,19 +1,33 @@
 <head>
-  <title>Kanban</title>
+	<title>Kanban</title>
+	<link href="http://fonts.googleapis.com/css?family=Reenie+Beanie:regular" rel="stylesheet" type="text/css">
 </head>
 
 <body>
-    <div id="toolbar" class="btn-toolbar" style="margin-bottom: 10px">
-        <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                Board <span class="caret"></span>
-            </button>
-            {{> boards}}
-        </div>
-    </div>
-    <div class="board-host">
-        <!-- render active board -->
-        {{> board}}
-    </div>
+{{> toolbar}}
+<div class="board-host">
+	<!-- render active board -->
+	{{> board}}
+</div>
+{{> legend}}
 </body>
+
+<template name="toolbar">
+	<div id="toolbar" class="btn-toolbar" style="margin-bottom: 10px">
+		<div class="btn-group">
+			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+				Board <span class="caret"></span>
+			</button>
+			{{> boards}}
+		</div>
+		<div class="btn-group">
+			<button type="button" class="btn btn-default btn-comfort-view" title="Comfortable">
+				<i class="icon-th-large"></i>
+			</button>
+			<button type="button" class="btn btn-default btn-compact-view" title="Compact">
+				<i class="icon-th"></i>
+			</button>
+		</div>
+	</div>
+</template>
 

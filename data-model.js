@@ -24,7 +24,9 @@ Boards = new Meteor.Collection("boards");
 WorkItems: [{
   id: int,
   title: String,
-  status: 'active', // 'dev', ''
+  assignee: { name: String, email: String },
+  category: String, // bug, feature, task, requirement, inquiry, code-review
+  status: 'active', // 'active', 'doing', 'review', 'test', 'done'
   tags: [String, ...],
   board: String,
   created: timestamp,

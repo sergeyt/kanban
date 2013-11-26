@@ -1,0 +1,9 @@
+[submodule "packages/gravatar"]
+	path = packages/gravatar
+	url = https://github.com/tmeasday/meteor-gravatar
+[submodule "packages/crypto-md5"]
+	path = packages/crypto-md5
+	url = https://github.com/oortcloud/meteor-crypto-md5
+[submodule "packages/crypto-base"]
+	path = packages/crypto-base
+	url = https://github.com/oortcloud/meteor-crypto-base

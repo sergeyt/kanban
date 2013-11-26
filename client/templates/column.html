@@ -1,17 +1,28 @@
 <template name="column">
-    <div class="column panel panel-default">
-        <div class="panel-heading">
-            <span>{{name}}</span>
-        </div>
-        <div class="panel-body">
-            <ul class="item-list">
-                {{#each items}}
-                <li class="work-item">
-                    <b>{{id}}</b>
-                    <span>{{title}}</span>
-                </li>
-                {{/each}}
-            </ul>
-        </div>
-    </div>
+	<div class="column panel panel-default {{view}}">
+		<div class="panel-heading">
+			<span>{{name}}</span>
+			<span class="badge badge-inverse">{{count}}</span>
+		</div>
+		<div class="panel-body">
+			<ul class="item-list">
+				{{#each items}}
+				{{> item}}
+				{{/each}}
+			</ul>
+		</div>
+	</div>
+</template>
+
+<template name="item">
+	<li class="work-item {{category}}" title="{{assignee.name}}: {{title}}">
+		<a href="#">
+			<h2>{{id}}</h2>
+			<h4>
+				<!--<img src="{{avatarUrl}}"/>-->
+				<span>{{assigneeShortName}}</span>
+			</h4>
+			<p>{{title}}</p>
+		</a>
+	</li>
 </template>
