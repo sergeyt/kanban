@@ -4,5 +4,13 @@ Template.toolbar.events({
 	},
 	'click .btn-comfort-view': function () {
 		Session.set('view', 'comfort');
-	}
+	},
+    'click .btn-effects': function () {
+        var v = Session.get('effects');
+        if (v !== 'cool'){
+            Session.set('effects', 'cool');
+        } else {
+            Session.set('effects', 'static');
+        }
+    }
 });

@@ -3,7 +3,7 @@
 .work-item {
   list-style: none;
   padding: 0;
-  margin: 1em;
+  margin: 0.5em;
   float: left;
 }
 
@@ -13,12 +13,6 @@
   text-decoration: none;
   color: black;
   background: @feature;
-  -moz-box-shadow: 5px 5px 7px rgba(33, 33, 33, 1);
-  -webkit-box-shadow: 5px 5px 7px rgba(33, 33, 33, .7);
-  box-shadow: 5px 5px 7px rgba(33, 33, 33, .7);
-  -moz-transition: -moz-transform .15s linear;
-  -o-transition: -o-transform .15s linear;
-  -webkit-transition: -webkit-transform .15s linear;
 }
 
 .comfort .work-item a {
@@ -31,39 +25,6 @@
   width: 4em;
   height: 4em;
   padding: 0.5em;
-}
-
-.work-item a {
-  -webkit-transform: rotate(-6deg);
-  -o-transform: rotate(-6deg);
-  -moz-transform: rotate(-6deg);
-}
-
-.work-item:nth-child(even) a {
-  -o-transform: rotate(4deg);
-  -webkit-transform: rotate(4deg);
-  -moz-transform: rotate(4deg);
-  position: relative;
-  top: 5px;
-}
-
-.work-item:nth-child(3n) a {
-  -o-transform: rotate(-3deg);
-  -webkit-transform: rotate(-3deg);
-  -moz-transform: rotate(-3deg);
-  position: relative;
-  top: -5px;
-}
-
-.work-item a:hover, .work-item a:focus {
-  box-shadow: 10px 10px 7px rgba(0, 0, 0, .7);
-  -moz-box-shadow: 10px 10px 7px rgba(0, 0, 0, .7);
-  -webkit-box-shadow: 10px 10px 7px rgba(0, 0, 0, .7);
-  -webkit-transform: scale(1.15);
-  -moz-transform: scale(1.15);
-  -o-transform: scale(1.15);
-  position: relative;
-  z-index: 5;
 }
 
 .work-item h2 {
@@ -112,4 +73,33 @@
 
 .work-item.inquiry a {
   background: @inquiry;
+}
+
+/* effects */
+.cool .work-item a {
+  .shadow();
+  .transition();
+}
+
+.cool .work-item a {
+  .rotate(-6deg);
+}
+
+.cool .work-item:nth-child(even) a {
+  .rotate(4deg);
+  position: relative;
+  top: 5px;
+}
+
+.cool .work-item:nth-child(3n) a {
+  .rotate(-3deg);
+  position: relative;
+  top: -5px;
+}
+
+.cool .work-item a:hover, .cool .work-item a:focus {
+  .shadow(10px 10px 7px, rgba(0, 0, 0, .7));
+  .scale(1.15);
+  position: relative;
+  z-index: 5;
 }

@@ -5,12 +5,12 @@ Template.column.helpers({
 	},
 
 	count: function() {
-		return WorkItems.find({status: this.status}).count() + '/' + WorkItems.find().count();
+		return WorkItems.find({status: this.status}).count();
 	},
 
 	percentage: function() {
 		var p = WorkItems.find({status: this.status}).count() / WorkItems.find().count();
-		return (p * 100).toFixed(2);
+		return (p * 100).toFixed(1);
 	}
 });
 
