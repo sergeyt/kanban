@@ -1,3 +1,15 @@
+Template.toolbar.helpers({
+  comfortState: function() {
+	return Session.get('view') == 'comfort' ? 'active' : '';
+  },
+  compactState: function() {
+	return Session.get('view') == 'compact' ? 'active' : '';
+  },
+  effectsState: function() {
+	return Session.get('effects') == 'cool' ? 'active' : '';
+  }
+});
+
 Template.toolbar.events({
 	'click .btn-compact-view': function () {
 		Session.set('view', 'compact');
