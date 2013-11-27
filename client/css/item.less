@@ -30,6 +30,7 @@
 .work-item h2 {
   font-weight: bold;
   margin: 0;
+  margin-bottom: 2px;
   line-height: 1;
 }
 
@@ -37,6 +38,7 @@
   font-size: 12pt;
   font-weight: bold;
   margin: 0;
+	margin-bottom: 2px;
   .line-clamp(2);
 }
 
@@ -44,12 +46,18 @@
   display: none;
 }
 
+.compact .work-item h4 span {
+	display: none;
+}
+
 .comfort .work-item h2 {
-  font-size: 150%;
+  font-size: 120%;
+	text-align: left;
+	white-space: nowrap;
 }
 
 .compact .work-item h2 {
-  font-size: 120%;
+  font-size: 110%;
 }
 
 .work-item p {
@@ -81,6 +89,11 @@
 
 .work-item .goal {
 	vertical-align: top;
+}
+
+.work-item .priority {
+	vertical-align: top;
+	font-size: 7pt;
 }
 
 /* effects */

@@ -79,6 +79,7 @@ FogBugz = {
 			// TODO remove this hardcoded board name
 			board: 'AR8',
 			id: it.id,
+			priority: it.priority.id,
 			title: it.title,
 			assignee: it.assignee,
 			category: resolveCategory(it),
