@@ -1,7 +1,12 @@
 <template name="item">
 	<li class="work-item {{category}}" title="{{assignee.name}}: {{title}}">
 		<a href="#">
-			<h2>{{id}}</h2>
+			<h2>
+				<span>{{id}}</span>
+				<!-- goal indicator with glyph icon -->
+				<!--<span class="icon-exclamation-sign {{goalClass}}" title="Goal"></span>-->
+				<span class="label label-important {{goalClass}}" title="Goal">goal</span>
+			</h2>
 			<h4 class="{{assigneeState}}">
 				<img src="{{avatarUrl}}"/>
 				<span>{{assigneeShortName}}</span>
