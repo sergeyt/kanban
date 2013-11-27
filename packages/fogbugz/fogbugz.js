@@ -60,7 +60,11 @@ function resolveCategory(it) {
 	return 'bug';
 }
 
-FOGBUGZ = {
+function toTime(d){
+	return d ? d.getTime() : null;
+}
+
+FogBugz = {
 	// Creates fogbugz client with specified options
 	//
 	// @param options {Object} (required) See https://npmjs.org/package/fogbugz.js
@@ -71,17 +75,20 @@ FOGBUGZ = {
 	},
 
 	toWorkItem: function (it) {
-		var timestamp = (new Date()).getTime();
 		return {
+			// TODO remove this hardcoded board name
+			board: 'AR8',
 			id: it.id,
 			title: it.title,
 			assignee: it.assignee,
 			category: resolveCategory(it),
 			status: resolveStatus(it),
-			board: 'AR8',
-			// TODO provide dates in fogbugz.js
-			created: timestamp,
-			modified: timestamp
+			tags: it.tags,
+			// dates
+			opened: toTime(it.opened),
+			resolved: toTime(it.resolved),
+			closed: toTime(it.closed),
+			events: it.events
 		};
 	}
 };

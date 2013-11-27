@@ -1,28 +1,31 @@
 Template.toolbar.helpers({
-  comfortState: function() {
-	return Session.get('view') == 'comfort' ? 'active' : '';
-  },
-  compactState: function() {
-	return Session.get('view') == 'compact' ? 'active' : '';
-  },
-  effectsState: function() {
-	return Session.get('effects') == 'cool' ? 'active' : '';
-  }
+	comfortState: function() {
+		return Session.get('view') == 'comfort' ? 'active' : '';
+	},
+	compactState: function() {
+		return Session.get('view') == 'compact' ? 'active' : '';
+	},
+	effectsState: function() {
+		return Session.get('effects') == 'cool' ? 'active' : '';
+	}
 });
 
 Template.toolbar.events({
-	'click .btn-compact-view': function () {
+	'click .btn-sync': function() {
+		Meteor.call('sync');
+	},
+	'click .btn-compact-view': function() {
 		Session.set('view', 'compact');
 	},
-	'click .btn-comfort-view': function () {
+	'click .btn-comfort-view': function() {
 		Session.set('view', 'comfort');
 	},
-    'click .btn-effects': function () {
-        var v = Session.get('effects');
-        if (v !== 'cool'){
-            Session.set('effects', 'cool');
-        } else {
-            Session.set('effects', 'static');
-        }
-    }
+	'click .btn-effects': function() {
+		var v = Session.get('effects');
+		if (v !== 'cool') {
+			Session.set('effects', 'cool');
+		} else {
+			Session.set('effects', 'static');
+		}
+	}
 });
