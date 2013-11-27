@@ -7,3 +7,6 @@
 [submodule "packages/crypto-base"]
 	path = packages/crypto-base
 	url = https://github.com/oortcloud/meteor-crypto-base
+[submodule "packages/prettydate"]
+	path = packages/prettydate
+	url = https://github.com/sergeyt/node-prettydate
