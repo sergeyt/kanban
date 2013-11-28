@@ -1,10 +1,10 @@
 // work item event
 
 Template.event.helpers({
-	content: function(){
-		if (this.format && this.format.toLowerCase() == 'html') {
-			return this.html;
-		}
-		return this.text || this.description;
-	}
+  bodyClass: function(){
+	return this.html || this.text ? '' : 'hidden';
+  },
+  content: function() {
+	return this.html || this.text;
+  }
 });

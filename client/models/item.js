@@ -34,10 +34,13 @@ Template.item.helpers({
 
 Template.item.events({
 	'click .work-item a': function(e){
-		var tr = Template.eventsPane({list: this.events || []});
+		var tr = Template.itemDetails({
+		  item: this,
+		  list: this.events || []
+		});
 		var frag = Meteor.render(tr);
 		document.body.appendChild(frag);
-		$("#events-pane").modal();
+		$("#itemDetails").modal();
 	}
 });
 

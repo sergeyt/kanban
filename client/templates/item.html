@@ -17,27 +17,19 @@
 	</li>
 </template>
 
-<template name="eventsPane">
-	<div id="events-pane" class="modal hide fade">
+<template name="itemDetails">
+	<div id="itemDetails" class="modal hide fade">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			<h3>Item Events</h3>
+			<h3>{{item.id}}: {{item.title}}</h3>
 		</div>
 		<div class="modal-body">
-			<ul>
 			{{#each list}}
 				{{> event}}
 			{{/each}}
-			</ul>
 		</div>
 		<div class="modal-footer">
 			<a href="#" class="btn" data-dismiss="modal">Close</a>
 		</div>
 	</div>
-</template>
-
-<template name="event">
-	<li class="item-event">
-		<p>{{content}}</p>
-	</li>
 </template>
