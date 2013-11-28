@@ -10,9 +10,12 @@ spiderable
 jquery
 preserve-inputs
 insecure
-bootstrap
+bootstrap-3
 fogbugz
 less
-madewith
 gravatar
 prettydate
+accounts-github
+accounts-google
+accounts-twitter
+accounts-ui-bootstrap-3

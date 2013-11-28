@@ -5,31 +5,37 @@
 				<span class="label label-info priority">P{{priority}}</span>
 				<!-- goal indicator with glyph icon -->
 				<!--<span class="icon-exclamation-sign {{goalClass}}" title="Goal"></span>-->
-				<span class="label label-important {{goalClass}}" title="Goal">goal</span>
+				<span class="label label-danger {{goalClass}}" title="Goal">goal</span>
 				<span>{{id}}</span>
 			</h2>
 			<h4 class="{{assigneeState}}">
 				<img src="{{avatarUrl}}"/>
 				<span>{{assigneeShortName}}</span>
 			</h4>
+
 			<p>{{title}}</p>
 		</a>
 	</li>
+
 </template>
 
 <template name="itemDetails">
-	<div id="itemDetails" class="modal hide fade">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			<h3>{{item.id}}: {{item.title}}</h3>
-		</div>
-		<div class="modal-body">
-			{{#each list}}
-				{{> event}}
-			{{/each}}
-		</div>
-		<div class="modal-footer">
-			<a href="#" class="btn" data-dismiss="modal">Close</a>
+	<div id="{{_id}}-details" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">{{item.id}}: {{item.title}}</h4>
+				</div>
+				<div class="modal-body">
+					{{#each eventList}}
+					{{> event}}
+					{{/each}}
+				</div>
+				<div class="modal-footer">
+					<a href="#" class="btn" data-dismiss="modal">Close</a>
+				</div>
+			</div>
 		</div>
 	</div>
 </template>

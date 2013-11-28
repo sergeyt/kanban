@@ -29,6 +29,10 @@ Template.item.helpers({
 
 	assigneeState: function() {
 		return shortName(this.assignee) == 'CLOSED' ? 'hidden' : '';
+	},
+
+	eventList: function(){
+		return this.events;
 	}
 });
 
@@ -36,11 +40,12 @@ Template.item.events({
 	'click .work-item a': function(e){
 		var tr = Template.itemDetails({
 		  item: this,
-		  list: this.events || []
+		  eventList: this.events || []
 		});
 		var frag = Meteor.render(tr);
+		var id = frag.firstElementChild.id;
 		document.body.appendChild(frag);
-		$("#itemDetails").modal();
+		$("#" + id).modal({show: true});
 	}
 });
 

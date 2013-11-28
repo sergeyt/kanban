@@ -1,7 +1,10 @@
-<template name="event">
+<template name="event" xmlns="http://www.w3.org/1999/html">
 	<div class="item-event">
 		<div class="heading">
-			<p>{{description}} {{when}}</p>
+			<p>
+				<span class="label label-info pull-right">{{when}}</span>
+				<span>{{description}}</span>>
+			</p>
 		</div>
 		<div class="body {{bodyClass}}">
 			<p>{{{content}}}</p>
