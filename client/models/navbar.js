@@ -1,4 +1,4 @@
-Template.toolbar.helpers({
+Template.navbar.helpers({
 	comfortState: function() {
 		return Session.get('view') == 'comfort' ? 'active' : '';
 	},
@@ -10,7 +10,7 @@ Template.toolbar.helpers({
 	}
 });
 
-Template.toolbar.events({
+Template.navbar.events({
 	'click .btn-sync': function() {
 		Meteor.call('sync');
 	},

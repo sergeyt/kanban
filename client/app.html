@@ -4,13 +4,12 @@
 </head>
 
 <body>
-<div>
-	{{ loginButtons }}
-</div>
-{{> toolbar}}
+{{> navbar}}
 <div class="board-host">
 	<!-- render active board -->
 	{{> board}}
 </div>
-{{> legend}}
+<div class="legend-host">
+	{{> legend}}
+</div>
 </body>
