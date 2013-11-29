@@ -1,15 +1,23 @@
 <template name="legend">
 	<div class="legend">
+		<div class="item goal" title="Goals">
+			<span>{{goalDone}}% / </span>
+			<span>{{goal}}%</span>
+		</div>
 		<div class="item feature" title="Features">
+			<span>{{featureDone}}% / </span>
 			<span>{{feature}}%</span>
 		</div>
 		<div class="item bug" title="Bugs">
+			<span>{{bugDone}}% / </span>
 			<span>{{bug}}%</span>
 		</div>
 		<div class="item task" title="Tasks">
+			<span>{{taskDone}}% / </span>
 			<span>{{task}}%</span>
 		</div>
 		<div class="item inquiry" title="Inquiries">
+			<span>{{inquiryDone}}% / </span>
 			<span>{{inquiry}}%</span>
 		</div>
 	</div>
