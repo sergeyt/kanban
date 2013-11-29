@@ -1,11 +1,8 @@
 <template name="item">
-	<li class="work-item {{category}}" title="{{assignee.name}}: {{title}}">
+	<li class="work-item {{category}} {{goalClass}}" title="{{assignee.name}}: {{title}}">
 		<a href="#">
 			<h2>
 				<span class="label label-info priority">P{{priority}}</span>
-				<!-- goal indicator with glyph icon -->
-				<!--<span class="icon-exclamation-sign {{goalClass}}" title="Goal"></span>-->
-				<span class="label label-danger {{goalClass}}" title="Goal">goal</span>
 				<span>{{id}}</span>
 			</h2>
 			<h4 class="{{assigneeState}}">

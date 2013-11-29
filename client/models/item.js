@@ -16,7 +16,7 @@ Template.items.loading = function() {
 
 Template.item.helpers({
 	goalClass: function() {
-		return (this.tags || []).indexOf('goal') >= 0 ? 'goal' : 'hidden';
+		return (this.tags || []).indexOf('goal') >= 0 ? 'goal' : '';
 	},
 
 	assigneeShortName: function() {
