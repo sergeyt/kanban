@@ -1,0 +1,1 @@
+start meteor run --settings settings.json

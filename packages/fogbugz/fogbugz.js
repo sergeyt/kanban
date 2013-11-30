@@ -1,42 +1,29 @@
 var Future = Npm.require("fibers/future");
 var fogbugz = Npm.require("fogbugz.js");
 
-/*
-function toFuture(promiseFn, that) {
-	return function () {
-		var args = [].slice.call(arguments);
-		var future = new Future();
-		var cb = future.resolver();
-		promiseFn.apply(that, args).done(function (result) {
-			if (Array.isArray(result)) {
-				cb(result.map(convertIt));
-			} else {
-				cb(convertIt(result));
-			}
-		});
-		return future.wait();
-	};
+// awaits given promise
+// TODO make it as tiny reuseable meteor package
+function await(promise){
+	var future = new Future();
+	var resolve = future.resolver();
+
+	promise.then(function(result){
+		resolve(null, result);
+	}).fail(function(error){
+		resolve(error, null);
+	});
+
+	return future.wait();
 }
 
-// converts object with promise functions to object with future functions
-function convertIt(it) {
-	var result = {};
-	Object.keys(it).forEach(function (key) {
-		var v = it[key];
-		if (typeof v == 'function') {
-			v = toFuture(v.bind(it));
-		} else if (typeof v == 'object') {
-			if (Array.isArray(v)) {
-				v = v.map(convertIt);
-			} else {
-				v = convertIt(v);
-			}
-		}
-		result[key] = v;
+// creates new fogbugz clients using context from given user
+function fbc(user){
+	var service = user.services.fogbugz;
+	return fogbugz({
+		url: service.endpoint,
+		token: service.token
 	});
-	return result;
 }
-*/
 
 // maps fogbugz case status to kanban invariant status
 function resolveStatus(it) {
@@ -64,6 +51,37 @@ function toTime(d){
 	return d ? d.getTime() : null;
 }
 
+function toWorkItem(it, board) {
+	return {
+		board: board.name,
+		id: it.id,
+		priority: it.priority.id,
+		title: it.title,
+		assignee: it.assignee,
+		category: resolveCategory(it),
+		status: resolveStatus(it),
+		tags: it.tags,
+		// dates
+		opened: toTime(it.opened),
+		resolved: toTime(it.resolved),
+		closed: toTime(it.closed),
+		events: it.events
+	};
+}
+
+function toBoard(it){
+	// TODO customize if needed
+	return _.extend({}, it, {
+		columns: [
+			{name: 'Backlog', status: 'active'},
+			{name: 'Doing', status: 'doing'},
+			{name: 'Review', status: 'review'},
+			{name: 'Test', status: 'test'},
+			{name: 'Done', status: 'done'}
+		]
+	});
+}
+
 FogBugz = {
 	// Creates fogbugz client with specified options
 	//
@@ -74,22 +92,29 @@ FogBugz = {
 		return fogbugz(options);
 	},
 
-	toWorkItem: function (it) {
-		return {
-			// TODO remove this hardcoded board name
-			board: 'AR8',
-			id: it.id,
-			priority: it.priority.id,
-			title: it.title,
-			assignee: it.assignee,
-			category: resolveCategory(it),
-			status: resolveStatus(it),
-			tags: it.tags,
-			// dates
-			opened: toTime(it.opened),
-			resolved: toTime(it.resolved),
-			closed: toTime(it.closed),
-			events: it.events
-		};
+	toWorkItem: toWorkItem,
+
+	// get available boards
+	fetchBoards: function(user){
+		return await(fbc(user).then(function(client){
+			return client.milestones();
+		}).then(function(list){
+			var now = (new Date()).getTime();
+			return list.filter(function(m){
+				// filter out past milestones
+				return (m.end.getTime() - now) >= 0;
+			}).map(toBoard);
+		}));
+	},
+
+	// gets items for specified board
+	fetchItems: function(user, board){
+		return await(fbc(user).then(function(client){
+			return client.milestone(board).cases();
+		}).then(function(list){
+			return list.map(function(it){
+				return toWorkItem(it, board);
+			});
+		}));
 	}
 };

@@ -5,6 +5,8 @@
 
 <body>
 {{> navbar}}
+
+{{#if currentUser}}
 <div class="board-host">
 	<!-- render active board -->
 	{{> board}}
@@ -12,4 +14,6 @@
 <div class="legend-host">
 	{{> legend}}
 </div>
+{{/if}}
+
 </body>
