@@ -10,9 +10,6 @@
 [submodule "packages/prettydate"]
 	path = packages/prettydate
 	url = https://github.com/sergeyt/node-prettydate
-[submodule "packages/accounts-ui-bootstrap-3"]
-	path = packages/accounts-ui-bootstrap-3
-	url = https://github.com/mangasocial/meteor-accounts-ui-bootstrap-3
 [submodule "packages/bootstrap-3"]
 	path = packages/bootstrap-3
 	url = https://github.com/mangasocial/meteor-bootstrap-3
