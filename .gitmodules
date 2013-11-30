@@ -16,3 +16,6 @@
 [submodule "packages/bootstrap-3"]
 	path = packages/bootstrap-3
 	url = https://github.com/mangasocial/meteor-bootstrap-3
+[submodule "packages/accounts-fogbugz"]
+	path = packages/accounts-fogbugz
+	url = https://github.com/sergeyt/meteor-accounts-fogbugz
