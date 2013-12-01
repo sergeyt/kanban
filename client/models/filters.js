@@ -1,17 +1,25 @@
 Template.filters.helpers({
 	items: function(){
-		// TODO calculate all tags and categories from db
-		return [
-			{tag: 'goal', css: 'goal', label: 'goal'},
-			{tag: 'regression', css: 'regression', label: 'regression'},
-			{cat: 'bug', css: 'bug', label: 'bug'},
-			{cat: 'feature', css: 'feature', label: 'feature'},
-			{cat: 'task', css: 'task', label: 'task'},
-			{cat: 'inquiry', css: 'inquiry', label: 'inquiry'}
-		].map(function(it){
-			var filter = it.tag ? {tags: it.tag} : {category: it.cat};
-			var count = WorkItems.find(filter).count();
-			return _.extend({}, it, {filter: filter, count: count});
+
+		// gather all tags and categories from db
+		var cats = [];
+		var tags = [];
+		var items = WorkItems.find({}).fetch();
+		items.forEach(function(it){
+			cats =_.uniq(cats.concat([it.category]));
+			tags = _.uniq(tags.concat(it.tags));
+		});
+
+		cats = cats.map(function(it){
+			return {css: it, label: it, filter: {category: it}};
+		});
+		tags = tags.map(function(it){
+			return {css: it, label: it, filter: {tags: it}};
+		});
+
+		return cats.concat(tags).map(function(it){
+			var count = WorkItems.find(it.filter).count();
+			return _.extend({}, it, {count: count});
 		});
 	}
 });
