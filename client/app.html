@@ -7,11 +7,9 @@
 {{> navbar}}
 
 {{#if currentUser}}
-<div class="board-host">
-	<!-- render active board -->
-	{{> board}}
-</div>
-<div class="legend-host">
+{{> board}}
+<div class="pull-left">
+	{{> filters}}
 	{{> legend}}
 </div>
 {{/if}}
