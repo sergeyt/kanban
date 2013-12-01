@@ -1,15 +1,28 @@
+function colurmItems(col){
+	var filter = {status: col.status};
+	var filters = Session.get('filters');
+	if (filters.length > 0){
+		if (filters.length > 1){
+			filter = {$and:[filter, {$or:filters}]};
+		} else {
+			filter = {$and:[filter, filters[0]]};
+		}
+	}
+	return WorkItems.find(filter, {sort: ['id']}).fetch();
+}
+
 Template.column.helpers({
 	// get column items
 	items: function() {
-		return WorkItems.find({status: this.status}, {sort: ['id']});
+		return colurmItems(this);
 	},
 
 	count: function() {
-		return WorkItems.find({status: this.status}).count();
+		return colurmItems(this).length;
 	},
 
 	percentage: function() {
-		var p = WorkItems.find({status: this.status}).count() / WorkItems.find().count();
+		var p = colurmItems(this).length / WorkItems.find().count();
 		return (p * 100).toFixed(1);
 	}
 });

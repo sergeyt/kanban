@@ -10,26 +10,33 @@
 	border: 1px solid white;
 }
 
-.filters .bug {
+.filters .selected .color {
+	display: none;
+}
+.filters .selected {
+	font-weight: bold;
+}
+
+.filters .bug .color, .filters .selected.bug {
 	background: @bug;
 }
 
-.filters .feature {
+.filters .feature .color, .filters .selected.feature {
 	background: @feature;
 }
 
-.filters .task {
+.filters .task .color, .filters .selected.task {
 	background: @task;
 }
 
-.filters .inquiry {
+.filters .inquiry .color, .filters .selected.inquiry {
 	background: @inquiry;
 }
 
-.filters .goal {
+.filters .goal .color, .filters .selected.goal {
 	background: @goal;
 }
 
-.filters .regression {
+.filters .regression .color, .filters .selected.regression {
 	background: @regression;
 }

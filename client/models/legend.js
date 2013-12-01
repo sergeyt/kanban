@@ -1,5 +1,6 @@
 Template.legend.helpers({
 	items: function(){
+		// TODO calculate all tags and categories from db
 		return [
 			{tag: 'goal', css: 'goal', title: 'Goals'},
 			{cat: 'bug', css: 'bug', title: 'Bugs'},
