@@ -27,10 +27,11 @@
 			</form>
 
 			{{> search}}
-
-			<!-- TODO Welcome, {{currentUser.username}} -->
-
 			{{> login}}
+
+			{{#if currentUser}}
+			{{> usermenu}}
+			{{/if}}
 		</div>
 	</nav>
 </template>
