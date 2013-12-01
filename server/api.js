@@ -72,7 +72,8 @@ Meteor.methods({
 			loadBoards(user);
 
 			if (user.profile && user.profile.selectedBoard){
-				var board = Boards.findOne({name: name});
+				console.log('loading board: %s', user.profile.selectedBoard);
+				var board = Boards.findOne({name: user.profile.selectedBoard});
 				if (board){
 					selectBoard(user, board);
 				}
