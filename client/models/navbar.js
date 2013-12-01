@@ -11,9 +11,6 @@ Template.navbar.helpers({
 });
 
 Template.navbar.events({
-	'click .btn-sync': function() {
-		Meteor.call('sync', Meteor.userId());
-	},
 	'click .btn-compact-view': function() {
 		Session.set('view', 'compact');
 	},

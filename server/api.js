@@ -20,6 +20,7 @@ function insertItems(items){
 
 Meteor.methods({
 
+	// TODO try to avoid need to call this from client, subscribe on some server event
 	onLogin: function(userId) {
 		var user = Meteor.users.findOne(userId);
 		if (!user) throw new Error("Cant find user " + userId);
@@ -49,9 +50,5 @@ Meteor.methods({
 			var items = FogBugz.fetchItems(user, board);
 			insertItems(items);
 		}
-	},
-
-	// TODO remove
-	sync: function(userId) {
 	}
 });
