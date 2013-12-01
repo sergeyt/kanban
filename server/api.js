@@ -63,6 +63,19 @@ Meteor.methods({
 		selectBoard(user, board);
 	},
 
+	updateStatus: function(userId, itemId, status){
+		console.log('updating item %s by %s on status %s', itemId, userId, status);
+
+		var user = Meteor.users.findOne(userId);
+		if (!user) throw new Error("Cant find user " + userId);
+
+		var item = Meteor.users.findOne(userId);
+		if (!item) throw new Error("Cant find work item " + itemId);
+
+		FogBugz.updateStatus(user, item, status);
+		WorkItems.update(itemId, item);
+	},
+
 	clean: function(userId){
 		Boards.remove({});
 		WorkItems.remove({});

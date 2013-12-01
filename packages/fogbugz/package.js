@@ -2,7 +2,7 @@ Package.describe({
   summary: "FogBugz Client"
 });
 
-Npm.depends({"fogbugz.js": "0.0.13"});
+Npm.depends({"fogbugz.js": "0.0.15"});
 
 Package.on_use(function (api) {
 	api.use('underscore', ['server']);

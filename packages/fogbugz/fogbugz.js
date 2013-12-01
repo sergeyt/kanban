@@ -25,13 +25,21 @@ function fbc(user){
 	});
 }
 
+var ItemStatus = {
+	active: 'active',
+	doing: 'doing',
+	review: 'review',
+	test: 'test',
+	done: 'done'
+};
+
 // maps fogbugz case status to kanban invariant status
 function resolveStatus(it) {
 	var s = ((it.status || {}).name || '').toLowerCase();
 	if (s.indexOf('review') >= 0) return 'review';
 	if (s.indexOf('resolved') >= 0) return 'test';
 	if (s.indexOf('close') >= 0) return 'done';
-	if (it.assignee.name == 'AR Dev Team')
+	if (it.assignee.name == Meteor.settings.public.team)
 		return 'active';
 	return 'doing';
 }
@@ -45,6 +53,14 @@ function resolveCategory(it) {
 	if (s.indexOf('review') >= 0) return 'code-review';
 	if (s.indexOf('requirement') >= 0) return 'requirement';
 	return 'bug';
+}
+
+function edit(user, data){
+	return fbc(user).then(function(client){
+		return client.edit(data).then(function(){
+			return client.caseInfo(data.id);
+		});
+	});
 }
 
 function toTime(d){
@@ -67,6 +83,16 @@ function toWorkItem(it, board) {
 		closed: toTime(it.closed),
 		events: it.events
 	};
+}
+
+function updateItem(item, it){
+	item.status = resolveStatus(it);
+	item.assignee = it.assignee;
+	// update dates
+	item.opened = toTime(it.opened);
+	item.resolved = toTime(it.resolved);
+	item.closed = toTime(it.closed);
+	item.events = it.events;
 }
 
 function toBoard(it){
@@ -116,5 +142,62 @@ FogBugz = {
 				return toWorkItem(it, board);
 			});
 		}));
+	},
+
+	// TODO remove hardcoded statuses, move to config
+	updateStatus: function(user, item, status){
+		var caseInfo;
+		switch (status){
+			// assign to team or to the person who worked on the item
+			case ItemStatus.active:
+				caseInfo = await(edit(user, {
+					id: item.id,
+					// TODO back to person when case is reactivated
+					assignee: Meteor.settings.public.team,
+					status: 'Active',
+					comment: 'taken'
+				}));
+				break;
+
+			case ItemStatus.doing:
+				caseInfo = await(edit(user, {
+					id: item.id,
+					assignee: user.profile.id,
+					status: 'Active',
+					comment: 'taken'
+				}));
+				break;
+
+			case ItemStatus.review:
+				caseInfo = await(edit(user, {
+					id: item.id,
+					assignee: Meteor.settings.public.team,
+					status: 'On Review',
+					comment: 'pending code review'
+				}));
+				break;
+
+			case ItemStatus.test:
+				caseInfo = await(edit(user, {
+					id: item.id,
+					assignee: Meteor.settings.public.qateam,
+					status: 'Resolved',
+					comment: 'in testing'
+				}));
+				break;
+
+			case ItemStatus.done:
+				caseInfo = await(fbc(user).then(function(client){
+					return client.close(item.id, 'verified').then(function(){
+						return client.caseInfo(item.id);
+					});
+				}));
+				break;
+
+			default:
+				throw new Error('Invalid status ' + status);
+		}
+
+		updateItem(item, caseInfo);
 	}
 };

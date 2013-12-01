@@ -1,5 +1,7 @@
 {
 	"public": {
-		"fogbugz": "https://code.datadynamics.com"
+		"fogbugz": "https://code.datadynamics.com",
+		"team": "AR Dev Team",
+		"qateam": "AR7 QA"
 	}
 }

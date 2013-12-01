@@ -39,7 +39,7 @@ Template.column.rendered = function(){
 			var id = Session.get('dragItem');
 			if (id){
 				console.log('updating %s on status %s', id, status);
-				WorkItems.update(id, {$set: {status: status}});
+				Meteor.call('updateStatus', Meteor.userId(), id, status);
 			}
 		}
 	});
