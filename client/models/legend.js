@@ -1,41 +1,20 @@
-function calcCategoryPercentage(category) {
-	return (WorkItems.find({category: category}).count() / WorkItems.find().count() * 100).toFixed(2);
-}
-
-function calcDoneCategoryPercentage(category) {
-	return (WorkItems.find({category: category, status: 'done'}).count() / WorkItems.find().count() * 100).toFixed(2);
-}
-
 Template.legend.helpers({
-	goal: function() {
-		return (WorkItems.find({tags: 'goal'}).count() / WorkItems.find().count() * 100).toFixed(2);
-	},
-	goalDone: function() {
-		return (WorkItems.find({tags: 'goal', status: 'done'}).count() / WorkItems.find().count() * 100).toFixed(2);
-	},
-	bug: function() {
-		return calcCategoryPercentage('bug');
-	},
-	bugDone: function() {
-		return calcDoneCategoryPercentage('bug');
-	},
-	feature: function() {
-		return calcCategoryPercentage('feature');
-	},
-	featureDone: function() {
-		return calcDoneCategoryPercentage('feature');
-	},
-	task: function() {
-		return calcCategoryPercentage('task');
-	},
-	taskDone: function() {
-		return calcDoneCategoryPercentage('task');
-	},
-	inquiry: function() {
-		return calcCategoryPercentage('inquiry');
-	},
-	inquiryDone: function() {
-		return calcDoneCategoryPercentage('inquiry');
+	items: function(){
+		return [
+			{tag: 'goal', css: 'goal', title: 'Goals'},
+			{cat: 'bug', css: 'bug', title: 'Bugs'},
+			{cat: 'feature', css: 'feature', title: 'Features'},
+			{cat: 'task', css: 'task', title: 'Tasks'},
+			{cat: 'inquiry', css: 'inquiry', title: 'Inquiries'}
+		].map(function(it){
+			var total = WorkItems.find().count();
+			var count = WorkItems.find(it.tag ? {tags: it.tag} : {category: it.cat}).count();
+			var done = WorkItems.find(it.tag ? {tags: it.tag, status: 'done'} : {category: it.cat, status: 'done'}).count();
+			return _.extend({}, it, {
+				done: count === 0 ? '' : (done/total*100).toFixed(2),
+				total: count === 0 ? '' : (count/total*100).toFixed(2)
+			});
+		});
 	}
 });
 
