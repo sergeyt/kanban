@@ -1,28 +1,25 @@
-Template.filters.helpers({
-	items: function() {
+Template.filters.items = function() {
+	// gather all tags and categories from db
+	var cats = [];
+	var tags = [];
+	var items = WorkItems.find({}).fetch();
+	items.forEach(function(it) {
+		cats = _.uniq(cats.concat([it.category]));
+		tags = _.uniq(tags.concat(it.tags));
+	});
 
-		// gather all tags and categories from db
-		var cats = [];
-		var tags = [];
-		var items = WorkItems.find({}).fetch();
-		items.forEach(function(it) {
-			cats = _.uniq(cats.concat([it.category]));
-			tags = _.uniq(tags.concat(it.tags));
-		});
+	cats = cats.map(function(it) {
+		return {css: it, label: it, filter: {category: it}};
+	});
+	tags = tags.map(function(it) {
+		return {css: it, label: it, filter: {tags: it}};
+	});
 
-		cats = cats.map(function(it) {
-			return {css: it, label: it, filter: {category: it}};
-		});
-		tags = tags.map(function(it) {
-			return {css: it, label: it, filter: {tags: it}};
-		});
-
-		return cats.concat(tags).map(function(it) {
-			var count = WorkItems.find(it.filter).count();
-			return _.extend({}, it, {count: count});
-		});
-	}
-});
+	return cats.concat(tags).map(function(it) {
+		var count = WorkItems.find(it.filter).count();
+		return _.extend({}, it, {count: count});
+	});
+};
 
 Template.filters.events({
 	'click .filter': function(e, t) {
