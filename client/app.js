@@ -4,4 +4,7 @@ Session.set('view', 'comfort');
 
 Meteor.startup(function () {
 	Backbone.history.start({pushState: true});
+	$(function(){
+		$("[data-toggle=tooltip]").tooltip();
+	})
 });
