@@ -18,6 +18,31 @@ function insertItems(items){
 	}
 }
 
+function loadBoards(user){
+	// TODO support multiple fogbugz servers
+	// fetch boards if they are empty
+	if (Boards.find({}).count() == 0){
+		var boards = FogBugz.fetchBoards(user);
+		insertBoards(boards);
+	}
+}
+
+function selectBoard(user, board){
+	// update user selected board in profile
+	var profile = user.profile;
+	var name = board.name;
+	if (profile.selectedBoard != name){
+		profile.selectedBoard = name;
+		Meteor.users.update(user.id, {$set: {profile: profile}});
+	}
+
+	// load board if it is empty
+	if (WorkItems.find({board: name}).count() == 0){
+		var items = FogBugz.fetchItems(user, board);
+		insertItems(items);
+	}
+}
+
 Meteor.methods({
 
 	// TODO try to avoid need to call this from client, subscribe on some server event
@@ -25,12 +50,7 @@ Meteor.methods({
 		var user = Meteor.users.findOne(userId);
 		if (!user) throw new Error("Cant find user " + userId);
 
-		// TODO support multiple fogbugz servers
-		// fetch boards if they are empty
-		if (Boards.find({}).count() == 0){
-			var boards = FogBugz.fetchBoards(user);
-			insertBoards(boards);
-		}
+		loadBoards(user);
 	},
 
 	selectBoard: function(userId, name){
@@ -40,15 +60,23 @@ Meteor.methods({
 		var board = Boards.findOne({name: name});
 		if (!board) throw new Error("Cant find board " + name);
 
-		// update user selected board in profile
-		var profile = user.profile;
-		profile.selectedBoard = name;
-		Meteor.users.update(user.id, {$set: {profile: profile}});
+		selectBoard(user, board);
+	},
 
-		// load board if it is empty
-		if (WorkItems.find({board: name}).count() == 0){
-			var items = FogBugz.fetchItems(user, board);
-			insertItems(items);
+	clean: function(userId){
+		Boards.remove({});
+		WorkItems.remove({});
+
+		var user = Meteor.users.findOne(userId);
+		if (user) {
+			loadBoards(user);
+
+			if (user.profile && user.profile.selectedBoard){
+				var board = Boards.findOne({name: name});
+				if (board){
+					selectBoard(user, board);
+				}
+			}
 		}
 	}
 });

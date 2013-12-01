@@ -73,11 +73,11 @@ function toBoard(it){
 	// TODO customize if needed
 	return _.extend({}, it, {
 		columns: [
-			{name: 'Backlog', status: 'active'},
-			{name: 'Doing', status: 'doing'},
+			{name: 'Open', status: 'active'},
+			{name: 'In progress', status: 'doing'},
 			{name: 'Review', status: 'review'},
-			{name: 'Test', status: 'test'},
-			{name: 'Done', status: 'done'}
+			{name: 'In testing', status: 'test'},
+			{name: 'Verified', status: 'done'}
 		]
 	});
 }
