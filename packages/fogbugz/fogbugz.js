@@ -102,7 +102,7 @@ function toBoard(it){
 		columns: [
 			{name: 'Open', status: 'active'},
 			{name: 'In progress', status: 'doing'},
-			{name: 'Review', status: 'review'},
+			{name: 'On review', status: 'review'},
 			{name: 'In testing', status: 'test'},
 			{name: 'Verified', status: 'done'}
 		]
