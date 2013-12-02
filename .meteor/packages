@@ -8,6 +8,7 @@ underscore
 backbone
 spiderable
 jquery
+jquery-ui-bootstrap
 jquery-ui
 preserve-inputs
 insecure
