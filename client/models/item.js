@@ -15,6 +15,10 @@ Template.items.loading = function() {
 };
 
 Template.item.helpers({
+	idClass: function(){
+		return Session.get('view') == 'comfort' ? 'label label-default' : '';
+	},
+
 	goalClass: function() {
 		return (this.tags || []).indexOf('goal') >= 0 ? 'goal' : '';
 	},

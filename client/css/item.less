@@ -16,29 +16,30 @@
 }
 
 .comfort .work-item a {
-  width: 9em;
-  height: 9em;
+  width: 8em;
+  height: 8em;
   padding: 0.5em;
 }
 
 .compact .work-item a {
-  width: 4.5em;
-  height: 4.5em;
+  width: 4em;
+  height: 4em;
   padding: 0.5em;
 }
 
-.work-item h2 {
+.work-item .heading {
   font-weight: bold;
   margin: 0;
   margin-bottom: 2px;
   line-height: 1;
 }
 
-.work-item h4 {
-  font-size: 12pt;
+.work-item .assignee {
+  font-size: 10pt;
   font-weight: bold;
   margin: 0;
 	margin-bottom: 2px;
+	white-space: nowrap;
   .line-clamp(2);
 }
 
@@ -46,24 +47,24 @@
   display: none;
 }
 
-.compact .work-item h4 span {
+.compact .work-item .assignee span {
 	display: none;
 }
 
-.comfort .work-item h2 {
+.comfort .work-item .heading {
   font-size: 120%;
 	text-align: left;
 	white-space: nowrap;
 }
 
-.compact .work-item h2 {
+.compact .work-item .heading {
   font-size: 110%;
 }
 
 .work-item p {
   font-family: "Reenie Beanie", arial, sans-serif;
-  font-size: 150%;
-	line-height: 1;
+  font-size: 130%;
+	line-height: 0.9;
   .line-clamp;
 }
 
@@ -94,7 +95,15 @@
 
 .work-item .priority {
 	vertical-align: top;
-	font-size: 7pt;
+	font-size: 8pt;
+}
+.compact .work-item .priority {
+	display: none;
+}
+
+.work-item .id {
+	vertical-align: top;
+	font-size: 8pt;
 }
 
 /* effects */
@@ -120,7 +129,7 @@
 }
 
 .cool .work-item a:hover, .cool .work-item a:focus {
-  .shadow(10px 10px 7px, rgba(0, 0, 0, .7));
+  .shadow(8px 8px 6px, rgba(0, 0, 0, .7));
   .scale(1.15);
   position: relative;
   z-index: 5;

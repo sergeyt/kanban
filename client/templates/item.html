@@ -1,16 +1,15 @@
 <template name="item">
 	<li class="work-item {{category}} {{goalClass}}" title="{{assignee.name}}: {{title}}">
 		<a href="#">
-			<h2>
+			<div class="heading">
 				<span class="label label-info priority">P{{priority}}</span>
-				<span>{{id}}</span>
-			</h2>
-			<h4 class="{{assigneeState}}">
+				<span class="id {{idClass}}">{{id}}</span>
+			</div>
+			<div class="assignee {{assigneeState}}">
 				<img src="{{avatarUrl}}"/>
 				<span>{{assigneeShortName}}</span>
-			</h4>
-
-			<p>{{title}}</p>
+			</div>
+			<p class="title">{{title}}</p>
 		</a>
 	</li>
 
