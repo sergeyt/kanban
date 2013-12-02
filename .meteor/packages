@@ -8,6 +8,7 @@ underscore
 backbone
 spiderable
 jquery
+jquery-ui
 preserve-inputs
 insecure
 bootstrap-3
@@ -19,4 +20,3 @@ accounts-github
 accounts-google
 accounts-twitter
 accounts-fogbugz
-jquery-ui
