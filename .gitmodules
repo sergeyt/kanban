@@ -16,3 +16,6 @@
 [submodule "packages/accounts-fogbugz"]
 	path = packages/accounts-fogbugz
 	url = https://github.com/sergeyt/meteor-accounts-fogbugz
+[submodule "packages/jquery-ui"]
+	path = packages/jquery-ui
+	url = https://github.com/TimHeckel/meteor-jquery-ui.git
