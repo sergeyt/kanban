@@ -1,9 +1,7 @@
 <template name="board">
 	{{#with board}}
-	<div class="board {{view}} {{effects}}">
-		{{#each columns}}
-		{{> column}}
-		{{/each}}
-	</div>
+	{{#each columns}}
+	{{>column}}
+	{{/each}}
 	{{/with}}
 </template>

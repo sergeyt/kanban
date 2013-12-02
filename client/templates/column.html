@@ -1,17 +1,19 @@
 <template name="column">
 	{{#if visible}}
-	<div class="column panel panel-default">
-		<div class="panel-heading">
-			<span>{{name}}</span>
-			<span class="badge badge-inverse">{{count}}</span>
-			<!--<span class="badge badge-inverse">{{percentage}}%</span>-->
-		</div>
-		<div class="panel-body">
-			<ul class="item-list">
-				{{#each items}}
-					{{> item}}
-				{{/each}}
-			</ul>
+	<div class="col-md-2">
+		<div class="column panel panel-default">
+			<div class="panel-heading">
+				<span>{{name}}</span>
+				<span class="badge badge-inverse">{{count}}</span>
+				<!--<span class="badge badge-inverse">{{percentage}}%</span>-->
+			</div>
+			<div class="panel-body">
+				<ul class="item-list">
+					{{#each items}}
+						{{> item}}
+					{{/each}}
+				</ul>
+			</div>
 		</div>
 	</div>
 	{{/if}}

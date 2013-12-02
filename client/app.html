@@ -4,14 +4,18 @@
 </head>
 
 <body>
-{{> navbar}}
-
-{{#if currentUser}}
-{{> board}}
-<div class="pull-left">
-	{{> filters}}
-	{{> legend}}
-</div>
-{{/if}}
-
+{{>app}}
 </body>
+
+<template name="app">
+	{{>navbar}}
+	{{#if currentUser}}
+	<div class="row {{view}} {{effects}}">
+		{{>board}}
+		<div class="col-md-2">
+			{{>filters}}
+			{{>legend}}
+		</div>
+	</div>
+	{{/if}}
+</template>

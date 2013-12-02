@@ -27,9 +27,9 @@ Template.board.helpers({
 	view: function() {
 		return Session.get('view') || 'comfort';
 	},
-    // TODO rename
-    effects: function(){
-        return Session.get('effects') || 'static';
-    }
+	// TODO rename
+	effects: function(){
+			return Session.get('effects') || 'static';
+	}
 });
 
