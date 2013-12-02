@@ -1,4 +1,7 @@
 Template.navbar.helpers({
+	board: function(){
+		return Session.get('board') || 'Board';
+	},
 	comfortState: function() {
 		return Session.get('view') == 'comfort' ? 'active' : '';
 	},
