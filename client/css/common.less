@@ -1,9 +1,17 @@
-@goal: lime;
-@regression: #f88;
-@bug: #f88;
+@goal: rgb(0, 255, 102);
+@regression: #f68;
+@bug: #f68;
 @feature: #ffc;
 @task: #aaf;
 @inquiry: cyan;
+
+.rounded-top-right-corner (@radius: 4px) {
+	-webkit-border-top-right-radius: @radius;
+	-moz-border-top-right-radius: @radius;
+	-ms-border-top-right-radius: @radius;
+	-o-border-top-right-radius: @radius;
+	border-top-right-radius: @radius;
+}
 
 .rounded-corners (@radius: 4px) {
   -webkit-border-radius: @radius;
