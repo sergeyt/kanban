@@ -33,14 +33,26 @@ Template.column.helpers({
 
 Template.column.rendered = function(){
 	var status = this.data.status;
-	$(this.firstNode).droppable({
-		accept: ".work-item",
+	var col = this.find('.column');
+	$(col).droppable({
+		accept: ".work-item a",
 		drop: function(){
 			var id = Session.get('dragItem');
-			if (id){
-				console.log('updating %s on status %s', id, status);
-				Meteor.call('updateStatus', Meteor.userId(), id, status);
+			if (!id){
+				console.log('no active drag item');
+				return;
 			}
+			var item = WorkItems.findOne(id);
+			if (!item) {
+				console.log('unable to find item with id %s', id);
+				return;
+			}
+			if (item.status == status){
+				console.log('dropping on item columm has no effect');
+				return;
+			}
+			console.log('updating %s on status %s', id, status);
+			Meteor.call('updateStatus', Meteor.userId(), id, status);
 		}
 	});
 };

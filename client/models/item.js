@@ -42,6 +42,7 @@ Template.item.helpers({
 
 Template.item.events({
 	'click .work-item a': function(e){
+		if (!e.ctrlKey) return;
 		var tr = Template.itemDetails({
 		  item: this,
 		  eventList: this.events || []
@@ -55,7 +56,8 @@ Template.item.events({
 
 Template.item.rendered = function() {
 	var id = this.data._id;
-	$(this.firstNode).draggable({
+	var item = this.find('.work-item a');
+	$(item).draggable({
 		cursor: "move",
 		opacity: 0.7,
 		helper: "clone",
