@@ -48,11 +48,9 @@ Template.column.rendered = function(){
 				return;
 			}
 			if (item.status == status){
-				console.log('dropping on item columm has no effect');
 				return;
 			}
-			console.log('updating %s on status %s', id, status);
-			Meteor.call('updateStatus', Meteor.userId(), id, status);
+			Meteor.call('updateStatus', Meteor.userId(), id, item.status, status);
 		}
 	});
 };

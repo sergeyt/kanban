@@ -21,7 +21,8 @@ function fbc(user){
 	var service = user.services.fogbugz;
 	return fogbugz({
 		url: service.endpoint,
-		token: service.token
+		token: service.token,
+		// verbose: true // uncomment for verbose logging of fogbugz requests
 	});
 }
 
@@ -153,7 +154,7 @@ FogBugz = {
 				caseInfo = await(edit(user, {
 					id: item.id,
 					// TODO back to person when case is reactivated
-					assignee: Meteor.settings.public.team,
+					user: Meteor.settings.public.team,
 					status: 'Active',
 					comment: 'taken'
 				}));
@@ -162,7 +163,7 @@ FogBugz = {
 			case ItemStatus.doing:
 				caseInfo = await(edit(user, {
 					id: item.id,
-					assignee: user.profile.id,
+					user: user.profile.id,
 					status: 'Active',
 					comment: 'taken'
 				}));
@@ -171,7 +172,7 @@ FogBugz = {
 			case ItemStatus.review:
 				caseInfo = await(edit(user, {
 					id: item.id,
-					assignee: Meteor.settings.public.team,
+					user: Meteor.settings.public.team,
 					status: 'On Review',
 					comment: 'pending code review'
 				}));
@@ -180,7 +181,7 @@ FogBugz = {
 			case ItemStatus.test:
 				caseInfo = await(edit(user, {
 					id: item.id,
-					assignee: Meteor.settings.public.qateam,
+					user: Meteor.settings.public.qateam,
 					status: 'Resolved',
 					comment: 'in testing'
 				}));

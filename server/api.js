@@ -1,3 +1,5 @@
+var Fiber = Npm.require('fibers');
+
 // TODO resolve bug tracking service from user context, do not use FogBugz explicitly
 
 function insertBoards(boards){
@@ -18,12 +20,16 @@ function insertItems(items){
 	}
 }
 
-function loadBoards(user){
+function loadBoards(user, callback){
 	// TODO support multiple fogbugz servers
 	// fetch boards if they are empty
 	if (Boards.find({}).count() == 0){
 		var boards = FogBugz.fetchBoards(user);
 		insertBoards(boards);
+
+		if (_.isFunction(callback)){
+			callback();
+		}
 	}
 }
 
@@ -32,6 +38,7 @@ function selectBoard(user, board){
 	var profile = user.profile;
 	var name = board.name;
 	if (profile.selectedBoard != name){
+		console.log('updating user selected board from %s to %s', profile.selectedBoard, name);
 		profile.selectedBoard = name;
 		Meteor.users.update(user.id, {$set: {profile: profile}});
 	}
@@ -63,17 +70,31 @@ Meteor.methods({
 		selectBoard(user, board);
 	},
 
-	updateStatus: function(userId, itemId, status){
-		console.log('updating item %s by %s on status %s', itemId, userId, status);
+	updateStatus: function(userId, itemId, oldStatus, newStatus){
+		console.log('updating item %s by %s from status %s on %s', itemId, userId, oldStatus, newStatus);
 
 		var user = Meteor.users.findOne(userId);
 		if (!user) throw new Error("Cant find user " + userId);
 
-		var item = Meteor.users.findOne(userId);
+		var item = WorkItems.findOne(itemId);
 		if (!item) throw new Error("Cant find work item " + itemId);
 
-		FogBugz.updateStatus(user, item, status);
-		WorkItems.update(itemId, item);
+		// predictive change to quickly update clients
+		WorkItems.update(itemId, {status: newStatus});
+
+		this.unblock();
+
+		try {
+
+			FogBugz.updateStatus(user, item, newStatus);
+			console.log('item %s status was update on %s, assigned to %s', item.id, item.status, item.assignee.name);
+
+			// commit changes
+			WorkItems.update(itemId, item);
+		} catch (err){
+			// rollback status changes
+			WorkItems.update(itemId, {status: oldStatus});
+		}
 	},
 
 	clean: function(userId){
@@ -82,15 +103,21 @@ Meteor.methods({
 
 		var user = Meteor.users.findOne(userId);
 		if (user) {
-			loadBoards(user);
 
-			if (user.profile && user.profile.selectedBoard){
-				console.log('loading board: %s', user.profile.selectedBoard);
-				var board = Boards.findOne({name: user.profile.selectedBoard});
-				if (board){
-					selectBoard(user, board);
+			this.unblock();
+
+			var selectedBoard = user.profile && user.profile.selectedBoard ? user.profile.selectedBoard : null;
+			console.log('selected board %s', selectedBoard);
+
+			loadBoards(user, function(){
+				if (selectedBoard){
+					console.log('loading board: %s', selectedBoard);
+					var board = Boards.findOne({name: selectedBoard});
+					if (board){
+						selectBoard(user, board);
+					}
 				}
-			}
+			});
 		}
 	}
 });
