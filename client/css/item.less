@@ -9,7 +9,6 @@
 
 .work-item a {
   display: block;
-  text-align: center;
   text-decoration: none;
   color: black;
   background: @feature;
@@ -62,14 +61,14 @@
   font-size: 110%;
 }
 
-.work-item p {
+.work-item .title {
   font-family: "Reenie Beanie", arial, sans-serif;
   font-size: 130%;
 	line-height: 0.9;
-  .line-clamp;
+  .line-clamp(2);
 }
 
-.compact .work-item p {
+.compact .work-item .title {
   display: none;
 }
 
@@ -105,6 +104,24 @@
 .work-item .id {
 	vertical-align: top;
 	font-size: 8pt;
+}
+
+/* comment count */
+.work-item .comment-count {
+	font-size: 8pt;
+}
+
+.compact .work-item .comment-count {
+	display: none;
+}
+
+.work-item .closed-time {
+	font-weight: bold;
+	font-size: 10pt;
+}
+
+.compact .work-item .closed-time {
+	display: none;
 }
 
 /* effects */

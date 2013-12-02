@@ -37,6 +37,19 @@ Template.item.helpers({
 
 	eventList: function(){
 		return this.events;
+	},
+
+	commentCount: function(){
+		return (this.events || []).length;
+	},
+
+	closedClass: function(){
+		if (this.status != 'done') return 'hidden';
+		return this.closed ? '' : 'hidden';
+	},
+	closedShort: function(){
+		if (!this.closed) return '';
+		return PrettyDate.format(new Date(this.closed));
 	}
 });
 
