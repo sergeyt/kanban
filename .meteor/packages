@@ -5,6 +5,7 @@
 
 standard-app-packages
 underscore
+async
 backbone
 spiderable
 jquery

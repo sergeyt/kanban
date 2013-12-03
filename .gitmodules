@@ -22,3 +22,6 @@
 [submodule "packages/jquery-ui-bootstrap"]
 	path = packages/jquery-ui-bootstrap
 	url = https://github.com/TimHeckel/meteor-jquery-ui-bootstrap.git
+[submodule "packages/async"]
+	path = packages/async
+	url = https://github.com/peerlibrary/meteor-async.git
