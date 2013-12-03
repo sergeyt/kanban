@@ -8,11 +8,11 @@
 			<ul class="nav navbar-nav">
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{board}} <b class="caret"></b></a>
-					{{> boards}}
+					{{>boards}}
 				</li>
 			</ul>
 
-			{{> columnsVisibility}}
+			{{>columnsVisibility}}
 
 			<form class="navbar-form navbar-left" role="search">
 				<div class="form-group">
@@ -31,11 +31,12 @@
 				</div>
 			</form>
 
-			{{> search}}
-			{{> login}}
+			{{>search}}
+			{{>login}}
+			{{>themeSelector}}
 
 			{{#if currentUser}}
-			{{> usermenu}}
+			{{>usermenu}}
 			{{/if}}
 		</div>
 	</nav>

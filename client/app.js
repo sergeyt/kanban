@@ -15,6 +15,6 @@ Template.app.helpers({
 Meteor.startup(function () {
 	Backbone.history.start({pushState: true});
 	$(function(){
-		$("[data-toggle=tooltip]").tooltip();
+		$('[data-toggle="tooltip"]').tooltip();
 	})
 });

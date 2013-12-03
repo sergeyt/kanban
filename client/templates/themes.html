@@ -1,0 +1,35 @@
+<template name="themes">
+	{{#if cyborg}}
+	<link rel="stylesheet" type="text/css" href="/themes/cyborg/bootstrap.css"/>
+	{{/if}}
+	{{#if slate}}
+	<link rel="stylesheet" type="text/css" href="/themes/slate/bootstrap.css"/>
+	{{/if}}
+	{{#if united}}
+	<link rel="stylesheet" type="text/css" href="/themes/united/bootstrap.css"/>
+	{{/if}}
+	{{#if yeti}}
+	<link rel="stylesheet" type="text/css" href="/themes/yeti/bootstrap.css"/>
+	{{/if}}
+</template>
+
+<template name="themeSelector">
+	<ul class="nav navbar-nav navbar-right">
+		<li class="dropdown">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+				<span>Themes</span>
+				<b class="caret"></b>
+			</a>
+			<ul class="dropdown-menu">
+				{{#each themes}}
+					<li>
+						<a href="#" theme="{{name}}">
+							<i class="glyphicon glyphicon-ok pull-right {{iconClass}}"/>
+							<spane>{{label}}</spane>
+						</a>
+					</li>
+				{{/each}}
+			</ul>
+		</li>
+	</ul>
+</template>
