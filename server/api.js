@@ -50,6 +50,23 @@ function selectBoard(user, board){
 	}
 }
 
+function updateStatus(user, item, oldStatus, newStatus){
+
+	var itemId = item._id;
+
+	try {
+
+		FogBugz.updateStatus(user, item, newStatus);
+		console.log('item %s status was update on %s, assigned to %s', item.id, item.status, item.assignee.name);
+
+		// commit changes
+		WorkItems.update(itemId, item);
+	} catch (err){
+		// rollback status changes
+		WorkItems.update(itemId, {status: oldStatus});
+	}
+}
+
 Meteor.methods({
 
 	// TODO try to avoid need to call this from client, subscribe on some server event
@@ -79,22 +96,12 @@ Meteor.methods({
 		var item = WorkItems.findOne(itemId);
 		if (!item) throw new Error("Cant find work item " + itemId);
 
+		this.unblock();
+
 		// predictive change to quickly update clients
 		WorkItems.update(itemId, {status: newStatus});
 
-		this.unblock();
-
-		try {
-
-			FogBugz.updateStatus(user, item, newStatus);
-			console.log('item %s status was update on %s, assigned to %s', item.id, item.status, item.assignee.name);
-
-			// commit changes
-			WorkItems.update(itemId, item);
-		} catch (err){
-			// rollback status changes
-			WorkItems.update(itemId, {status: oldStatus});
-		}
+		updateStatus(user, item, oldStatus, newStatus);
 	},
 
 	clean: function(userId){

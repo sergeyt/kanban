@@ -37,20 +37,26 @@ Template.column.rendered = function(){
 	$(col).droppable({
 		accept: ".work-item a",
 		drop: function(){
-			var id = Session.get('dragItem');
-			if (!id){
+			var itemId = Session.get('dragItem');
+			if (!itemId){
 				console.log('no active drag item');
 				return;
 			}
-			var item = WorkItems.findOne(id);
+			var item = WorkItems.findOne(itemId);
 			if (!item) {
-				console.log('unable to find item with id %s', id);
+				console.log('unable to find item with id %s', itemId);
 				return;
 			}
 			if (item.status == status){
 				return;
 			}
-			Meteor.call('updateStatus', Meteor.userId(), id, item.status, status);
+
+			// predictive change to quickly update clients
+			WorkItems.update(itemId, {status: status});
+
+			setTimeout(function(){
+				Meteor.call('updateStatus', Meteor.userId(), itemId, item.status, status);
+			}, 100);
 		}
 	});
 };
