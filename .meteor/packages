@@ -12,8 +12,7 @@ jquery-ui-bootstrap
 jquery-ui
 preserve-inputs
 insecure
-#bootstrap-3
-bootstrap-cyborg
+bootstrap-3
 fogbugz
 less
 gravatar
