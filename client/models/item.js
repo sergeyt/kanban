@@ -78,6 +78,7 @@ Template.item.rendered = function() {
   var id = this.data._id;
   var item = this.find('.work-item a');
   $(item).draggable({
+		appendTo: "body",
 		cursor: "move",
 		opacity: 0.7,
 		helper: "clone",
