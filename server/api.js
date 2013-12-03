@@ -40,7 +40,7 @@ function selectBoard(user, board){
 	if (profile.selectedBoard != name){
 		console.log('updating user selected board from %s to %s', profile.selectedBoard, name);
 		profile.selectedBoard = name;
-		Meteor.users.update(user.id, {$set: {profile: profile}});
+		Meteor.users.update(user._id, {$set: {profile: profile}});
 	}
 
 	// load board if it is empty
