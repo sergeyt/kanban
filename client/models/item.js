@@ -72,15 +72,18 @@ Template.item.events({
 });
 
 Template.item.rendered = function() {
+	// use bootstrap tooltips
+	$('[data-toggle="tooltip"]').tooltip();
+
   var id = this.data._id;
   var item = this.find('.work-item a');
   $(item).draggable({
-	cursor: "move",
-	opacity: 0.7,
-	helper: "clone",
-	start: function() {
-	  Session.set('dragItem', id);
-	}
+		cursor: "move",
+		opacity: 0.7,
+		helper: "clone",
+		start: function() {
+			Session.set('dragItem', id);
+		}
   });
 };
 
