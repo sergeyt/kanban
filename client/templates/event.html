@@ -1,13 +1,15 @@
 <template name="event" xmlns="http://www.w3.org/1999/html">
-	<div class="item-event">
-		<div class="heading">
-			<p>
+	<div class="item-event panel panel-default">
+		<div class="panel-heading">
+			<p class="panel-title">
 				<span class="label label-info pull-right">{{when}}</span>
 				<span>{{description}}</span>>
 			</p>
 		</div>
-		<div class="body {{bodyClass}}">
+		{{#if content}}
+		<div class="panel-body">
 			<p>{{{content}}}</p>
 		</div>
+		{{/if}}
 	</div>
 </template>
