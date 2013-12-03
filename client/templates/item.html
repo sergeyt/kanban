@@ -31,9 +31,11 @@
 					<h4 class="modal-title">{{item.id}}: {{item.title}}</h4>
 				</div>
 				<div class="modal-body">
-					{{#each eventList}}
-					{{> event}}
-					{{/each}}
+					<div class="panel-group">
+						{{#each eventList}}
+						{{> event}}
+						{{/each}}
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

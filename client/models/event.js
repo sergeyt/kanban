@@ -5,7 +5,9 @@ Template.event.helpers({
 	return PrettyDate.format(this.date);
   },
   content: function() {
-	var content = this.html || this.text;
-	return content ? content : null;
+	return this.html || this.text;
+  },
+  collapseId: function(){
+	return 'collapse-' + this.id;
   }
 });
