@@ -6,7 +6,7 @@ Template.columnsVisibility.items = function(){
 		var hidden = !!Session.get('column.' + it.name + '.hidden');
 		return {
 			name: it.name,
-			iconClass: hidden ? 'hidden' : ''
+			hidden: hidden ? 'hidden' : ''
 		};
 	});
 };

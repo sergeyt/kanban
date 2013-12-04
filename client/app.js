@@ -13,7 +13,9 @@ Template.app.helpers({
 });
 
 Meteor.startup(function () {
-	Backbone.history.start({pushState: true});
+	// TODO HTML5 navigation history with routes
+	// Backbone.history.start({pushState: true});
+
 	$(function(){
 		$('[data-toggle="tooltip"]').tooltip();
 	})
