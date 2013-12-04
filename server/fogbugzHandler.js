@@ -1,3 +1,5 @@
+var Fiber = Npm.require('fibers');
+
 // connect handler of fogbugz events come from URL trigger plugin
 
 function fogbugzEventHandler(req, res, next) {
