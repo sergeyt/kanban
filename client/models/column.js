@@ -52,11 +52,9 @@ Template.column.rendered = function(){
 			}
 
 			// predictive change to quickly update clients
-			WorkItems.update(itemId, {status: status});
+			WorkItems.update(itemId, {$set: {status: status}});
 
-			setTimeout(function(){
-				Meteor.call('updateStatus', Meteor.userId(), itemId, item.status, status);
-			}, 100);
+			Meteor.call('updateStatus', Meteor.userId(), itemId, item.status, status);
 		}
 	});
 };

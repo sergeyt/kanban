@@ -56,11 +56,22 @@ function resolveCategory(it) {
 	return 'bug';
 }
 
+function logerror(promise){
+	promise.fail(function(error){
+		console.log('fogbugz error: %s', error);
+	});
+	return promise;
+}
+
 function edit(user, data){
 	return fbc(user).then(function(client){
-		return client.edit(data).then(function(){
-			return client.caseInfo(data.id);
-		});
+		return logerror(client.edit(data));
+	});
+}
+
+function close(user, id){
+	return fbc(user).then(function(client){
+		return logerror(client.close(id, 'verified'));
 	});
 }
 
@@ -147,58 +158,69 @@ FogBugz = {
 
 	// TODO remove hardcoded statuses, move to config
 	updateStatus: function(user, item, status){
-		var caseInfo;
+
+		// TODO customizable workflow.json
+		var data;
+		var assignee = user.username;
+
 		switch (status){
 			// assign to team or to the person who worked on the item
 			case ItemStatus.active:
-				caseInfo = await(edit(user, {
+				assignee = Meteor.settings.public.team;
+				data = {
 					id: item.id,
 					// TODO back to person when case is reactivated
-					user: Meteor.settings.public.team,
+					user: assignee,
 					status: 'Active',
 					comment: 'taken'
-				}));
+				};
 				break;
 
 			case ItemStatus.doing:
-				caseInfo = await(edit(user, {
+				data = {
 					id: item.id,
 					user: user.profile.id,
 					status: 'Active',
 					comment: 'taken'
-				}));
+				};
 				break;
 
 			case ItemStatus.review:
-				caseInfo = await(edit(user, {
+				assignee = Meteor.settings.public.team;
+				data = {
 					id: item.id,
-					user: Meteor.settings.public.team,
+					user: assignee,
 					status: 'On Review',
 					comment: 'pending code review'
-				}));
+				};
 				break;
 
 			case ItemStatus.test:
-				caseInfo = await(edit(user, {
+				assignee = Meteor.settings.public.qateam;
+				data = {
 					id: item.id,
-					user: Meteor.settings.public.qateam,
+					user: assignee,
 					status: 'Resolved',
 					comment: 'in testing'
-				}));
+				};
 				break;
 
 			case ItemStatus.done:
-				caseInfo = await(fbc(user).then(function(client){
-					return client.close(item.id, 'verified').then(function(){
-						return client.caseInfo(item.id);
-					});
-				}));
-				break;
+				item.status = 'done';
+				close(user, item.id);
+				return item;
 
 			default:
 				throw new Error('Invalid status ' + status);
 		}
 
-		updateItem(item, caseInfo);
+		item.status = status;
+		if (item.assignee) {
+			item.assignee.name = assignee;
+		}
+
+		edit(user, data);
+
+		return item;
 	}
 };

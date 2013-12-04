@@ -88,7 +88,6 @@ Meteor.methods({
 	},
 
 	updateStatus: function(userId, itemId, oldStatus, newStatus){
-		console.log('updating item %s by %s from status %s on %s', itemId, userId, oldStatus, newStatus);
 
 		var user = Meteor.users.findOne(userId);
 		if (!user) throw new Error("Cant find user " + userId);
@@ -96,10 +95,10 @@ Meteor.methods({
 		var item = WorkItems.findOne(itemId);
 		if (!item) throw new Error("Cant find work item " + itemId);
 
-		this.unblock();
+		console.log('updating item %s by %s from status %s on %s', item.id, user.username, oldStatus, newStatus);
 
 		// predictive change to quickly update clients
-		WorkItems.update(itemId, {status: newStatus});
+		WorkItems.update(itemId, {$set: {status: newStatus}});
 
 		updateStatus(user, item, oldStatus, newStatus);
 	},
