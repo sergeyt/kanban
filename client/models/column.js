@@ -8,7 +8,7 @@ function colurmItems(col){
 			filter = {$and:[filter, filters[0]]};
 		}
 	}
-	return WorkItems.find(filter, {sort: ['id']}).fetch();
+	return WorkItems.find(filter, {sort: ['priority', 'id']}).fetch();
 }
 
 Template.column.helpers({
