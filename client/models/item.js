@@ -77,9 +77,9 @@ Template.item.rendered = function() {
 	$('[data-toggle="tooltip"]').tooltip();
 
 	var id = this.data._id;
-	var item = this.find('.work-item a');
+	var item = this.find('.work-item');
 	$(item).draggable({
-		appendTo: "body",
+		appendTo: ".board-host",
 		cursor: "move",
 		opacity: 0.7,
 		helper: "clone",
