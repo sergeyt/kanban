@@ -120,7 +120,7 @@ function toBoard(it){
 	});
 }
 
-FogBugz = {
+FogBugzService = {
 	// Creates fogbugz client with specified options
 	//
 	// @param options {Object} (required) See https://npmjs.org/package/fogbugz.js

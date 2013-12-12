@@ -24,7 +24,7 @@ function loadBoards(user, callback){
 	// TODO support multiple fogbugz servers
 	// fetch boards if they are empty
 	if (Boards.find({}).count() == 0){
-		var boards = FogBugz.fetchBoards(user);
+		var boards = FogBugzService.fetchBoards(user);
 		insertBoards(boards);
 
 		if (_.isFunction(callback)){
@@ -45,7 +45,7 @@ function selectBoard(user, board){
 
 	// load board if it is empty
 	if (WorkItems.find({board: name}).count() == 0){
-		var items = FogBugz.fetchItems(user, board);
+		var items = FogBugzService.fetchItems(user, board);
 		insertItems(items);
 	}
 }
@@ -56,7 +56,7 @@ function updateStatus(user, item, oldStatus, newStatus){
 
 	try {
 
-		FogBugz.updateStatus(user, item, newStatus);
+		FogBugzService.updateStatus(user, item, newStatus);
 		console.log('item %s status was update on %s, assigned to %s', item.id, item.status, item.assignee.name);
 
 		// commit changes

@@ -8,6 +8,17 @@
       <sourceFolder url="file://$MODULE_DIR$/public" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/packages" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/.meteor" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/accounts-fogbugz/.build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/async/.build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/bootstrap-3/.build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/crypto-base/.build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/crypto-md5/.build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/fogbugz/.build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/gravatar/.build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/jquery-ui-bootstrap/.build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/jquery-ui/.build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/npm/.build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/prettydate/.build" />
     </content>
     <orderEntry type="jdk" jdkName="JDK 1.6" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
