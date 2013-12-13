@@ -1,4 +1,5 @@
 // Shared data model for client and server code
+// TODO wrap to Kanban namespace and use names in lower camel case
 
 // TODO separate phases collection
 /*

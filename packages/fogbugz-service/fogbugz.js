@@ -130,6 +130,8 @@ FogBugzService = {
 		return fogbugz(options);
 	},
 
+	toWorkItem: toWorkItem,
+
 	// get available boards
 	fetchBoards: function(user){
 		return await(fbc(user).then(function(client){
