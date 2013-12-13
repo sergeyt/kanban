@@ -1,23 +1,26 @@
 <template name="legend">
-	<div class="legend">
-		<table class="table table-condensed table-hover">
-			<thead>
-				<tr>
-					<th colspan="2" style="text-align: left">Legend</th>
-				</tr>
+	<div class="legend panel panel-default">
+		<div class="panel-heading">
+			<button type="button" class="close" aria-hidden="true" title="Hide" data-toggle="tooltip" data-placement="top">&times;</button>
+			<span>Legend</span>
+		</div>
+		<div class="panel-body">
+			<table class="table table-condensed table-hover">
+				<thead>
 				<tr>
 					<th>Done</th>
 					<th>Total</th>
 				</tr>
-			</thead>
-			<tbody>
+				</thead>
+				<tbody>
 				{{#each items}}
-					<tr class="item {{css}}" title="{{title}}" data-toggle="tooltip" data-placement="right">
-						<td>{{done}}%</td>
-						<td>{{total}}%</td>
-					</tr>
+				<tr class="item {{css}}" title="{{title}}" data-toggle="tooltip" data-placement="left">
+					<td>{{done}}%</td>
+					<td>{{total}}%</td>
+				</tr>
 				{{/each}}
-			</tbody>
-		</table>
+				</tbody>
+			</table>
+		</div>
 	</div>
 </template>
