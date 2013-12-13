@@ -31,6 +31,7 @@ function fbc(endpoint) {
 	}
 
 	var service = user.services.fogbugz;
+	var fogbugz = Meteor.require('fogbugz.js');
 	return fogbugz({
 		url: endpoint,
 		token: service.token,
