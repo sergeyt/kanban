@@ -5,6 +5,7 @@ var Fiber = Npm.require('fibers');
 function insertBoards(boards){
 	console.log('fetched %d boards', boards.length);
 	for (var i = 0; i < boards.length; i++) {
+		// TODO update existing board
 		var it = boards[i];
 		Boards.insert(it);
 		console.log('inserted board %s', it.name);
@@ -14,6 +15,7 @@ function insertBoards(boards){
 function insertItems(items){
 	console.log('fetched %d items', items.length);
 	for (var i = 0; i < items.length; i++) {
+		// TODO update existing item
 		var it = items[i];
 		WorkItems.insert(it);
 		console.log('inserted %s: %s', it.id, it.title);
@@ -28,7 +30,7 @@ function loadBoards(user, callback){
 		insertBoards(boards);
 
 		if (_.isFunction(callback)){
-			callback();
+			callback(boards);
 		}
 	}
 }
@@ -74,7 +76,12 @@ Meteor.methods({
 		var user = Meteor.users.findOne(userId);
 		if (!user) throw new Error("Cant find user " + userId);
 
-		loadBoards(user);
+		loadBoards(user, function(boards){
+			// TODO auto select current sprint
+			if (boards.length > 0) {
+				selectBoard(user, boards[0]);
+			}
+		});
 	},
 
 	selectBoard: function(userId, name){

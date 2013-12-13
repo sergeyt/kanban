@@ -130,8 +130,6 @@ FogBugzService = {
 		return fogbugz(options);
 	},
 
-	toWorkItem: toWorkItem,
-
 	// get available boards
 	fetchBoards: function(user){
 		return await(fbc(user).then(function(client){
@@ -140,6 +138,7 @@ FogBugzService = {
 			var now = (new Date()).getTime();
 			return list.filter(function(m){
 				// filter out past milestones
+				// TODO include one prev sprint
 				return (m.end.getTime() - now) >= 0;
 			}).map(toBoard);
 		}));
