@@ -62,9 +62,11 @@ function fbsync(e) {
 		fbc(e.from).then(function(client) {
 			return client.caseInfo(id);
 		}).then(function(info) {
-					var item = FogBugzService.toWorkItem(info);
-					return updateWorkItem(item);
-				});
+			var item = FogBugzService.toWorkItem(info);
+			return updateWorkItem(item);
+		});
+	} else {
+		console.log('[fbsync] unhandled event '+ event);
 	}
 }
 
