@@ -73,9 +73,6 @@ Template.item.events({
 });
 
 Template.item.rendered = function() {
-	// use bootstrap tooltips
-	$('[data-toggle="tooltip"]').tooltip();
-
 	var id = this.data._id;
 	var item = this.find('.work-item');
 	$(item).draggable({

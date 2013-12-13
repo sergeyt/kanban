@@ -14,7 +14,12 @@ Meteor.startup(function () {
 	// TODO HTML5 navigation history with routes
 	// Backbone.history.start({pushState: true});
 
+	// auto activation of bootstrap tooltips
 	$(function(){
-		$('[data-toggle="tooltip"]').tooltip();
+		$('[data-toggle="tooltip"]').livequery(function(){
+			$(this).tooltip();
+		}, function(){
+			$(this).tooltip('destroy');
+		});
 	})
 });
