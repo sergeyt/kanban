@@ -31,6 +31,13 @@ Template.column.helpers({
 	}
 });
 
+Template.column.events({
+	'click .close': function(e, t){
+		var key = 'column.' + t.data.name + '.hidden';
+		return UserSession.set(key, true);
+	}
+});
+
 Template.column.rendered = function(){
 	var status = this.data.status;
 	var col = this.find('.column');
