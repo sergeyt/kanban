@@ -39,13 +39,16 @@ Template.boards.events({
 	}
 });
 
+if (typeof App === 'undefined') App = {};
+App.currentBoard = function() {
+	// TODO auto select board
+	var name = UserSession.get('board');
+	return Boards.findOne({name: name});
+};
+
 Template.board.helpers({
 	// selected board
-	board: function() {
-		// TODO auto select board
-		var name = UserSession.get('board');
-		return Boards.findOne({name: name});
-	},
+	board: App.currentBoard,
 	view: function() {
 		return UserSession.get('view') || 'comfort';
 	},

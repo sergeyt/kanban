@@ -1,0 +1,11 @@
+<template name="deadline">
+	{{#if data}}
+	<form class="navbar-form navbar-left">
+		<!-- TODO change label style if deadline is close -->
+		<div class="label label-info" title="{{data.full}}" data-toggle="tooltip" data-placement="bottom">
+			<span>{{data.day}}</span>
+			<sup>{{data.month}}</sup>
+		</div>
+	</form>
+	{{/if}}
+</template>

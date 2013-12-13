@@ -13,7 +13,7 @@
 				</li>
 			</ul>
 
-			{{>columnsVisibility}}
+			{{>deadline}}
 
 			<form class="navbar-form navbar-left" role="search">
 				<div class="form-group">
@@ -36,10 +36,14 @@
 			{{#if currentUser}}
 			{{>search}}
 			{{/if}}
+
+			{{#unless currentUser}}
 			{{>login}}
+			{{/unless}}
 
 			{{#if currentUser}}
 			{{>themeSelector}}
+			{{>columnsVisibility}}
 			{{>usermenu}}
 			{{/if}}
 		</div>
