@@ -25,3 +25,6 @@
 [submodule "packages/async"]
 	path = packages/async
 	url = https://github.com/peerlibrary/meteor-async.git
+[submodule "packages/user-session"]
+	path = packages/user-session
+	url = https://github.com/BenjaminRH/meteor-user-session.git

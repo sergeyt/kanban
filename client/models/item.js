@@ -2,7 +2,7 @@
 var workItemsHandle = null;
 
 Deps.autorun(function() {
-	var board = Session.get('board');
+	var board = UserSession.get('board');
 	if (board) {
 		workItemsHandle = Meteor.subscribe('workItems', board);
 	} else {
@@ -16,7 +16,7 @@ Template.items.loading = function() {
 
 Template.item.helpers({
 	idClass: function() {
-		return Session.get('view') == 'comfort' ? 'label label-default' : '';
+		return UserSession.get('view') == 'comfort' ? 'label label-default' : '';
 	},
 
 	goalClass: function() {

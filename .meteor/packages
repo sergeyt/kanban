@@ -9,6 +9,11 @@ underscore
 async
 backbone
 spiderable
+user-session
+accounts-github
+accounts-google
+accounts-twitter
+accounts-fogbugz
 jquery
 jquery-ui-bootstrap
 jquery-ui
@@ -19,7 +24,3 @@ fogbugz-service
 less
 gravatar
 prettydate
-accounts-github
-accounts-google
-accounts-twitter
-accounts-fogbugz

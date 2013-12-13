@@ -1,4 +1,4 @@
-// TODO add routes
+// TODO add routes, try using iron-router
 var AppRouter = Backbone.Router.extend({
 });
 

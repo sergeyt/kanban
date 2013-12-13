@@ -1,5 +1,3 @@
-Session.set('theme', 'default');
-
 var themes = [
 	{name: 'default', label: 'Default'},
 	{name: 'cyborg', label: 'Cyborg'},
@@ -11,7 +9,7 @@ var themes = [
 themes.forEach(function(theme){
 	var name = theme.name;
 	Template.themes[name] = function(){
-		return Session.get('theme') == name;
+		return UserSession.get('theme') == name;
 	};
 });
 
@@ -20,7 +18,7 @@ Template.themeSelector.themes = function(){
 		var name = theme.name;
 		return _.extend({}, theme, {
 			iconClass: function(){
-				return Session.get('theme') == name ? '' : 'hidden';
+				return UserSession.get('theme') == name ? '' : 'hidden';
 			}
 		});
 	});
@@ -34,7 +32,8 @@ Template.themeSelector.events({
 		if (!$e.is('a[theme]')){
 			$e = $e.parent('a[theme]');
 		}
+
 		var theme = $e.attr('theme');
-		Session.set('theme', theme);
+		UserSession.set('theme', theme);
 	}
 });

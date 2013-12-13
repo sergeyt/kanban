@@ -14,7 +14,7 @@ function colurmItems(col){
 Template.column.helpers({
 	visible: function(){
 		var key = 'column.' + this.name + '.hidden';
-		return !!!Session.get(key);
+		return !!!UserSession.get(key);
 	},
 	// get column items
 	items: function() {
