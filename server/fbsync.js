@@ -20,11 +20,16 @@ function fbsync_startup() {
 
 // helper function to create session with fogbugz service
 function fbc(endpoint) {
+	if (endpoint.charAt(endpoint.length - 1) != '/') {
+		endpoint += '/';
+	}
+
 	// TODO use admin credentials
 	var user = Meteor.users.findOne({"services.fogbugz.endpoint": endpoint});
 	if (!user) {
-		return Q.reject("")
+		return Q.reject("unknown fogbugz service " + endpoint);
 	}
+
 	var service = user.services.fogbugz;
 	return fogbugz({
 		url: endpoint,
