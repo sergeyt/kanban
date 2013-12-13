@@ -1,9 +1,8 @@
 <template name="usermenu">
-	<ul class="nav navbar-nav navbar-right">
+	<ul class="nav navbar-nav navbar-right" title="{{currentUser.username}}" data-toggle="tooltip" data-placement="left">
 		<li class="dropdown">
 			<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 				<img src="{{avatarUrl}}"/>
-				<span>{{currentUser.username}}</span>
 				<b class="caret"></b>
 			</a>
 			<ul class="dropdown-menu">
