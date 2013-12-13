@@ -2,16 +2,27 @@ var Fiber = Npm.require('fibers');
 var SockJS = Meteor.require('sockjs-client');
 var Q = Meteor.require('q');
 
-function fbsync_startup(){
+function toJson(v) {
+	if (typeof v == 'string') {
+		try {
+			return JSON.parse(v);
+		} catch (err) {
+			return v;
+		}
+	}
+	return v;
+}
+
+function fbsync_startup() {
 	// TODO sync existing work items
 	// TODO fetch new milestones
 }
 
 // helper function to create session with fogbugz service
-function fbc(endpoint){
+function fbc(endpoint) {
 	// TODO use admin credentials
-	var user = Meteor.users.findOne({"services.fogbugz.endpoint":endpoint});
-	if (!user){
+	var user = Meteor.users.findOne({"services.fogbugz.endpoint": endpoint});
+	if (!user) {
 		return Q.reject("")
 	}
 	var service = user.services.fogbugz;
@@ -22,40 +33,40 @@ function fbc(endpoint){
 	});
 }
 
-function fbsync(e){
+function fbsync(e) {
 	if (!e) return;
 
 	console.log('[fbsync] operation start');
 
-	if (!e.from){
+	if (!e.from) {
 		// TODO handle anonymous event
 		console.log('[fbsync] does not support anonymous events for now');
 		return;
 	}
 
 	var event = (e.event || '').toLowerCase();
-	if (!event || !e.id){
+	if (!event || !e.id) {
 		// ignore unknown events
 		console.log('[fbsync] event is ignored');
 		return;
 	}
 
-	if (event.indexOf('case') >= 0){
-		fbc(e.from).then(function(client){
+	if (event.indexOf('case') >= 0) {
+		fbc(e.from).then(function(client) {
 			return client.caseInfo(id);
-		}).then(function(info){
-			var item = FogBugzService.toWorkItem(info);
-			return updateWorkItem(item);
-		});
+		}).then(function(info) {
+					var item = FogBugzService.toWorkItem(info);
+					return updateWorkItem(item);
+				});
 	}
 }
 
-function updateWorkItem(item){
+function updateWorkItem(item) {
 	// meteor requires fibers
 	Fiber(function() {
 		console.log("[fbsync] updating item %s", item.id);
 		var oldItem = WorkItems.findOne({id: item.id});
-		if (!oldItem){
+		if (!oldItem) {
 			WorkItems.insert(item);
 		} else {
 			WorkItems.update(oldItem._id, item);
@@ -64,7 +75,7 @@ function updateWorkItem(item){
 }
 
 // TODO disconnect from fogbus on meteor restart and process exit
-function fogbus_connect(callback){
+function fogbus_connect(callback) {
 	var connected = false;
 	var sock = SockJS.create('http://fogbus.herokuapp.com/fogbus');
 	sock.on('connection', function() {
@@ -82,9 +93,10 @@ function fogbus_connect(callback){
 }
 
 // creates sockjs client to listen fogbus events
-function fogbus_startup(){
-	fogbus_connect(function(sock){
+function fogbus_startup() {
+	fogbus_connect(function(sock) {
 		sock.on('data', function(e) {
+			e = toJson(e);
 			console.log('[fogbus] message:\n', JSON.stringify(e, null, 2));
 			// meteor requires fibers
 			Fiber(function() {
@@ -92,6 +104,7 @@ function fogbus_startup(){
 			}).run();
 		});
 		sock.on('error', function(err) {
+			err = toJson(err);
 			console.log('[fogbus] error:\n', JSON.stringify(err, null, 2));
 		});
 	});
