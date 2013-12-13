@@ -27,6 +27,7 @@ function fbc(endpoint) {
 	// TODO use admin credentials
 	var user = Meteor.users.findOne({"services.fogbugz.endpoint": endpoint});
 	if (!user) {
+		console.log("error: unknown fogbugz service " + endpoint);
 		return Q.reject("unknown fogbugz service " + endpoint);
 	}
 
