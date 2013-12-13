@@ -1,9 +1,8 @@
 Template.columnsVisibility.items = function(){
-	var name = UserSession.get('board');
-	var board = Boards.findOne({name: name});
+	var board = App.currentBoard();
 	if (!board) return [];
 	return board.columns.map(function(it){
-		var hidden = !!UserSession.get('column.' + it.name + '.hidden');
+		var hidden = App.Column(it.name).hidden();
 		return {
 			name: it.name,
 			hidden: hidden ? 'hidden' : ''
@@ -13,8 +12,6 @@ Template.columnsVisibility.items = function(){
 
 Template.columnsVisibility.events({
 	'click li': function(){
-		var key = 'column.' + this.name + '.hidden';
-		var hidden = !!UserSession.get(key);
-		UserSession.set(key, !hidden);
+		App.Column(this.name).toggle();
 	}
 });

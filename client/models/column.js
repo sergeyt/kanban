@@ -1,3 +1,27 @@
+if (typeof App === 'undefined') App = {};
+
+// common column API
+App.Column = function(name){
+	var hiddenKey = 'column.' + name + '.hidden';
+
+	function hidden(){
+		return !!UserSession.get(hiddenKey);
+	}
+
+	return {
+		hidden: hidden,
+		visibile: function(){
+			return !hidden();
+		},
+		hide: function(){
+			return UserSession.set(hiddenKey, true);
+		},
+		toggle: function(){
+			UserSession.set(hiddenKey, !hidden());
+		}
+	};
+}
+
 function colurmItems(col){
 	var filter = {status: col.status};
 	var filters = Session.get('filters');
@@ -13,9 +37,9 @@ function colurmItems(col){
 
 Template.column.helpers({
 	visible: function(){
-		var key = 'column.' + this.name + '.hidden';
-		return !!!UserSession.get(key);
+		return App.Column(this.name).visibile();
 	},
+
 	// get column items
 	items: function() {
 		return colurmItems(this);
@@ -28,13 +52,32 @@ Template.column.helpers({
 	percentage: function() {
 		var p = colurmItems(this).length / WorkItems.find().count();
 		return (p * 100).toFixed(1);
+	},
+
+	width: function(){
+		var board = App.currentBoard();
+		if (!board) return 2;
+
+		var count = _.reduce(board.columns, function(v, it) {
+			return App.Column(it.name).visibile() ? v + 1 : v;
+		}, 0);
+
+		switch (count){
+			case 3:
+				return 3;
+			case 2:
+				return 5;
+			case 1:
+				return 10;
+		}
+
+		return 2;
 	}
 });
 
 Template.column.events({
 	'click .close': function(e, t){
-		var key = 'column.' + t.data.name + '.hidden';
-		return UserSession.set(key, true);
+		App.Column(t.data.name).hide();
 	}
 });
 
