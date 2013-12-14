@@ -1,16 +1,9 @@
 <template name="themes">
-	{{#if cyborg}}
-	<link rel="stylesheet" type="text/css" href="/themes/cyborg/bootstrap.css"/>
-	{{/if}}
-	{{#if slate}}
-	<link rel="stylesheet" type="text/css" href="/themes/slate/bootstrap.css"/>
-	{{/if}}
-	{{#if united}}
-	<link rel="stylesheet" type="text/css" href="/themes/united/bootstrap.css"/>
-	{{/if}}
-	{{#if yeti}}
-	<link rel="stylesheet" type="text/css" href="/themes/yeti/bootstrap.css"/>
-	{{/if}}
+	{{#each list}}
+		{{#if selected}}
+		<link rel="stylesheet" type="text/css" href="/themes/{{name}}/bootstrap.css"/>
+		{{/if}}
+	{{/each}}
 </template>
 
 <template name="themeSelector">
