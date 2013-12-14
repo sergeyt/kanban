@@ -81,6 +81,8 @@ function toTime(d){
 
 function toWorkItem(it, board) {
 	return {
+		// link with fogbugz service
+		service: board.service,
 		board: board.name,
 		id: it.id,
 		priority: it.priority.id,
@@ -97,19 +99,12 @@ function toWorkItem(it, board) {
 	};
 }
 
-function updateItem(item, it){
-	item.status = resolveStatus(it);
-	item.assignee = it.assignee;
-	// update dates
-	item.opened = toTime(it.opened);
-	item.resolved = toTime(it.resolved);
-	item.closed = toTime(it.closed);
-	item.events = it.events;
-}
-
-function toBoard(it){
+function toBoard(it, user){
+	var service = user.services.fogbugz;
 	// TODO customize if needed
 	return _.extend({}, it, {
+		// link board with fogbugz service
+		service: service.endpoint,
 		columns: [
 			{name: 'Open', status: 'active'},
 			{name: 'In progress', status: 'doing'},
@@ -134,27 +129,33 @@ FogBugzService = {
 
 	// get available boards
 	fetchBoards: function(user){
-		return await(fbc(user).then(function(client){
+		var p = fbc(user).then(function(client){
 			return client.milestones();
 		}).then(function(list){
-			var now = (new Date()).getTime();
+			var now = moment(new Date());
 			return list.filter(function(m){
-				// filter out past milestones
-				// TODO include one prev sprint
-				return (m.end.getTime() - now) >= 0;
-			}).map(toBoard);
-		}));
+				if (!m.end) return false;
+				var end = moment(m.end);
+				var d = end.diff(now, 'days');
+				// filter out past milestones including prev sprints
+				return d >= -14;
+			}).map(function(it){
+				return toBoard(it, user);
+			});
+		});
+		return await(p);
 	},
 
 	// gets items for specified board
 	fetchItems: function(user, board){
-		return await(fbc(user).then(function(client){
+		var p = fbc(user).then(function(client){
 			return client.milestone(board).cases();
 		}).then(function(list){
 			return list.map(function(it){
 				return toWorkItem(it, board);
 			});
-		}));
+		});
+		return await(p);
 	},
 
 	// TODO remove hardcoded statuses, move to config

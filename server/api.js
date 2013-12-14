@@ -36,17 +36,9 @@ function loadBoards(user, callback){
 }
 
 function selectBoard(user, board){
-	// update user selected board in profile
-	var profile = user.profile;
-	var name = board.name;
-	if (profile.selectedBoard != name){
-		console.log('updating user selected board from %s to %s', profile.selectedBoard, name);
-		profile.selectedBoard = name;
-		Meteor.users.update(user._id, {$set: {profile: profile}});
-	}
-
 	// load board if it is empty
-	if (WorkItems.find({board: name}).count() == 0){
+	if (WorkItems.find({board: board.name}).count() == 0){
+		console.log('fetching items for %s', board.name);
 		var items = FogBugzService.fetchItems(user, board);
 		insertItems(items);
 	}
@@ -77,9 +69,18 @@ Meteor.methods({
 		if (!user) throw new Error("Cant find user " + userId);
 
 		loadBoards(user, function(boards){
-			// TODO auto select current sprint
-			if (boards.length > 0) {
-				selectBoard(user, boards[0]);
+			if (boards.length === 0) return;
+			var now = moment(new Date());
+			// TODO more inteligent depending on user team
+			// select closed sprint
+			var open = boards.filter(function(it){
+				return moment(new Date(it.start)).diff(now, 'days') >= 0;
+			});
+			var board = _.min(open, function(it){
+				return moment(new Date(it.start)).diff(now, 'days');
+			});
+			if (board){
+				selectBoard(user, board);
 			}
 		});
 	},
@@ -119,7 +120,7 @@ Meteor.methods({
 
 			this.unblock();
 
-			var selectedBoard = user.profile && user.profile.selectedBoard ? user.profile.selectedBoard : null;
+			var selectedBoard = UserSession.get('board', user._id);
 			console.log('selected board %s', selectedBoard);
 
 			loadBoards(user, function(){
