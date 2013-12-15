@@ -24,5 +24,5 @@ function initBootstrap(){
 		}, function(){
 			$(this).tooltip('destroy');
 		});
-	})
+	});
 }

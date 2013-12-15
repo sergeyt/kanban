@@ -20,7 +20,7 @@ App.Column = function(name){
 			UserSession.set(hiddenKey, !hidden());
 		}
 	};
-}
+};
 
 function colurmItems(col){
 	var filter = {status: col.status};
