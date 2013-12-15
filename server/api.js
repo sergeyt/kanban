@@ -1,6 +1,7 @@
 var Fiber = Npm.require('fibers');
 
-// TODO resolve bug tracking service from user context, do not use FogBugz explicitly
+// TODO resolve bug tracking service from user context
+// TODO async loading of boards, work items
 
 function insertBoards(boards){
 	console.log('fetched %d boards', boards.length);
@@ -25,7 +26,7 @@ function insertItems(items){
 function loadBoards(user, callback){
 	// TODO support multiple fogbugz servers
 	// fetch boards if they are empty
-	if (Boards.find({}).count() == 0){
+	if (Boards.find({}).count() === 0){
 		var boards = FogBugzService.fetchBoards(user);
 		insertBoards(boards);
 
@@ -36,8 +37,9 @@ function loadBoards(user, callback){
 }
 
 function selectBoard(user, board){
+	// TODO reload/update board with new/changed items
 	// load board if it is empty
-	if (WorkItems.find({board: board.name}).count() == 0){
+	if (WorkItems.find({board: board.name}).count() === 0){
 		console.log('fetching items for %s', board.name);
 		var items = FogBugzService.fetchItems(user, board);
 		insertItems(items);
@@ -109,29 +111,5 @@ Meteor.methods({
 		WorkItems.update(itemId, {$set: {status: newStatus}});
 
 		updateStatus(user, item, oldStatus, newStatus);
-	},
-
-	clean: function(userId){
-		Boards.remove({});
-		WorkItems.remove({});
-
-		var user = Meteor.users.findOne(userId);
-		if (user) {
-
-			this.unblock();
-
-			var selectedBoard = UserSession.get('board', user._id);
-			console.log('selected board %s', selectedBoard);
-
-			loadBoards(user, function(){
-				if (selectedBoard){
-					console.log('loading board: %s', selectedBoard);
-					var board = Boards.findOne({name: selectedBoard});
-					if (board){
-						selectBoard(user, board);
-					}
-				}
-			});
-		}
 	}
 });

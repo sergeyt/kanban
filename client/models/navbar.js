@@ -27,8 +27,5 @@ Template.navbar.events({
 		} else {
 			UserSession.set('effects', 'static');
 		}
-	},
-	'click .btn-clean': function() {
-		Meteor.call('clean', Meteor.userId());
 	}
 });
