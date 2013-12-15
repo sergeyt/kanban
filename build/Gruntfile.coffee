@@ -22,9 +22,14 @@ module.exports = (grunt) ->
 				indentation: {level: 'ignore'}
 			dev: ['../client/**/*.coffee', '../server/**/*.coffee']
 
+		htmlhint:
+			all:
+				src: ['../client/**/*.html']
+
 	grunt.loadNpmTasks 'grunt-contrib-jshint'
 	grunt.loadNpmTasks 'grunt-coffeelint'
+	grunt.loadNpmTasks 'grunt-htmlhint'
 
-	grunt.registerTask 'lint', ['coffeelint', 'jshint']
+	grunt.registerTask 'lint', ['coffeelint', 'jshint', 'htmlhint']
 	grunt.registerTask 'test', ['lint']
 	grunt.registerTask 'default', ['test']
