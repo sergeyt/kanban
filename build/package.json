@@ -1,0 +1,27 @@
+{
+  "name": "kanban",
+  "version": "0.0.1",
+  "description": "Kanban boards powered by meteor",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:sergeyt/kanban.git"
+  },
+  "keywords": [
+    "kanban",
+    "meteor"
+  ],
+  "author": "Sergey Todyshev <stodyshev@gmail.com>",
+  "contributors": [
+    "Sergey Todyshev <stodyshev@gmail.com>"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "~0.7.1",
+    "grunt-coffeelint": "0.0.8"
+  },
+  "scripts": {
+    "lint": "grunt lint",
+    "test": "grunt test"
+  }
+}
