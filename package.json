@@ -2,6 +2,7 @@
   "name": "kanban",
   "version": "0.0.1",
   "description": "Kanban boards powered by meteor",
+  "author": "Sergey Todyshev <stodyshev@gmail.com>",
   "repository": {
     "type": "git",
     "url": "git@github.com:sergeyt/kanban.git"
@@ -10,7 +11,6 @@
     "kanban",
     "meteor"
   ],
-  "author": "Sergey Todyshev <stodyshev@gmail.com>",
   "contributors": [
     "Sergey Todyshev <stodyshev@gmail.com>"
   ],

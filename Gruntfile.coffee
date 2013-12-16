@@ -14,17 +14,17 @@ module.exports = (grunt) ->
 					module: true,
 					require: true
 			all:
-				src: ['../client/**/*.js', '../server/**/*.js', '../*.js']
+				src: ['app/client/**/*.js', 'app/server/**/*.js', 'app/*.js']
 
 		coffeelint:
 			options:
 				no_tabs: {level: 'ignore'}
 				indentation: {level: 'ignore'}
-			dev: ['../client/**/*.coffee', '../server/**/*.coffee']
+			dev: ['app/client/**/*.coffee', 'app/server/**/*.coffee']
 
 		htmlhint:
 			all:
-				src: ['../client/**/*.html']
+				src: ['app/client/**/*.html']
 
 	grunt.loadNpmTasks 'grunt-contrib-jshint'
 	grunt.loadNpmTasks 'grunt-coffeelint'
