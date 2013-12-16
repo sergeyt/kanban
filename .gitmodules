@@ -34,3 +34,6 @@
 [submodule "app/packages/livequery"]
 	path = app/packages/livequery
 	url = https://github.com/sergeyt/livequery
+[submodule "app/packages/npm"]
+	path = app/packages/npm
+	url = https://github.com/arunoda/meteor-npm
