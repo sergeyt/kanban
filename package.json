@@ -19,7 +19,8 @@
     "grunt": "~0.4.1",
     "grunt-contrib-jshint": "~0.7.1",
     "grunt-coffeelint": "0.0.8",
-    "grunt-htmlhint": "~0.4.0"
+    "grunt-htmlhint": "~0.4.0",
+    "grunt-cli": "~0.1.11"
   },
   "scripts": {
     "lint": "grunt lint",
