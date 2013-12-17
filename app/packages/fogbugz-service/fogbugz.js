@@ -1,14 +1,23 @@
 var Future = Npm.require("fibers/future");
 var fogbugz = Npm.require("fogbugz.js");
 
+function logfail(p){
+	p.fail(function(err){
+		console.log('[fogbugz] error:', err);
+	});
+	return p;
+}
+
 // creates new fogbugz clients using context from given user
 function fbc(user){
 	var service = user.services.fogbugz;
-	return fogbugz({
+	var p = fogbugz({
 		url: service.endpoint,
 		token: service.token,
 		// verbose: true // uncomment for verbose logging of fogbugz requests
 	});
+	logfail(p);
+	return p;
 }
 
 var ItemStatus = {
@@ -115,7 +124,7 @@ FogBugzService = {
 	// get available boards
 	fetchBoards: function(user){
 		return fbc(user).then(function(client){
-			return client.milestones();
+			return client.milestones(true);
 		}).then(function(list){
 			var now = moment(new Date());
 			return list.filter(function(m){

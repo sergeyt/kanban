@@ -3,9 +3,8 @@ var Fiber = Npm.require('fibers');
 // TODO resolve bug tracking service from user context
 // TODO async loading of boards, work items
 
-function copy(record){
-	var obj = _.extend({}, record);
-	delete obj._id;
+// deletes all functions from given object
+function delfuns(obj){
 	Object.keys(obj).forEach(function(key){
 		if (_.isFunction(obj[key])){
 			delete obj[key];
@@ -14,61 +13,70 @@ function copy(record){
 	return obj;
 }
 
+function copy(record){
+	var obj = _.extend({}, record);
+	delete obj._id;
+	delfuns(obj);
+	return obj;
+}
+
 function updateBoards(boards){
-	Fiber(function(){
-		console.log('fetched %d boards', boards.length);
-		for (var i = 0; i < boards.length; i++) {
-			var it = boards[i];
-			var existing = Boards.findOne({name:it.name});
-			if (existing) {
-				if (_.isEqual(it, copy(existing))){
-					continue;
-				}
-				// TODO do not loose custom fields
-				Boards.update(existing._id, it);
-				console.log('updated board %s', it.name);
-			} else {
-				Boards.insert(it);
-				console.log('inserted board %s', it.name);
+	console.log('fetched %d boards', boards.length);
+	for (var i = 0; i < boards.length; i++) {
+		var it = boards[i];
+		var existing = Boards.findOne({name:it.name});
+		if (existing) {
+			if (_.isEqual(it, copy(existing))){
+				continue;
 			}
+			// TODO do not loose custom fields
+			Boards.update(existing._id, it);
+			console.log('updated board %s', it.name);
+		} else {
+			Boards.insert(it);
+			console.log('inserted board %s', it.name);
 		}
-	}).run();
+	}
 }
 
 function updateItems(items){
-	Fiber(function(){
-		console.log('fetched %d items', items.length);
-		for (var i = 0; i < items.length; i++) {
-			var it = items[i];
-			var existing = WorkItems.findOne({id:it.id});
-			if (existing) {
-				if (_.isEqual(it, copy(existing))){
-					continue;
-				}
-				// TODO do not loose custom fields
-				WorkItems.update(existing._id, it);
-				console.log('updated %s: %s', it.id, it.title);
-			} else {
-				WorkItems.insert(it);
-				console.log('inserted %s: %s', it.id, it.title);
+	console.log('fetched %d items', items.length);
+	for (var i = 0; i < items.length; i++) {
+		var it = copy(items[i]);
+		var existing = WorkItems.findOne({id:it.id});
+		if (existing) {
+			if (_.isEqual(it, copy(existing))){
+				continue;
 			}
+			// TODO do not loose custom fields
+			WorkItems.update(existing._id, it);
+			console.log('updated %s: %s', it.id, it.title);
+		} else {
+			WorkItems.insert(it);
+			console.log('inserted %s: %s', it.id, it.title);
 		}
-	}).run();
+	}
 }
 
-function loadBoards(user, callback){
-	FogBugzService.fetchBoards(user).done(function(boards){
-		updateBoards(boards);
-		if (_.isFunction(callback)){
-			callback(boards);
-		}
+function loadBoards(user){
+	console.log("fetching boards");
+	return FogBugzService.fetchBoards(user).then(function(boards){
+		return Fiber(function(){
+			updateBoards(boards);
+			return boards;
+		}).run();
 	});
 }
 
 function selectBoard(user, board){
 	console.log('fetching items for %s', board.name);
-	FogBugzService.fetchItems(user, board).done(function(items){
-		updateItems(items);
+	return FogBugzService.fetchItems(user, board).done(function(items){
+		return Fiber(function(){
+			updateItems(items);
+			// TODO set current board for user
+			// UserSession.set('board', board.name, user._id);
+			return items;
+		}).run();
 	});
 }
 
@@ -96,22 +104,34 @@ Meteor.methods({
 		var user = Meteor.users.findOne(userId);
 		if (!user) throw new Error("Cant find user " + userId);
 
-		loadBoards(user, function(boards){
-			if (boards.length === 0) return;
+		loadBoards(user).done(function(){
+			Fiber(function(){
+				var boards = Boards.find({}).fetch();
+				if (boards.length === 0){
+					console.log('no boards');
+					return;
+				}
 
-			var now = moment(new Date());
-			// TODO more inteligent depending on user team
-			// select closed sprint
-			var open = boards.filter(function(it){
-				return moment(new Date(it.start)).diff(now, 'days') >= 0;
-			});
-			var board = _.min(open, function(it){
-				return moment(new Date(it.start)).diff(now, 'days');
-			});
+				console.log('detecting current sprint');
+				var now = moment(new Date());
+				// TODO more inteligent depending on user team
+				// select closest sprint
+				var open = boards.filter(function(it){
+					var start = moment(new Date(it.start));
+					return now.diff(start, 'days') >= 0;
+				});
+				if (open.length === 0){
+					console.log('no open sprints');
+					return;
+				}
 
-			if (board){
-				selectBoard(user, board);
-			}
+				boards = _.sortBy(open, function(it){
+					var start = moment(new Date(it.start));
+					return now.diff(start, 'days');
+				});
+
+				selectBoard(user, boards[0]);
+			}).run();
 		});
 	},
 
