@@ -3,6 +3,17 @@ var Fiber = Npm.require('fibers');
 // TODO resolve bug tracking service from user context
 // TODO async loading of boards, work items
 
+function copy(record){
+	var obj = _.extend({}, record);
+	delete obj._id;
+	Object.keys(obj).forEach(function(key){
+		if (_.isFunction(obj[key])){
+			delete obj[key];
+		}
+	});
+	return obj;
+}
+
 function updateBoards(boards){
 	Fiber(function(){
 		console.log('fetched %d boards', boards.length);
@@ -10,6 +21,9 @@ function updateBoards(boards){
 			var it = boards[i];
 			var existing = Boards.findOne({name:it.name});
 			if (existing) {
+				if (_.isEqual(it, copy(existing))){
+					continue;
+				}
 				// TODO do not loose custom fields
 				Boards.update(existing._id, it);
 				console.log('updated board %s', it.name);
@@ -28,6 +42,9 @@ function updateItems(items){
 			var it = items[i];
 			var existing = WorkItems.findOne({id:it.id});
 			if (existing) {
+				if (_.isEqual(it, copy(existing))){
+					continue;
+				}
 				// TODO do not loose custom fields
 				WorkItems.update(existing._id, it);
 				console.log('updated %s: %s', it.id, it.title);
