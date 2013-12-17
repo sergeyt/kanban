@@ -27,5 +27,8 @@ Template.navbar.events({
 		} else {
 			UserSession.set('effects', 'static');
 		}
+	},
+	'click .btn-refresh': function() {
+		Meteor.call('onLogin', Meteor.userId());
 	}
 });
