@@ -3,47 +3,56 @@ var Fiber = Npm.require('fibers');
 // TODO resolve bug tracking service from user context
 // TODO async loading of boards, work items
 
-function insertBoards(boards){
-	console.log('fetched %d boards', boards.length);
-	for (var i = 0; i < boards.length; i++) {
-		// TODO update existing board
-		var it = boards[i];
-		Boards.insert(it);
-		console.log('inserted board %s', it.name);
-	}
+function updateBoards(boards){
+	Fiber(function(){
+		console.log('fetched %d boards', boards.length);
+		for (var i = 0; i < boards.length; i++) {
+			var it = boards[i];
+			var existing = Boards.findOne({name:it.name});
+			if (existing) {
+				// TODO do not loose custom fields
+				Boards.update(existing._id, it);
+				console.log('updated board %s', it.name);
+			} else {
+				Boards.insert(it);
+				console.log('inserted board %s', it.name);
+			}
+		}
+	}).run();
 }
 
-function insertItems(items){
-	console.log('fetched %d items', items.length);
-	for (var i = 0; i < items.length; i++) {
-		// TODO update existing item
-		var it = items[i];
-		WorkItems.insert(it);
-		console.log('inserted %s: %s', it.id, it.title);
-	}
+function updateItems(items){
+	Fiber(function(){
+		console.log('fetched %d items', items.length);
+		for (var i = 0; i < items.length; i++) {
+			var it = items[i];
+			var existing = WorkItems.findOne({id:it.id});
+			if (existing) {
+				// TODO do not loose custom fields
+				WorkItems.update(existing._id, it);
+				console.log('updated %s: %s', it.id, it.title);
+			} else {
+				WorkItems.insert(it);
+				console.log('inserted %s: %s', it.id, it.title);
+			}
+		}
+	}).run();
 }
 
 function loadBoards(user, callback){
-	// TODO support multiple fogbugz servers
-	// fetch boards if they are empty
-	if (Boards.find({}).count() === 0){
-		var boards = FogBugzService.fetchBoards(user);
-		insertBoards(boards);
-
+	FogBugzService.fetchBoards(user).done(function(boards){
+		updateBoards(boards);
 		if (_.isFunction(callback)){
 			callback(boards);
 		}
-	}
+	});
 }
 
 function selectBoard(user, board){
-	// TODO reload/update board with new/changed items
-	// load board if it is empty
-	if (WorkItems.find({board: board.name}).count() === 0){
-		console.log('fetching items for %s', board.name);
-		var items = FogBugzService.fetchItems(user, board);
-		insertItems(items);
-	}
+	console.log('fetching items for %s', board.name);
+	FogBugzService.fetchItems(user, board).done(function(items){
+		updateItems(items);
+	});
 }
 
 function updateStatus(user, item, oldStatus, newStatus){
@@ -72,6 +81,7 @@ Meteor.methods({
 
 		loadBoards(user, function(boards){
 			if (boards.length === 0) return;
+
 			var now = moment(new Date());
 			// TODO more inteligent depending on user team
 			// select closed sprint
@@ -81,6 +91,7 @@ Meteor.methods({
 			var board = _.min(open, function(it){
 				return moment(new Date(it.start)).diff(now, 'days');
 			});
+
 			if (board){
 				selectBoard(user, board);
 			}

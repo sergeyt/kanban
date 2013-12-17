@@ -1,21 +1,6 @@
 var Future = Npm.require("fibers/future");
 var fogbugz = Npm.require("fogbugz.js");
 
-// awaits given promise
-// TODO make it as tiny reuseable meteor package
-function await(promise){
-	var future = new Future();
-	var resolve = future.resolver();
-
-	promise.then(function(result){
-		resolve(null, result);
-	}).fail(function(error){
-		resolve(error, null);
-	});
-
-	return future.wait();
-}
-
 // creates new fogbugz clients using context from given user
 function fbc(user){
 	var service = user.services.fogbugz;
@@ -129,7 +114,7 @@ FogBugzService = {
 
 	// get available boards
 	fetchBoards: function(user){
-		var p = fbc(user).then(function(client){
+		return fbc(user).then(function(client){
 			return client.milestones();
 		}).then(function(list){
 			var now = moment(new Date());
@@ -143,19 +128,17 @@ FogBugzService = {
 				return toBoard(it, user);
 			});
 		});
-		return await(p);
 	},
 
 	// gets items for specified board
 	fetchItems: function(user, board){
-		var p = fbc(user).then(function(client){
+		return fbc(user).then(function(client){
 			return client.milestone(board).cases();
 		}).then(function(list){
 			return list.map(function(it){
 				return toWorkItem(it, board);
 			});
 		});
-		return await(p);
 	},
 
 	// TODO remove hardcoded statuses, move to config
