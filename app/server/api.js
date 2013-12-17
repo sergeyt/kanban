@@ -73,7 +73,8 @@ function selectBoard(user, board){
 	return FogBugzService.fetchItems(user, board).done(function(items){
 		return Fiber(function(){
 			updateItems(items);
-			UserSession.set('board', board.name, user._id);
+			// TODO why Meteor.userId() is called here?
+			// UserSession.set('board', board.name, user._id);
 			return items;
 		}).run();
 	});
