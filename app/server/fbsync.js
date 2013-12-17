@@ -71,14 +71,14 @@ function fbsync(e) {
 }
 
 function updateWorkItem(item) {
+	console.log("[fbsync] updating item %s", item.id);
 	// meteor requires fibers
 	Fiber(function() {
-		console.log("[fbsync] updating item %s", item.id);
-		var oldItem = WorkItems.findOne({id: item.id});
-		if (!oldItem) {
-			WorkItems.insert(item);
+		var existing = WorkItems.findOne({id: item.id});
+		if (existing) {
+			WorkItems.update(existing._id, item);
 		} else {
-			WorkItems.update(oldItem._id, item);
+			WorkItems.insert(item);
 		}
 	}).run();
 }
@@ -93,6 +93,7 @@ function fogbus_connect(callback) {
 		callback(sock);
 	});
 	sock.on('error', function(err) {
+		err = toJson(err);
 		console.log('[fogbus] error:\n', JSON.stringify(err, null, 2));
 		if (!connected) {
 			// try again
@@ -111,10 +112,6 @@ function fogbus_startup() {
 			Fiber(function() {
 				fbsync(e);
 			}).run();
-		});
-		sock.on('error', function(err) {
-			err = toJson(err);
-			console.log('[fogbus] error:\n', JSON.stringify(err, null, 2));
 		});
 	});
 }
