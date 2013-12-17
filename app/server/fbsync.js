@@ -18,6 +18,13 @@ function fbsync_startup() {
 	// TODO fetch new milestones
 }
 
+function logfail(p){
+	p.fail(function(err){
+		console.log(err);
+	});
+	return p;
+}
+
 // helper function to create session with fogbugz service
 function fbc(endpoint) {
 	if (endpoint.charAt(endpoint.length - 1) != '/') {
@@ -33,11 +40,16 @@ function fbc(endpoint) {
 
 	var service = user.services.fogbugz;
 	var fogbugz = Meteor.require('fogbugz.js');
-	return fogbugz({
+
+	console.log("[fbsync] service:", JSON.stringify(service, null, 2));
+
+	var p = fogbugz({
 		url: endpoint,
 		token: service.token,
 		// verbose: true // uncomment for verbose logging of fogbugz requests
 	});
+
+	return logfail(p);
 }
 
 function fbsync(e) {
@@ -60,27 +72,35 @@ function fbsync(e) {
 
 	if (event.indexOf('case') >= 0) {
 		fbc(e.from).then(function(client) {
-			return client.caseInfo(id);
+			console.log("[fbsync] fetching case %s", id);
+			return logfail(client.caseInfo(id));
 		}).then(function(info) {
-			var item = FogBugzService.toWorkItem(info);
-			return updateWorkItem(item);
+			Fiber(function(){
+				console.log("[fbsync] fetched case %s: %s", info.id, info.title);
+				var board = resolveBoard(info);
+				// TODO handle new milestones
+				var item = FogBugzService.toWorkItem(info, board);
+				return updateWorkItem(item);
+			}).run();
 		});
 	} else {
 		console.log('[fbsync] unhandled event '+ event);
 	}
 }
 
+function resolveBoard(item){
+	if (!item || !item.milestone) return null;
+	return Boards.findOne({id:item.milestone.id});
+}
+
 function updateWorkItem(item) {
 	console.log("[fbsync] updating item %s", item.id);
-	// meteor requires fibers
-	Fiber(function() {
-		var existing = WorkItems.findOne({id: item.id});
-		if (existing) {
-			WorkItems.update(existing._id, item);
-		} else {
-			WorkItems.insert(item);
-		}
-	}).run();
+	var existing = WorkItems.findOne({id: item.id});
+	if (existing) {
+		WorkItems.update(existing._id, item);
+	} else {
+		WorkItems.insert(item);
+	}
 }
 
 // TODO disconnect from fogbus on meteor restart and process exit
