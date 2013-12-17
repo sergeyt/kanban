@@ -73,8 +73,7 @@ function selectBoard(user, board){
 	return FogBugzService.fetchItems(user, board).done(function(items){
 		return Fiber(function(){
 			updateItems(items);
-			// TODO set current board for user
-			// UserSession.set('board', board.name, user._id);
+			UserSession.set('board', board.name, user._id);
 			return items;
 		}).run();
 	});

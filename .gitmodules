@@ -34,3 +34,6 @@
 [submodule "app/packages/npm"]
 	path = app/packages/npm
 	url = https://github.com/arunoda/meteor-npm
+[submodule "app/packages/user-session"]
+	path = app/packages/user-session
+	url = https://github.com/sergeyt/meteor-user-session
