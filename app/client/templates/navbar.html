@@ -37,10 +37,6 @@
 			{{>search}}
 			{{/if}}
 
-			{{#unless currentUser}}
-			{{>login}}
-			{{/unless}}
-
 			{{#if currentUser}}
 			{{>usermenu}}
 			{{>themeSelector}}

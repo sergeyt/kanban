@@ -1,39 +1,27 @@
 <template name="login">
-	<ul class="nav navbar-nav navbar-right">
-		<!-- TODO sign up -->
-		<!--<li><a href="#">Sign Up</a></li>-->
-		<li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown">Sign in <b class="caret"></b></a>
-			<ul class="dropdown-menu" style="padding: 15px;min-width: 250px;">
-				<li>
-					<div class="row">
-						<div class="col-md-12">
-							<form class="form" role="form" id="login-form-nav">
-								<div class="form-group">
-									<input type="email" class="form-control" id="login-email" placeholder="Email address" required>
-								</div>
-								<div class="form-group">
-									<input type="password" class="form-control" id="login-password" placeholder="Password" required>
-								</div>
-								<!-- TODO implement 'remember me' -->
-								<!--<div class="checkbox">-->
-									<!--<label>-->
-										<!--<input type="checkbox">Remember me</input>-->
-									<!--</label>-->
-								<!--</div>-->
-								<div class="form-group">
-									<button type="button" class="btn btn-primary btn-block" id="login-button">Sign in</button>
-								</div>
-							</form>
-						</div>
+	<div class="row">
+		<div class="col-md-4"></div>
+		<div class="col-md-4">
+			<div class="panel panel-default login-form">
+				<div class="panel-heading">
+					<h class="panel-title">Welcome to the Kanban</h>
+				</div>
+				<div class="panel-body">
+					<div class="form-group">
+						<input type="email" class="form-control" id="login-email" placeholder="Email address" required>
 					</div>
-				</li>
-				<!--<li class="divider"></li>-->
-				<!--<li>-->
-				<!--<input class="btn btn-primary btn-block" type="button" id="sign-in-google" value="Sign In with Google">-->
-				<!--<input class="btn btn-primary btn-block" type="button" id="sign-in-twitter" value="Sign In with Twitter">-->
-				<!--</li>-->
-			</ul>
-		</li>
-	</ul>
+					<div class="form-group">
+						<input type="password" class="form-control" id="login-password" placeholder="Password" required>
+					</div>
+					<!-- TODO implement 'remember me' -->
+					<!--<div class="checkbox">-->
+					<!--<label>-->
+					<!--<input type="checkbox">Remember me</input>-->
+					<!--</label>-->
+					<!--</div>-->
+					<button type="button" class="btn btn-primary btn-block login-button">Sign in</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </template>

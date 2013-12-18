@@ -10,6 +10,12 @@
 
 <template name="app">
 	{{>navbar}}
+
+	{{#unless currentUser}}
+	{{>login}}
+	{{/unless}}
+
+	<!-- board view -->
 	{{#if currentUser}}
 	<div class="row board-host {{view}} {{effects}}">
 		{{>board}}
@@ -19,4 +25,5 @@
 		</div>
 	</div>
 	{{/if}}
+
 </template>
