@@ -6,3 +6,9 @@ Template.usermenu.avatarUrl = function(){
 	}
 	return Gravatar.imageUrl(email, {s: 24});
 };
+
+Template.usermenu.events({
+	'click .sign-out': function(){
+		Meteor.logout();
+	}
+});
