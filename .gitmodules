@@ -37,3 +37,6 @@
 [submodule "app/packages/user-session"]
 	path = app/packages/user-session
 	url = https://github.com/sergeyt/meteor-user-session
+[submodule "app/packages/typeahead"]
+	path = app/packages/typeahead
+	url = https://github.com/sergeyt/meteor-typeahead

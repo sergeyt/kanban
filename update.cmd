@@ -9,3 +9,6 @@ cd app\packages\moment
 git submodule update --init
 cd ..\..\..
 
+cd app\packages\typeahead
+git submodule update --init
+cd ..\..\..

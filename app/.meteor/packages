@@ -21,6 +21,7 @@ livequery
 preserve-inputs
 insecure
 bootstrap-3
+typeahead
 fogbugz-service
 less
 gravatar
