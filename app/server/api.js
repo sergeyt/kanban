@@ -169,7 +169,7 @@ Meteor.methods({
 			}
 			if (u.emails && u.emails.length > 0){
 				var addrs = u.emails.filter(function(e){
-					return !!e.verified;
+					return e.verified && e.address;
 				}).map(function(e){
 					return e.address;
 				});

@@ -1,17 +1,12 @@
-var emails = [];
-var emailsDep = new Deps.Dependency();
-
 Template.login.emails = function(){
-	emailsDep.depend();
+	var emails = Session.get('emails') || [];
 	Meteor.call('emails', function(err,res){
-		if (!_.isEqual(res, emails)){
-			emails = res;
-			emailsDep.changed();
+		if (EJSON.equals(res, emails)){
+			return;
 		}
+		Session.set('emails', res);
 	});
-	return JSON.stringify(emails.filter(function(s){
-		return !!s;
-	}));
+	return JSON.stringify(emails);
 };
 
 Template.login.events({
