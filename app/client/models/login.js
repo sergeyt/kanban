@@ -1,3 +1,19 @@
+var emails = [];
+var emailsDep = new Deps.Dependency();
+
+Template.login.emails = function(){
+	emailsDep.depend();
+	Meteor.call('emails', function(err,res){
+		if (!_.isEqual(res, emails)){
+			emails = res;
+			emailsDep.changed();
+		}
+	});
+	return JSON.stringify(emails.filter(function(s){
+		return !!s;
+	}));
+};
+
 Template.login.events({
 	'click .login-button': function(e, t) {
 
@@ -23,3 +39,9 @@ Template.login.events({
 		});
 	}
 });
+
+Template.login.rendered = function(){
+	$(this.firstNode).find('.typeahead').each(function(){
+		Meteor.typeahead(this);
+	});
+};

@@ -159,5 +159,23 @@ Meteor.methods({
 		WorkItems.update(itemId, {$set: {status: newStatus}});
 
 		updateStatus(user, item, oldStatus, newStatus);
+	},
+
+	emails: function(){
+		var arr = [];
+		Meteor.users.find().fetch().forEach(function(u){
+			if (u.email) {
+				return arr.push(u.email);
+			}
+			if (u.emails && u.emails.length > 0){
+				var addrs = u.emails.filter(function(e){
+					return !!e.verified;
+				}).map(function(e){
+					return e.address;
+				});
+				arr = arr.concat(addrs);
+			}
+		});
+		return _.uniq(arr);
 	}
 });
