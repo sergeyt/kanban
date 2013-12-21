@@ -1,14 +1,11 @@
 git submodule update --init
 git submodule foreach git pull origin master
 
-cd app\packages\async
-git submodule update --init
-cd ..\..\..
+set root=%~dp0
 
-cd app\packages\moment
-git submodule update --init
-cd ..\..\..
-
-cd app\packages\typeahead
-git submodule update --init
-cd ..\..\..
+for /f %%i in ('dir .\app\packages /b /ad') do (
+  cd %root%%%i
+  if exist ".gitmodules" (
+    git submodule update --init
+  )
+)
