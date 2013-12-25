@@ -10,9 +10,9 @@ sudo apt-get install -y git mongodb-10gen curl
 
 # install nodejs
 cd /usr/local
-wget http://nodejs.org/dist/v0.10.23/node-v0.10.23-linux-x86.tar.gz
-sudo tar -xvzf node-v0.10.23-linux-x86.tar.gz --strip=1
-rm -f node-v0.10.23-linux-x86.tar.gz
+wget http://nodejs.org/dist/v0.10.24/node-v0.10.24-linux-x86.tar.gz
+sudo tar -xvzf node-v0.10.24-linux-x86.tar.gz --strip=1
+rm -f node-v0.10.24-linux-x86.tar.gz
 
 # install meteor and meteorite
 curl https://install.meteor.com | sudo sh
