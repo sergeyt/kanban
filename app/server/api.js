@@ -177,5 +177,13 @@ Meteor.methods({
 			}
 		});
 		return _.uniq(arr);
-	}
+	},
+
+    endpoints: function(){
+        var arr = Meteor.users.find().fetch().map(function(u){
+            var service = u.services.fogbugz;
+            return service ? service.endpoint : null;
+        }).filter(_.identity);
+        return _.uniq(arr);
+    }
 });

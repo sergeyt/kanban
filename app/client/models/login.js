@@ -1,12 +1,21 @@
+function fetchSet(key, method){
+    if (!method) method = key;
+    var data = Session.get(key) || [];
+    Meteor.call(method, function(err,res){
+        if (EJSON.equals(res, data)){
+            return;
+        }
+        Session.set(key, res);
+    });
+    return JSON.stringify(data);
+}
+
 Template.login.emails = function(){
-	var emails = Session.get('emails') || [];
-	Meteor.call('emails', function(err,res){
-		if (EJSON.equals(res, emails)){
-			return;
-		}
-		Session.set('emails', res);
-	});
-	return JSON.stringify(emails);
+    return fetchSet('emails');
+};
+
+Template.login.endpoints = function(){
+    return fetchSet('endpoints');
 };
 
 Template.login.events({
@@ -14,8 +23,8 @@ Template.login.events({
 
 		e.preventDefault();
 
-		var fogbugz = Meteor.settings.public.fogbugz;
-		// retrieve the input field values
+        // retrieve the input field values
+		var fogbugz = t.find('#endpoint').value;
 		var email = t.find('#login-email').value;
 		var password = t.find('#login-password').value;
 
