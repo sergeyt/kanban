@@ -49,3 +49,12 @@ apt-packages-install     \
 <%= import 'bin/meteor.sh' %>
 
 echo 'if [ -d "/vagrant/bin" ]; then PATH=$PATH":/vagrant/bin"; fi' >> ~/.profile
+
+# fix problem with mongo locks
+sudo rsync -rtvu --delete /vagrant/app/ /home/vagrant/app/
+
+# fix meteor-npm package
+cd /home/vagrant/app/packages/npm
+npm install
+
+
