@@ -34,9 +34,12 @@ function resolveStatus(it) {
 	if (s.indexOf('review') >= 0) return 'review';
 	if (s.indexOf('resolved') >= 0) return 'test';
 	if (s.indexOf('close') >= 0) return 'done';
-	if (it.assignee.name == Meteor.settings.public.team)
-		return 'active';
-	return 'doing';
+	// TODO detect virtual users using data from fogbugz
+	var assignee = (it.assignee.name || '').toLowerCase();
+	var isTeam = ['team', 'qa', 'dev'].some(function(s){
+		return assignee.indexOf(s) >= 0;
+	});
+	return isTeam ? 'active' : 'doing';
 }
 
 // maps fogbugz case category to kanban invariant category
