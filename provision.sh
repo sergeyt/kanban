@@ -50,11 +50,10 @@ apt-packages-install     \
 
 echo 'if [ -d "/vagrant/bin" ]; then PATH=$PATH":/vagrant/bin"; fi' >> ~/.profile
 
-# fix problem with mongo locks
-sudo rsync -rtvu --delete /vagrant/app/ /home/vagrant/app/
+# run sync daemon todo try to use start-stop-daemon
+cd /vagrant/bin
+nohup bash ./sync-app.sh &
 
 # fix meteor-npm package
 cd /home/vagrant/app/packages/npm
 npm install
-
-
