@@ -47,13 +47,17 @@ apt-packages-install     \
 <%= import 'bin/node.sh' %>
 <%= import 'bin/mongo.sh' %>
 <%= import 'bin/meteor.sh' %>
+<%= import 'bin/lsyncd.sh' %>
 
 echo 'if [ -d "/vagrant/bin" ]; then PATH=$PATH":/vagrant/bin"; fi' >> ~/.profile
-
-# run sync daemon todo try to use start-stop-daemon
-cd /vagrant/bin
-nohup bash ./sync-app.sh &
 
 # fix meteor-npm package
 cd /home/vagrant/app/packages/npm
 npm install
+
+# run sync daemon todo try to use start-stop-daemon
+# cd /vagrant/bin
+# nohup bash ./sync-app.sh &
+
+cp /vagrant/etc/lsyncd.config ~/.lsyncd/lsyncd.config
+# todo run lsyncd

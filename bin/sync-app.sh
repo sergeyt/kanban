@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # fix problem with mongo locks
-sudo rsync -rtvu --delete --progress /vagrant/app/ /home/vagrant/app/
+sudo rsync -rtvu --progress /vagrant/app/ /home/vagrant/app/
 
 inotifywait -r -m -e close_write --format '%w%f' /vagrant/app/ | while read MODFILE
 do
