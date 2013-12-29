@@ -51,6 +51,9 @@ apt-packages-install     \
 
 echo 'if [ -d "/vagrant/bin" ]; then PATH=$PATH":/vagrant/bin"; fi' >> ~/.profile
 
+# init app dir
+sudo rsync -rtvu --progress /vagrant/app/ /home/vagrant/app/
+
 # fix meteor-npm package
 cd /home/vagrant/app/packages/npm
 npm install
@@ -59,5 +62,4 @@ npm install
 # cd /vagrant/bin
 # nohup bash ./sync-app.sh &
 
-cp /vagrant/etc/lsyncd.config ~/.lsyncd/lsyncd.config
 # todo run lsyncd
