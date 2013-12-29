@@ -50,7 +50,7 @@ apt-packages-install     \
 <%= import 'bin/meteor.sh' %>
 
 # init app dir
-sudo rsync -rtvu --progress /vagrant/app/ /home/vagrant/app/
+# sudo rsync -rtvu --progress /vagrant/app/ /home/vagrant/app/
 
 # fix meteor-npm package
 cd /home/vagrant/app/packages/npm
@@ -65,5 +65,5 @@ npm install
 # sudo service sync-app.sh start
 
 # sync app dir to user land to make mongodb happy since it cannot run inside vagrant synced folder
-echo 'binding /vagrant/app/ to /home/vagrant/app/ to make mongodb happy'
-sudo bindfs -o nonempty /vagrant/app/ /home/vagrant/app/
+# echo 'binding /vagrant/app/ to /home/vagrant/app/ to make mongodb happy'
+# sudo bindfs -o nonempty /vagrant/app/ /home/vagrant/app/
