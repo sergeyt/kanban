@@ -49,8 +49,6 @@ apt-packages-install     \
 <%= import 'bin/meteor.sh' %>
 <%= import 'bin/lsyncd.sh' %>
 
-echo 'if [ -d "/vagrant/bin" ]; then PATH=$PATH":/vagrant/bin"; fi' >> ~/.profile
-
 # init app dir
 sudo rsync -rtvu --progress /vagrant/app/ /home/vagrant/app/
 
