@@ -47,7 +47,6 @@ apt-packages-install     \
 <%= import 'bin/node.sh' %>
 <%= import 'bin/mongo.sh' %>
 <%= import 'bin/meteor.sh' %>
-<%= import 'bin/lsyncd.sh' %>
 
 # init app dir
 sudo rsync -rtvu --progress /vagrant/app/ /home/vagrant/app/
@@ -56,8 +55,10 @@ sudo rsync -rtvu --progress /vagrant/app/ /home/vagrant/app/
 cd /home/vagrant/app/packages/npm
 npm install
 
-# run sync daemon todo try to use start-stop-daemon
-# cd /vagrant/bin
-# nohup bash ./sync-app.sh &
-
-# todo run lsyncd
+# start sync service
+echo starting sync service...
+sudo chmod a+x /vagrant/bin/
+sudo cp /vagrant/etc/init.d/sync-app.sh /etc/init.d/sync-app.sh
+sudo chmod a+x /etc/init.d/sync-app.sh
+sudo update-rc.d sync-app.sh defaults
+sudo service sync-app.sh start
