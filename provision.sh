@@ -42,7 +42,8 @@ apt-packages-install     \
   libxml2-dev            \
   libxslt-dev            \
   libc6-dev              \
-  ncurses-dev  
+  ncurses-dev            \
+  bindfs
 
 <%= import 'bin/node.sh' %>
 <%= import 'bin/mongo.sh' %>
@@ -56,9 +57,13 @@ cd /home/vagrant/app/packages/npm
 npm install
 
 # start sync service
-echo starting sync service...
-sudo chmod a+x /vagrant/bin/
-sudo cp /vagrant/etc/init.d/sync-app.sh /etc/init.d/sync-app.sh
-sudo chmod a+x /etc/init.d/sync-app.sh
-sudo update-rc.d sync-app.sh defaults
-sudo service sync-app.sh start
+# echo starting sync service...
+# sudo chmod a+x /vagrant/bin/
+# sudo cp /vagrant/etc/init.d/sync-app.sh /etc/init.d/sync-app.sh
+# sudo chmod a+x /etc/init.d/sync-app.sh
+# sudo update-rc.d sync-app.sh defaults
+# sudo service sync-app.sh start
+
+# sync app dir to user land to make mongodb happy since it cannot run inside vagrant synced folder
+echo 'binding /vagrant/app/ to /home/vagrant/app/ to make mongodb happy'
+sudo bindfs -o nonempty /vagrant/app/ /home/vagrant/app/
