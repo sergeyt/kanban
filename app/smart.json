@@ -2,7 +2,6 @@
   "packages": {
   },
   "meteor": {
-    "git": "https://github.com/meteor/meteor.git",
-    "branch": "master"
+    "tag": "v0.7.0.1"
   }
 }
