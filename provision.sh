@@ -50,7 +50,7 @@ apt-packages-install     \
 <%= import 'bin/meteor.sh' %>
 
 # init app dir
-# sudo rsync -rtvu --progress /vagrant/app/ /home/vagrant/app/
+sudo rsync -rtvu --progress /vagrant/app/ /home/vagrant/app/
 
 # fix meteor-npm package
 cd /home/vagrant/app/packages/npm
