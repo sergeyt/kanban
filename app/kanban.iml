@@ -7,7 +7,6 @@
       <sourceFolder url="file://$MODULE_DIR$/client" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/public" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/packages" isTestSource="false" />
-      <excludeFolder url="file://$MODULE_DIR$/.meteor" />
       <excludeFolder url="file://$MODULE_DIR$/packages/accounts-fogbugz/.build" />
       <excludeFolder url="file://$MODULE_DIR$/packages/async/.build" />
       <excludeFolder url="file://$MODULE_DIR$/packages/bootstrap-3/.build" />

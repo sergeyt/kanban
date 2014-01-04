@@ -1,7 +1,26 @@
 {
-  "packages": {
-  },
-  "meteor": {
-    "tag": "v0.7.0.1"
-  }
+    "meteor": {
+        "tag": "v0.7.0.1"
+    },
+    "packages": {
+        "moment": {},
+        "gravatar": {},
+        "crypto-base": {},
+        "crypto-md5": {},
+        "npm": {},
+        "prettydate": {
+            "git": "https://github.com/sergeyt/node-prettydate"
+        },
+        "bootstrap-3": {},
+        "accounts-fogbugz": {},
+        "jquery-ui": {},
+        "jquery-ui-bootstrap": {},
+        "livequery": {},
+        "user-session": {
+            "git": "https://github.com/sergeyt/meteor-user-session"
+        },
+        "typeahead": {
+            "git": "https://github.com/sergeyt/meteor-typeahead"
+        }
+    }
 }
