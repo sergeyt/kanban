@@ -1,10 +1,10 @@
 {
   "dependencies": {
     "fogbugz.js": {
-      "version": "0.0.21",
+      "version": "0.0.22",
       "dependencies": {
         "request": {
-          "version": "2.27.0",
+          "version": "2.30.0",
           "dependencies": {
             "qs": {
               "version": "0.6.6"
@@ -14,6 +14,33 @@
             },
             "forever-agent": {
               "version": "0.5.0"
+            },
+            "node-uuid": {
+              "version": "1.4.1"
+            },
+            "mime": {
+              "version": "1.2.11"
+            },
+            "tough-cookie": {
+              "version": "0.9.15",
+              "dependencies": {
+                "punycode": {
+                  "version": "1.2.3"
+                }
+              }
+            },
+            "form-data": {
+              "version": "0.1.2",
+              "dependencies": {
+                "combined-stream": {
+                  "version": "0.0.4",
+                  "dependencies": {
+                    "delayed-stream": {
+                      "version": "0.0.5"
+                    }
+                  }
+                }
+              }
             },
             "tunnel-agent": {
               "version": "0.3.0"
@@ -32,6 +59,9 @@
                 }
               }
             },
+            "oauth-sign": {
+              "version": "0.3.0"
+            },
             "hawk": {
               "version": "1.0.0",
               "dependencies": {
@@ -49,44 +79,19 @@
                 }
               }
             },
-            "aws-sign": {
-              "version": "0.3.0"
-            },
-            "oauth-sign": {
-              "version": "0.3.0"
-            },
-            "cookie-jar": {
-              "version": "0.3.0"
-            },
-            "node-uuid": {
-              "version": "1.4.1"
-            },
-            "mime": {
-              "version": "1.2.11"
-            },
-            "form-data": {
-              "version": "0.1.2",
-              "dependencies": {
-                "combined-stream": {
-                  "version": "0.0.4",
-                  "dependencies": {
-                    "delayed-stream": {
-                      "version": "0.0.5"
-                    }
-                  }
-                },
-                "async": {
-                  "version": "0.2.9"
-                }
-              }
+            "aws-sign2": {
+              "version": "0.5.0"
             }
           }
         },
         "xml2js": {
-          "version": "0.2.8",
+          "version": "0.4.1",
           "dependencies": {
             "sax": {
               "version": "0.5.8"
+            },
+            "xmlbuilder": {
+              "version": "2.1.0"
             }
           }
         },
@@ -97,7 +102,10 @@
           "version": "1.5.2"
         },
         "jquery-xml2json": {
-          "version": "0.0.4"
+          "version": "0.0.5"
+        },
+        "async": {
+          "version": "0.2.9"
         }
       }
     }
