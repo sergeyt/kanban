@@ -42,6 +42,10 @@ Template.item.helpers({
 
 	commentCount: function() {
 		return (this.events || []).length;
+	},
+
+	isClosed: function(){
+		return this.status == 'done' || this.status == 'closed';
 	}
 });
 
