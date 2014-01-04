@@ -1,22 +1,21 @@
-function fetchSet(key, method){
-    if (!method) method = key;
-    var data = Session.get(key) || [];
-    Meteor.call(method, function(err,res){
-        if (EJSON.equals(res, data)){
-            return;
-        }
-        Session.set(key, res);
-    });
-    return JSON.stringify(data);
+function typeaheadDataSet(key, method){
+    var _key = key;
+    var _method = method;
+    return function(){
+        if (!_method) _method = _key;
+        var data = Session.get(_key) || [];
+        Meteor.call(_method, function(err,res){
+            if (EJSON.equals(res, data)){
+                return;
+            }
+            Session.set(_key, res);
+        });
+        return JSON.stringify(data);
+    };
 }
 
-Template.login.emails = function(){
-    return fetchSet('emails');
-};
-
-Template.login.endpoints = function(){
-    return fetchSet('endpoints');
-};
+Template.login.emails = typeaheadDataSet('emails');
+Template.login.endpoints = typeaheadDataSet('endpoints');
 
 Template.login.events({
 	'click .login-button': function(e, t) {
