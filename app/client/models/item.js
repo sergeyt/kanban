@@ -92,6 +92,8 @@ function abbr(name) {
 	switch (name.toLowerCase()) {
 		case 'alexander':
 			return 'Alex';
+        case 'konstantin':
+            return 'Kostya';
 	}
 	return name;
 }
