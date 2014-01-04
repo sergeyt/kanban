@@ -8,9 +8,6 @@
         "crypto-base": {},
         "crypto-md5": {},
         "npm": {},
-        "prettydate": {
-            "git": "https://github.com/sergeyt/node-prettydate"
-        },
         "bootstrap-3": {},
         "accounts-fogbugz": {},
         "jquery-ui": {},

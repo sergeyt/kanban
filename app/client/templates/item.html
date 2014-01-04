@@ -5,9 +5,11 @@
 				<span class="label label-info priority">P{{priority}}</span>
 				<span class="id {{idClass}}">{{id}}</span>
 			</div>
-			<div class="closed-time {{closedClass}}">
-				<span>{{closedShort}}</span>
+            {{#if closed}}
+			<div class="closed-time">
+				<span>{{timeago closed}}</span>
 			</div>
+            {{/if}}
 			<div class="assignee {{assigneeState}}">
 				<img src="{{avatarUrl}}"/>
 				<span>{{assigneeShortName}}</span>

@@ -7,10 +7,6 @@
       "crypto-base": {},
       "crypto-md5": {},
       "npm": {},
-      "prettydate": {
-        "git": "https://github.com/sergeyt/node-prettydate",
-        "branch": "master"
-      },
       "bootstrap-3": {},
       "accounts-fogbugz": {},
       "jquery-ui": {},
@@ -50,11 +46,6 @@
         "git": "https://github.com/arunoda/meteor-npm.git",
         "tag": "v0.2.6",
         "commit": "177ab6118de5bf8cffb19481343d5762ff7a2aaf"
-      },
-      "prettydate": {
-        "git": "https://github.com/sergeyt/node-prettydate",
-        "branch": "master",
-        "commit": "d4db971a65742555c04fc02eadf74edd90ade180"
       },
       "bootstrap-3": {
         "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",
