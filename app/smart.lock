@@ -7,6 +7,7 @@
       "crypto-base": {},
       "crypto-md5": {},
       "npm": {},
+      "power-queue": {},
       "bootstrap-3": {},
       "accounts-fogbugz": {},
       "jquery-ui": {},
@@ -46,6 +47,11 @@
         "git": "https://github.com/arunoda/meteor-npm.git",
         "tag": "v0.2.6",
         "commit": "177ab6118de5bf8cffb19481343d5762ff7a2aaf"
+      },
+      "power-queue": {
+        "git": "https://github.com/CollectionFS/Meteor-powerqueue.git",
+        "tag": "v0.9.0",
+        "commit": "d82c4a185947c44532db2929d86855aa2f689a43"
       },
       "bootstrap-3": {
         "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",

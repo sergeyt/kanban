@@ -4,7 +4,7 @@ var Fiber = Npm.require('fibers');
 // TODO async loading of boards, work items
 
 // deletes all functions from given object
-function delfuns(obj){
+function withoutFuncs(obj){
 	Object.keys(obj).forEach(function(key){
 		if (_.isFunction(obj[key])){
 			delete obj[key];
@@ -16,12 +16,31 @@ function delfuns(obj){
 function copy(record){
 	var obj = _.extend({}, record);
 	delete obj._id;
-	delfuns(obj);
+	withoutFuncs(obj);
 	return obj;
 }
 
+// Boards handling
+
+function loadBoards(user){
+	console.log("fetching boards");
+	return FogBugzService.fetchBoards(user).then(function(boards){
+		console.log('fetched %d boards', boards.length);
+		Meteor.pushTask(function(done){
+			updateBoards(boards);
+			done();
+		});
+		Meteor.pushTask(function(done){
+			onBoardsLoaded(user);
+			done();
+		});
+		Meteor.runTasks();
+	});
+}
+
 function updateBoards(boards){
-	console.log('fetched %d boards', boards.length);
+	// TODO try use async.parallel
+	console.log('updating/inserting boards');
 	for (var i = 0; i < boards.length; i++) {
 		var it = boards[i];
 		var existing = Boards.findOne({name:it.name});
@@ -39,7 +58,57 @@ function updateBoards(boards){
 	}
 }
 
+function onBoardsLoaded(user){
+	var boards = Boards.find({}).fetch();
+	if (boards.length === 0){
+		console.log('no boards');
+		return;
+	}
+
+	console.log('detecting current sprint');
+	var now = moment(new Date());
+	// TODO more inteligent depending on user team
+	// select closest sprint
+	var open = boards.filter(function(it){
+		var start = moment(new Date(it.start));
+		return now.diff(start, 'days') >= 0;
+	});
+	if (open.length === 0){
+		console.log('no open sprints');
+		return;
+	}
+
+	boards = _.sortBy(open, function(it){
+		var start = moment(new Date(it.start));
+		return now.diff(start, 'days');
+	});
+
+	selectBoard(user, boards[0]);
+}
+
+// WorkItems handling
+
+function selectBoard(user, board){
+	var userId = user._id;
+	console.log('fetching items for %s', board.name);
+	return FogBugzService.fetchItems(user, board).done(function(items){
+		Meteor.pushTask(function(done){
+			updateItems(items);
+			done();
+		});
+		Meteor.pushTask(function(done){
+			console.log('set active board for user', userId);
+			if (!UserSession.get('board', userId)){
+				UserSession.set('board', board.name, userId);
+			}
+			done();
+		});
+		Meteor.runTasks();
+	});
+}
+
 function updateItems(items){
+	// TODO try use async.parallel
 	console.log('fetched %d items', items.length);
 	for (var i = 0; i < items.length; i++) {
 		var it = copy(items[i]);
@@ -58,27 +127,7 @@ function updateItems(items){
 	}
 }
 
-function loadBoards(user){
-	console.log("fetching boards");
-	return FogBugzService.fetchBoards(user).then(function(boards){
-		return Fiber(function(){
-			updateBoards(boards);
-			return boards;
-		}).run();
-	});
-}
-
-function selectBoard(user, board){
-	console.log('fetching items for %s', board.name);
-	return FogBugzService.fetchItems(user, board).done(function(items){
-		return Fiber(function(){
-			updateItems(items);
-			// TODO why Meteor.userId() is called here?
-			// UserSession.set('board', board.name, user._id);
-			return items;
-		}).run();
-	});
-}
+// Misc
 
 function updateStatus(user, item, oldStatus, newStatus){
 
@@ -103,36 +152,7 @@ Meteor.methods({
 	onLogin: function(userId) {
 		var user = Meteor.users.findOne(userId);
 		if (!user) throw new Error("Cant find user " + userId);
-
-		loadBoards(user).done(function(){
-			Fiber(function(){
-				var boards = Boards.find({}).fetch();
-				if (boards.length === 0){
-					console.log('no boards');
-					return;
-				}
-
-				console.log('detecting current sprint');
-				var now = moment(new Date());
-				// TODO more inteligent depending on user team
-				// select closest sprint
-				var open = boards.filter(function(it){
-					var start = moment(new Date(it.start));
-					return now.diff(start, 'days') >= 0;
-				});
-				if (open.length === 0){
-					console.log('no open sprints');
-					return;
-				}
-
-				boards = _.sortBy(open, function(it){
-					var start = moment(new Date(it.start));
-					return now.diff(start, 'days');
-				});
-
-				selectBoard(user, boards[0]);
-			}).run();
-		});
+		loadBoards(user);
 	},
 
 	selectBoard: function(userId, name){
@@ -161,6 +181,7 @@ Meteor.methods({
 		updateStatus(user, item, oldStatus, newStatus);
 	},
 
+	// returns emails of all registered meteor.users
 	emails: function(){
 		var arr = [];
 		Meteor.users.find().fetch().forEach(function(u){
