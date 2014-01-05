@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "fogbugz.js": {
-      "version": "0.0.22",
+      "version": "0.0.24",
       "dependencies": {
         "request": {
           "version": "2.30.0",
@@ -96,7 +96,7 @@
           }
         },
         "q": {
-          "version": "0.9.7"
+          "version": "1.0.0"
         },
         "underscore": {
           "version": "1.5.2"
