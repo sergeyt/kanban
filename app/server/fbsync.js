@@ -1,6 +1,7 @@
-var Fiber = Npm.require('fibers');
-var SockJS = Meteor.require('sockjs-client');
-var Q = Meteor.require('q');
+var Fiber = Npm.require('fibers'),
+	SockJS = Meteor.require('sockjs-client'),
+	Q = Meteor.require('q'),
+	fogbugz = Meteor.require('fogbugz.js');
 
 function toJson(v) {
 	if (typeof v == 'string') {
@@ -18,15 +19,15 @@ function fbsync_startup() {
 	// TODO fetch new milestones
 }
 
-function logfail(p){
-	p.fail(function(err){
-		console.log(err);
+function logfail(promise){
+	promise.fail(function(err){
+		console.error(err);
 	});
-	return p;
+	return promise;
 }
 
 // helper function to create session with fogbugz service
-function fbc(endpoint) {
+function connect(endpoint) {
 	if (endpoint.charAt(endpoint.length - 1) != '/') {
 		endpoint += '/';
 	}
@@ -34,24 +35,24 @@ function fbc(endpoint) {
 	// TODO use admin credentials
 	var user = Meteor.users.findOne({"services.fogbugz.endpoint": endpoint});
 	if (!user) {
-		console.log("error: unknown fogbugz service " + endpoint);
+		console.error("unknown fogbugz service " + endpoint);
 		return Q.reject("unknown fogbugz service " + endpoint);
 	}
 
 	var service = user.services.fogbugz;
-	var fogbugz = Meteor.require('fogbugz.js');
 
-	console.log("[fbsync] service:", JSON.stringify(service, null, 2));
+	console.log("[fbsync] connecting to service:", JSON.stringify(service, null, 2));
 
-	var p = fogbugz({
+	var promise = fogbugz({
 		url: endpoint,
-		token: service.token,
+		token: service.token
 		// verbose: true // uncomment for verbose logging of fogbugz requests
 	});
 
-	return logfail(p);
+	return logfail(promise);
 }
 
+// fogbus event handler to sync the changed cases
 function fbsync(e) {
 	if (!e) return;
 
@@ -59,7 +60,7 @@ function fbsync(e) {
 
 	if (!e.from) {
 		// TODO handle anonymous event
-		console.log('[fbsync] does not support anonymous events for now');
+		console.warn('[fbsync] does not support anonymous events for now');
 		return;
 	}
 
@@ -70,22 +71,30 @@ function fbsync(e) {
 		return;
 	}
 
+	var id = e.id;
+
 	if (event.indexOf('case') >= 0) {
-		fbc(e.from).then(function(client) {
+		connect(e.from).then(function(client) {
 			console.log("[fbsync] fetching case %s", id);
 			return logfail(client.caseInfo(id));
 		}).then(function(info) {
-			Fiber(function(){
-				console.log("[fbsync] fetched case %s: %s", info.id, info.title);
-				var board = resolveBoard(info);
-				// TODO handle new milestones
-				var item = FogBugzService.toWorkItem(info, board);
-				return updateWorkItem(item);
-			}).run();
+			Meteor.pushTask(function(done){
+				syncCase(info);
+				done();
+			});
+			Meteor.runTasks();
 		});
 	} else {
 		console.log('[fbsync] unhandled event '+ event);
 	}
+}
+
+function syncCase(info){
+	console.log("[fbsync] fetched case %s: %s", info.id, info.title);
+	var board = resolveBoard(info);
+	// TODO handle new milestones
+	var item = FogBugzService.toWorkItem(info, board);
+	return updateWorkItem(item);
 }
 
 function resolveBoard(item){
@@ -128,10 +137,11 @@ function fogbus_startup() {
 		sock.on('data', function(e) {
 			e = toJson(e);
 			console.log('[fogbus] message:\n', JSON.stringify(e, null, 2));
-			// meteor requires fibers
-			Fiber(function() {
+			Meteor.pushTask(function(done) {
 				fbsync(e);
-			}).run();
+				done();
+			});
+			Meteor.runTasks();
 		});
 	});
 }
