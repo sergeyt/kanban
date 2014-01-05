@@ -96,13 +96,14 @@ function selectBoard(user, board){
 			updateItems(items);
 			done();
 		});
-		Meteor.pushTask(function(done){
-			console.log('set active board for user', userId);
-			if (!UserSession.get('board', userId)){
-				UserSession.set('board', board.name, userId);
-			}
-			done();
-		});
+		// TODO set active board for user, code below does not work, why?
+//		Meteor.pushTask(function(done){
+//			console.log('set active board for user', userId);
+//			if (!UserSession.get('board', userId)){
+//				UserSession.set('board', board.name, userId);
+//			}
+//			done();
+//		});
 		Meteor.runTasks();
 	});
 }
