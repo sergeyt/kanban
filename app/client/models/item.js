@@ -50,20 +50,12 @@ Template.item.helpers({
 });
 
 Template.item.events({
-	'click .work-item a': function(e) {
-		if (!e.ctrlKey) return;
+	'click .work-item a': function(event, tpl) {
+		if (!event.ctrlKey) return;
 
-		e.preventDefault();
+		event.preventDefault();
 
-		var tr = Template.itemDetails({
-			item: this,
-			eventList: this.events || []
-		});
-
-		var frag = Meteor.render(tr);
-		var id = frag.firstElementChild.id;
-		document.body.appendChild(frag);
-		$("#" + id).modal({show: true});
+		Meteor.Kanban.selectedItem.set(tpl.data);
 	}
 });
 

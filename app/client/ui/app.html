@@ -18,6 +18,7 @@
 	<!-- board view -->
 	{{#if currentUser}}
 	<div class="row board-host {{view}} {{effects}}">
+		{{>itemDetails}}
 		{{>board}}
 		<div class="col-md-2">
 			{{>filters}}

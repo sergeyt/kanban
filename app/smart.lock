@@ -2,6 +2,14 @@
   "meteor": {},
   "dependencies": {
     "basePackages": {
+      "reactive-property": {
+        "git": "https://github.com/CollectionFS/Meteor-reactive-property.git",
+        "branch": "master"
+      },
+      "reactive-list": {
+        "git": "https://github.com/CollectionFS/Meteor-reactive-list.git",
+        "branch": "master"
+      },
       "moment": {},
       "gravatar": {},
       "crypto-base": {},
@@ -23,6 +31,16 @@
       }
     },
     "packages": {
+      "reactive-property": {
+        "git": "https://github.com/CollectionFS/Meteor-reactive-property.git",
+        "branch": "master",
+        "commit": "2318caecbd9adb8b2ca923f656d5cff44de900ef"
+      },
+      "reactive-list": {
+        "git": "https://github.com/CollectionFS/Meteor-reactive-list.git",
+        "branch": "master",
+        "commit": "c19e3ea85d62df46a4029d37b5bf704375b5dfea"
+      },
       "moment": {
         "git": "https://github.com/acreeger/meteor-moment.git",
         "tag": "v2.2.1",
@@ -50,8 +68,8 @@
       },
       "power-queue": {
         "git": "https://github.com/CollectionFS/Meteor-powerqueue.git",
-        "tag": "v0.9.0",
-        "commit": "d82c4a185947c44532db2929d86855aa2f689a43"
+        "tag": "v0.9.1",
+        "commit": "b9c28d844bd495ac220772d4c6adc5e4b855553e"
       },
       "bootstrap-3": {
         "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",

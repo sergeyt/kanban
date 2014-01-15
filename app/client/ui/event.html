@@ -3,13 +3,12 @@
 	<div class="item-event panel panel-default">
 		<div class="panel-heading">
 			<p class="panel-title">
-				<a href="#{{collapseId}}" data-toggle="collapse">
-					<span class="label label-info pull-right">{{timeago date}}</span>
-					<span>{{description}}</span>>
-				</a>
+				<i class="icon-collapsed pull-left btn-expand"/>
+				<span class="label label-info pull-right">{{timeago date}}</span>
+				<span>{{description}}</span>>
 			</p>
 		</div>
-		<div id="{{collapseId}}" class="panel-collapse collapse in">
+		<div class="panel-collapse collapse">
 			<p>{{{content}}}</p>
 		</div>
 	</div>

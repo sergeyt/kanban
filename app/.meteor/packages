@@ -1,6 +1,10 @@
 # Meteor packages used by this project, one per line.
 
 standard-app-packages
+less
+coffeescript
+reactive-property
+reactive-list
 npm
 underscore
 backbone
@@ -19,7 +23,6 @@ insecure
 bootstrap-3
 typeahead
 fogbugz-service
-less
 gravatar
 moment
 power-queue
