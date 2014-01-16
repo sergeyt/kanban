@@ -38,8 +38,8 @@ Template.item.helpers {
 
 Template.item.events =
 	'click .work-item a': (event, tpl) ->
-		# todo fix conflict with drag and drop
-		return if not event.ctrlKey
+		selectedItem = Meteor.Kanban.selectedItem?.get()
+		return if not event.ctrlKey and not selectedItem
 
 		event.preventDefault()
 

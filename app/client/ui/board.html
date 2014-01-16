@@ -1,7 +1,7 @@
 <template name="board">
 	{{#with board}}
-	{{#each columns}}
-	{{>column}}
-	{{/each}}
+		{{#each column_list}}
+			{{>column}}
+		{{/each}}
 	{{/with}}
 </template>

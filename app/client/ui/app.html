@@ -18,12 +18,18 @@
 	<!-- board view -->
 	{{#if currentUser}}
 	<div class="row board-host {{view}} {{effects}}">
-		{{>itemDetails}}
-		{{>board}}
-		<div class="col-md-2">
-			{{>filters}}
-			{{>legend}}
-		</div>
+		{{#if selectedItem}}
+			{{>board}}
+			<div class="col-md-8">
+				{{>itemDetails}}
+			</div>
+		{{else}}
+			{{>board}}
+			<div class="col-md-2">
+				{{>filters}}
+				{{>legend}}
+			</div>
+		{{/if}}
 	</div>
 	{{/if}}
 

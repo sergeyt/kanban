@@ -19,13 +19,16 @@ Meteor.Kanban.Column = (name) ->
 
 # todo inline to Meteor.Kanban.Column
 columnItems = (col) ->
-	filter = {status: col.status}
-	filters = Session.get('filters')
+	filter = {}
 
-	if filters.length > 1
-		filter = {$and:[filter, {$or:filters}]}
-	else if filters.length > 0
-		filter = {$and:[filter, filters[0]]}
+	if col.status != 'any'
+		filter = {status: col.status}
+		filters = Session.get('filters')
+
+		if filters.length > 1
+			filter = {$and:[filter, {$or:filters}]}
+		else if filters.length > 0
+			filter = {$and:[filter, filters[0]]}
 
 	WorkItems.find(filter, {sort: ['priority', 'id']}).fetch()
 
@@ -41,7 +44,13 @@ Template.column.helpers {
 		p = columnItems(this).length / WorkItems.find().count()
 		(p * 100).toFixed(1)
 
+	closeable: ->
+		@status != 'any'
+
 	width: ->
+		selectedItem = Meteor.Kanban.selectedItem?.get()
+		return 4 if selectedItem
+
 		board = Meteor.Kanban.currentBoard()
 		return 2 if not board
 
