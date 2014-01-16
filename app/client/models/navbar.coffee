@@ -9,7 +9,7 @@ Template.navbar.helpers {
 		if UserSession.get('effects') == 'cool' then 'active' else ''
 }
 
-Template.navbar.events {
+Template.navbar.events =
 	'click .btn-compact-view': ->
 		UserSession.set 'view', 'compact'
 
@@ -22,4 +22,3 @@ Template.navbar.events {
 
 	'click .btn-refresh': ->
 		Meteor.call 'onLogin', Meteor.userId()
-}

@@ -18,7 +18,7 @@ Template.filters.items = ->
 		count = WorkItems.find(it.filter).count()
 		_.extend {}, it, {count: count}
 
-Template.filters.events {
+Template.filters.events =
 	'click .filter': (event) ->
 
 		target = $(event.target)
@@ -38,5 +38,4 @@ Template.filters.events {
 					filters.splice(index, 1)
 					break
 
-		Session.set('filters', filters)
-}
+		Session.set 'filters', filters
