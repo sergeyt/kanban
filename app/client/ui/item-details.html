@@ -9,6 +9,13 @@
 			</h4>
 		</div>
 		<div class="panel-body">
+			<div>
+				<div class="contributors" style="margin-bottom: 4px">
+					{{#each contributors}}
+						<img src="{{gravatar email 24}}" title="{{name}}"/>
+					{{/each}}
+				</div>
+			</div>
 			<div class="panel-group">
 				<div class="tabbable">
 					<ul class="nav nav-tabs">

@@ -21,11 +21,6 @@ Template.item.helpers {
 	# todo could be converted to Handlebars helper
 	assigneeShortName: -> shortName @assignee
 
-	# todo remove use gravatar helper Handlebars
-	avatarUrl: ->
-		return '' if not @assignee or not @assignee.email
-		Gravatar.imageUrl @assignee.email, {s: 20}
-
 	# todo inline in view
 	assigneeState: -> if shortName(@assignee) == 'CLOSED' then 'hidden' else ''
 
