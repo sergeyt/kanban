@@ -1,10 +1,10 @@
 {
   "dependencies": {
     "fogbugz.js": {
-      "version": "0.0.24",
+      "version": "0.0.26",
       "dependencies": {
         "request": {
-          "version": "2.30.0",
+          "version": "2.31.0",
           "dependencies": {
             "qs": {
               "version": "0.6.6"
