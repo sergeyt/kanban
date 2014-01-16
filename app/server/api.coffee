@@ -123,7 +123,8 @@ updateStatus = (user, item, oldStatus, newStatus) ->
 	try
 
 		FogBugzService.updateStatus user, item, newStatus
-		console.log 'item %s status was update on %s, assigned to %s', item.id, item.status, item.assignee.name
+		console.log 'item %s status was update on %s, assigned to %s',
+			item.id, item.status, item.assignee.name
 
 		# commit changes
 		WorkItems.update itemId, item
@@ -135,9 +136,10 @@ updateStatus = (user, item, oldStatus, newStatus) ->
 
 Meteor.methods {
 
-	# TODO try to avoid need to call this from client, subscribe on some server event
-
+	# TODO try to avoid need to call onLogin from client
+	# subscribe on some server event
 	# called when user is logged in to load boards, etc
+
 	onLogin: (userId) ->
 		user = Meteor.users.findOne userId
 		throw new Error "Cant find user #{userId}" if not user
@@ -162,7 +164,8 @@ Meteor.methods {
 		item = WorkItems.findOne itemId
 		throw new Error "Cant find work item #{itemId}" if not item
 
-		console.log 'updating item %s by %s from status %s on %s', item.id, user.username, oldStatus, newStatus
+		console.log 'updating item %s by %s from status %s on %s',
+			item.id, user.username, oldStatus, newStatus
 
 		# predictive change to quickly update clients
 		WorkItems.update itemId, {$set: {status: newStatus}}
