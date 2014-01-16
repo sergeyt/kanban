@@ -12,7 +12,7 @@
 			<div>
 				<div class="contributors" style="margin-bottom: 4px">
 					{{#each contributors}}
-						<img src="{{gravatar email 24}}" title="{{name}}"/>
+						<img src="{{gravatar email 32}}" title="{{name}} {{#if email}}&lt;{{email}}&gt;{{/if}}"/>
 					{{/each}}
 				</div>
 			</div>
