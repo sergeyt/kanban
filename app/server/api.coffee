@@ -1,5 +1,21 @@
 Fiber = Npm.require 'fibers'
 
+# returns node-style async func for given promise
+async = (promise) ->
+	(cb) ->
+		promise
+		.then (res) ->
+				cb null, res
+		.fail (err) ->
+				cb err, null
+
+sync = (promise) ->
+	payload = Meteor.sync async promise
+	if payload.error
+		console.error payload.error
+		return []
+	return payload.result || []
+
 # TODO resolve bug tracking service from user context
 # TODO async loading of boards, work items
 
@@ -172,6 +188,11 @@ Meteor.methods {
 
 		updateStatus user, item, oldStatus, newStatus
 
+	fetch_users: (userId) ->
+		user = Meteor.users.findOne userId
+		throw new Error "Cant find user #{userId}" if not user
+		sync FogBugzService.users(user)
+
 	# returns emails of all registered meteor.users
 	emails: ->
 		arr = []
@@ -181,8 +202,10 @@ Meteor.methods {
 			return if not (user.emails && user.emails.length > 0)
 
 			addrs = user.emails
-				.filter (e) -> e.verified and e.address
-				.map (e) -> e.address
+				.filter (e) ->
+					e.verified and e.address
+				.map (e) ->
+					e.address
 			arr = arr.concat addrs
 
 		_.uniq arr

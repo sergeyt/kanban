@@ -153,6 +153,14 @@ FogBugzService = {
 		});
 	},
 
+	// fetch fogbugz user
+	users: function(user){
+		// todo filter unnecessary fields
+		return fbc(user).then(function(client){
+			return client.users();
+		});
+	},
+
 	// TODO remove hardcoded statuses, move to config
 	updateStatus: function(user, item, status){
 
