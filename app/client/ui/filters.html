@@ -7,13 +7,17 @@
 		<div class="panel-body">
 			<ul class="list-group">
 				{{#each items}}
-				<li class="list-group-item filter {{css}}">
-					<span class="color pull-left">&nbsp;</span>
-					<span class="badge pull-right">{{count}}</span>
-					<span>{{label}}</span>
-				</li>
+					{{>filter}}
 				{{/each}}
 			</ul>
 		</div>
 	</div>
+</template>
+
+<template name="filter">
+	<li class="list-group-item filter {{css}} {{selected}}">
+		<span class="color pull-left">&nbsp;</span>
+		<span class="badge pull-right">{{count}}</span>
+		<span>{{label}}</span>
+	</li>
 </template>

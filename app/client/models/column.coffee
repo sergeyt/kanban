@@ -20,15 +20,15 @@ Meteor.Kanban.Column = (name) ->
 # todo inline to Meteor.Kanban.Column
 columnItems = (col) ->
 	filter = {}
+	filter = {status: col.status} if col.status != 'any'
 
-	if col.status != 'any'
-		filter = {status: col.status}
-		filters = Session.get('filters')
+	filters = Session.get('filters')
 
-		if filters.length > 1
-			filter = {$and:[filter, {$or:filters}]}
-		else if filters.length > 0
-			filter = {$and:[filter, filters[0]]}
+	# add filters
+	if filters.length > 1
+		filter = {$and:[filter, {$or:filters}]}
+	else if filters.length > 0
+		filter = {$and:[filter, filters[0]]}
 
 	WorkItems.find(filter, {sort: ['priority', 'id']}).fetch()
 

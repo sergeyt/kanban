@@ -18,24 +18,25 @@ Template.filters.items = ->
 		count = WorkItems.find(it.filter).count()
 		_.extend {}, it, {count: count}
 
-Template.filters.events =
-	'click .filter': (event) ->
+index_of = (filter) ->
+	filter = JSON.stringify filter
+	filters = Session.get('filters') || []
+	for it, index in filters
+		return index if JSON.stringify(it) == filter
+	-1
 
-		target = $(event.target)
-		target = target.parent('.filter') if not target.is('.filter')
-		target.toggleClass('selected')
+Template.filter.selected = ->
+	if index_of(@filter) >= 0 then 'selected' else ''
 
-		# update session filters
+Template.filter.events =
+	'click .filter': (event, tpl) ->
+
 		filters = (Session.get('filters') || []).slice()
 
-		if target.is('.selected')
-			filters.push(this.filter)
+		index = index_of tpl.data.filter
+		if index < 0
+			filters.push(tpl.data.filter)
 		else
-			# TODO make some utility function/extension
-			filter = JSON.stringify(this.filter)
-			for f, index in filters
-				if JSON.stringify(f) == filter
-					filters.splice(index, 1)
-					break
+			filters.splice(index, 1)
 
 		Session.set 'filters', filters
