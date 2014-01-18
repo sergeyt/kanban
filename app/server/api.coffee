@@ -193,6 +193,11 @@ Meteor.methods {
 		throw new Error "Cant find user #{userId}" if not user
 		sync FogBugzService.users(user)
 
+	comment: (userId, itemId, text) ->
+		user = Meteor.users.findOne userId
+		throw new Error "Cant find user #{userId}" if not user
+		sync FogBugzService.comment user, itemId, text
+
 	# returns emails of all registered meteor.users
 	emails: ->
 		arr = []

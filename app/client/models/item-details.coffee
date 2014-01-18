@@ -1,3 +1,4 @@
+# returns selected item
 selectedItem = ->
 	Meteor.Kanban?.selectedItem?.get()
 
@@ -15,7 +16,7 @@ resolve_email = (user) ->
 Template.itemDetails.item = ->
 	selectedItem()
 
-Template.itemDetails.eventList = ->
+Template.itemDetails.event_list = ->
 	selectedItem().events || []
 
 Template.itemDetails.contributors = ->
@@ -35,3 +36,23 @@ Template.itemDetails.contributors = ->
 Template.itemDetails.events =
 	'click .close': ->
 		Meteor.Kanban.selectedItem.set null
+
+	'click .btn-add-comment': ->
+		input = $ '.comment-input'
+		comment = input.val()
+		return if not comment
+
+		btn = $ '.btn-add-comment'
+		input.attr 'disabled', 'disabled'
+		btn.attr 'disabled', 'disabled'
+
+		itemId = selectedItem().id
+
+		res_handler = (err, res) ->
+			input.removeAttr 'disabled'
+			btn.removeAttr 'disabled'
+			# todo use bootbox to show alerts
+			return alert err if err
+			input.val('')
+
+		Meteor.call 'comment', Meteor.userId(), itemId, comment, res_handler

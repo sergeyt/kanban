@@ -161,6 +161,13 @@ FogBugzService = {
 		});
 	},
 
+	// adds comment to given case
+	comment: function(user, itemId, text){
+		return fbc(user).then(function(client){
+			return client.log(itemId, text);
+		});
+	},
+
 	// TODO remove hardcoded statuses, move to config
 	updateStatus: function(user, item, status){
 
