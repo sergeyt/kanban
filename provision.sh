@@ -49,6 +49,9 @@ apt-packages-install     \
 <%= import 'bin/mongo.sh' %>
 <%= import 'bin/meteor.sh' %>
 
+# making bin scripts as executables
+sudo chmod a+x /vagrant/bin/
+
 # init app dir
 sudo rsync -rtvu --progress /vagrant/app/ /home/vagrant/app/
 
@@ -56,14 +59,9 @@ sudo rsync -rtvu --progress /vagrant/app/ /home/vagrant/app/
 cd /home/vagrant/app/packages/npm
 npm install
 
-# start sync service
+# todo start sync service
 # echo starting sync service...
-# sudo chmod a+x /vagrant/bin/
 # sudo cp /vagrant/etc/init.d/sync-app.sh /etc/init.d/sync-app.sh
 # sudo chmod a+x /etc/init.d/sync-app.sh
 # sudo update-rc.d sync-app.sh defaults
 # sudo service sync-app.sh start
-
-# sync app dir to user land to make mongodb happy since it cannot run inside vagrant synced folder
-# echo 'binding /vagrant/app/ to /home/vagrant/app/ to make mongodb happy'
-# sudo bindfs -o nonempty /vagrant/app/ /home/vagrant/app/
