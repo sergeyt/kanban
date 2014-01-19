@@ -22,7 +22,7 @@ columnItems = (col) ->
 	filter = {}
 	filter = {status: col.status} if col.status != 'any'
 
-	filters = Session.get('filters')
+	filters = Session.get('filters') || []
 
 	# add filters
 	if filters.length > 1

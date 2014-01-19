@@ -1,3 +1,5 @@
+__has = Object.prototype.hasOwnProperty
+
 Template.filters.items = ->
 	# gather all tags and categories from db
 	cats = []
@@ -28,7 +30,7 @@ index_of = (filter) ->
 
 find_index = (list, predicate) ->
 	for it, index in list
-		return index if predicae(it)
+		return index if predicate(it)
 	-1
 
 toggle_filter = (filter) ->
@@ -50,33 +52,68 @@ Template.filter.events =
 	'click .filter': (event, tpl) ->
 		toggle_filter tpl.data.filter
 
-# priority filters
+# ----------------
+# Priority Filters
+# ----------------
 
-is_selected_priority = (p) ->
+unwrap_and = (filter) ->
+	p1 = filter.$and[0].priority.$gte
+	p2 = filter.$and[1].priority.$lte
+	[p1, p2]
+
+is_priority_filter = (filter) ->
+	has_priority = (f) ->
+		__has.call f, 'priority'
+	is_and = (f) ->
+		_.isArray(f.$and) and f.$and.length == 2 and f.$and.every(has_priority)
+	has_priority(filter) or is_and(filter)
+
+current_priority_filter = ->
 	filters = Session.get('filters') || []
-	selected = filters.filter (f) ->
-		f.hasOwnProperty 'priority'
-	return false if selected.length == 0
+	selected = filters.filter is_priority_filter
+	if selected.length == 1 then selected[0] else null
 
-	filter = selected[0]
-	if filter.priority.hasOwnProperty('$and')
-		p1 = filter.priority.$and[0].$gte
-		p2 = filter.priority.$and[1].$lte
-		return p1 == p || p2 == p
+is_selected_priority = (priority) ->
+	current = current_priority_filter()
+	return false if not current
 
-	filter.priority.$lte == p
+	if _.isArray current.$and
+		[p1, p2] = unwrap_and current
+		return p1 == priority || p2 == priority
+
+	current.priority.$lte == priority
+
+priority_filters = [1, 2, 3, 4, 5, 6].map (p) ->
+	priority = p
+	item =
+		priority: priority
+		label: "P#{p}"
+		filter: {priority: {$lte: p}}
+		selected: ->
+			if is_selected_priority(priority) then 'label-success' else 'label-default'
+	item
 
 Template.priority_filters.items = ->
-	# todo fetch priorities from db
-	[1, 2, 3, 4, 5, 6].map (p) ->
-		filter = {priority: {$lte: p}}
-		item =
-			priority: p
-			label: "P#{p}"
-			filter: filter
-			selected: ->
-				if is_selected_priority(p) >= 0 then 'label-success' else 'label-default'
-		item
+	priority_filters
+
+priority_range = (p1, p2) ->
+	f1 = {priority: {$gte: p1}}
+	f2 = {priority: {$lte: p2}}
+	{$and: [f1, f2]}
+
+update_priority_filter = (current, priority) ->
+	if current.hasOwnProperty('$and')
+		[p1, p2] = unwrap_and current
+		switch
+			when priority == p1 then {priority: {$lte: p2}}
+			when priority == p2 then {priority: {$lte: p1}}
+			when priority > p2 then priority_range p1, priority
+			when priority < p1 then priority_range priority, p2
+			else current
+	else
+		p = current.priority.$lte
+		return priority_range p, priority if priority > p
+		priority_range priority, p
 
 Template.priority_filter.events =
 	'click .priority-item': (event, tpl) ->
@@ -84,32 +121,14 @@ Template.priority_filter.events =
 		priority = tpl.data.priority
 		filter = tpl.data.filter
 		filters = Session.get('filters') || []
-		index = find_index filters, (f) ->
-			f.hasOwnProperty 'priority'
+		index = find_index filters, is_priority_filter
 
-		if index < 0
+		return toggle_filter filter if index < 0
+
+		current = filters[index]
+		if JSON.stringify(current) == JSON.stringify(filter)
 			return toggle_filter filter
 
-		other = filters[index]
-		if JSON.stringify(other) == JSON.stringify(filter)
-			return toggle_filter filter
-
-		if other.priority.hasOwnProperty('$and')
-			p1 = other.priority.$and[0].$gte
-			p2 = other.priority.$and[1].$lte
-			if priority == p1
-				filters[index] = {priority: {$lte: p2}}
-			else if priority == p2
-				filters[index] = {priority: {$lte: p1}}
-			else if priority > p2
-				filters[index] = {priority: {$and: [{$gte: p1}, {$lte: priority}]}}
-			else if priority < p1
-				filters[index] = {priority: {$and: [{$gte: priority}, {$lte: p2}]}}
-		else
-			p = other.priority.$lte
-			if priority > p
-				filters[index] = {priority: {$and: [{$gte: p}, {$lte: priority}]}}
-			else
-				filters[index] = {priority: {$and: [{$gte: priority}, {$lte: p}]}}
+		filters[index] = update_priority_filter current, priority
 
 		Session.set 'filters', filters
