@@ -28,6 +28,16 @@ var ItemStatus = {
 	done: 'done'
 };
 
+virtual_user_patterns = ['team', 'qa', 'dev'].map(function(s){
+	return new RegExp("\\s*" + s + "\\s*", "i");
+});
+
+function is_virtual_user(name){
+	return virtual_user_patterns.some(function(e){
+		return e.test(name);
+	});
+}
+
 // maps fogbugz case status to kanban invariant status
 function resolveStatus(it) {
 	var s = ((it.status || {}).name || '').toLowerCase();
@@ -36,9 +46,7 @@ function resolveStatus(it) {
 	if (s.indexOf('close') >= 0) return 'done';
 	// TODO detect virtual users using data from fogbugz
 	var assignee = (it.assignee.name || '').toLowerCase();
-	var isTeam = ['team', 'qa', 'dev'].some(function(s){
-		return assignee.indexOf(s) >= 0;
-	});
+	var isTeam = is_virtual_user(assignee);
 	return isTeam ? 'active' : 'doing';
 }
 

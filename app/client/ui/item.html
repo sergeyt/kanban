@@ -10,10 +10,14 @@
 				<span>{{timeago closed}}</span>
 			</div>
             {{/if}}
+			{{#if assignee}}
 			<div class="assignee {{assignee_state}}" title="{{assignee_title}}" data-toggle="tooltip" data-placement="top">
+				{{#unless assignee_virtual}}
 				<img src="{{gravatar assignee.email 20}}"/>
+				{{/unless}}
 				<span>{{short_name assignee}}</span>
 			</div>
+			{{/if}}
 			<p class="title">{{title}}</p>
 			<div class="comment-count" title="{{comment_count}} comments" data-toggle="tooltip" data-placement="top">
 				<i class="glyphicon glyphicon-comment"/>

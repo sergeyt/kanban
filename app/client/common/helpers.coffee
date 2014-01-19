@@ -18,13 +18,15 @@ abbr = (name) ->
 Meteor.Helpers = {} if not Meteor.Helpers
 Meteor.Helpers.short_name = short_name
 
+# formats as relative date
 Handlebars.registerHelper "timeago", (date) ->
 	'some time ago' if not date
 	dateObj = new Date(date)
 	moment(dateObj).fromNow().replace(/\ /g, '\u00a0')
 
+# fetch avatar image from gravatar
 Handlebars.registerHelper "gravatar", (email, size) ->
-	Gravatar.imageUrl(email, {s: size})
+	Gravatar.imageUrl(email, {s: size, d: 'wavatar'})
 
 Handlebars.registerHelper "short_name", (user) ->
 	short_name user

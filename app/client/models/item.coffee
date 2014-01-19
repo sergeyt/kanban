@@ -1,3 +1,10 @@
+virtual_user_patterns = ['team', 'qa', 'dev'].map (s) ->
+	new RegExp("\\s*" + s + "\\s*", "i")
+
+is_virtual_user = (name) ->
+	virtual_user_patterns.some (e) ->
+		e.test name
+
 # always be subscribed to the work items for the selected board.
 workItemsHandle = null
 
@@ -23,8 +30,10 @@ Template.item.helpers {
 		if Meteor.Helpers.short_name(@assignee) == 'CLOSED' then 'hidden' else ''
 
 	assignee_title: ->
-		return '' if not @assignee
 		return "#{@assignee.name} <#{@assignee.email}>"
+
+	assignee_virtual: ->
+		is_virtual_user @assignee.name
 
 	comment_count: -> (@events || []).length
 
