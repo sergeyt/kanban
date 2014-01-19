@@ -2,7 +2,7 @@
 	{{#if item}}
 	<div id="item-details" class="panel">
 		<div class="panel-heading">
-			<button type="button" class="close" aria-hidden="true">&times;</button>
+			<button type="button" class="close" aria-hidden="true" title="Go to board mode" data-toggle="tooltip" data-placement="left">&times;</button>
 			<h4 class="panel-title">
 				<span class="label label-primary">{{item.id}}</span>
 				<span>{{item.title}}</span>
@@ -18,19 +18,18 @@
 			</div>
 			<div class="panel-group">
 				<div class="tabbable">
-					<ul class="nav nav-tabs">
-						<li class="active"><a href="#comment-editor" data-toggle="tab">Write</a></li>
-						<li><a href="#comment-preview" data-toggle="tab">Preview</a></li>
+					<ul class="nav nav-tabs comment-tabs">
+						<li class="active"><a class="comment-editor-tab" href="#comment-editor" data-toggle="tab">Write</a></li>
+						<li><a class="comment-preview-tab" href="#comment-preview" data-toggle="tab">Preview</a></li>
 					</ul>
 					<div class="tab-content">
 						<div class="tab-pane active" id="comment-editor">
 							<div class="form-group">
-								<textarea class="form-control comment-input"/>
+								<textarea class="form-control comment-input" style="height: 200px"/>
 							</div>
 						</div>
 						<div class="tab-pane" id="comment-preview">
-							<div class="comment-preview">
-								Here should be comment preview
+							<div class="comment-preview" style="height: 200px">
 							</div>
 						</div>
 					</div>

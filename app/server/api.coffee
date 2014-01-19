@@ -1,4 +1,14 @@
 Fiber = Npm.require 'fibers'
+marked = Meteor.require 'marked'
+hljs = Meteor.require 'highlight.js'
+
+highlight = (code, lang) ->
+	if lang then hljs.highlight(lang, code).value else code
+
+# highlighting with highlight.js
+marked.setOptions
+	langPrefix: 'hljs code '
+	highlight: highlight
 
 # returns node-style async func for given promise
 async = (promise) ->
@@ -197,6 +207,10 @@ Meteor.methods {
 		user = Meteor.users.findOne userId
 		throw new Error "Cant find user #{userId}" if not user
 		sync FogBugzService.comment user, itemId, text
+
+	# renders given markdown string
+	markdown: (content) ->
+		marked content
 
 	# returns emails of all registered meteor.users
 	emails: ->
