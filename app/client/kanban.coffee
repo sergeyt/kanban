@@ -6,7 +6,7 @@ Meteor.Kanban.resolve_email = (user) ->
 	return '' if not user
 
 	key = 'fogbugz-users'
-	users = UserSession.get key || []
+	users = UserSession.get(key) || []
 
 	if not users.length
 		Meteor.call 'fetch_users', Meteor.userId(), (err, res) ->
@@ -16,4 +16,4 @@ Meteor.Kanban.resolve_email = (user) ->
 	found = _.find users, (it) ->
 		it.id == user.id or it.name == user.name
 
-	found.email || ''
+	if found then found.email || '' else ''
