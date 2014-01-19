@@ -6,12 +6,25 @@
 		</div>
 		<div class="panel-body">
 			<ul class="list-group">
+				{{>priority_filters}}
 				{{#each items}}
 					{{>filter}}
 				{{/each}}
 			</ul>
 		</div>
 	</div>
+</template>
+
+<template name="priority_filters">
+	<li class="list-group-item">
+		{{#each items}}
+			{{>priority_filter}}
+		{{/each}}
+	</li>
+</template>
+
+<template name="priority_filter">
+	<span class="priority-item label {{selected}}" title="Priority {{priority}}" data-toggle="tooltip" data-placement="top">{{label}}</span>
 </template>
 
 <template name="filter">
