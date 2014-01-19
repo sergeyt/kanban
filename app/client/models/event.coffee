@@ -2,6 +2,9 @@
 Template.event.content = ->
 	@html || @text
 
+Template.event.email = ->
+	Meteor.Kanban.resolve_email @person
+
 Template.event.rendered = ->
 	$e =  $ @find '.item-event'
 	btn = $e.find '.btn-expand'

@@ -5,6 +5,9 @@
 			<p class="panel-title">
 				<i class="icon-collapsed pull-left btn-expand"/>
 				<span class="label label-info pull-right">{{timeago date}}</span>
+				{{#if email}}
+				<img src="{{gravatar email 24}}" title="{{person.name}} &lt;{{email}}&gt;" data-toggle="tooltip" data-placement="top"/>
+				{{/if}}
 				<span>{{description}}</span>>
 			</p>
 		</div>
