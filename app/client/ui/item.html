@@ -1,23 +1,23 @@
 <template name="item">
-	<li class="work-item {{category}} {{goalClass}}" title="{{assignee.name}}: {{title}}">
+	<li class="work-item {{category}} {{goal_class}}" title="{{assignee.name}}: {{title}}" data-toggle="tooltip" data-placement="right">
 		<a href="#">
 			<div class="heading">
 				<span class="label label-info priority">P{{priority}}</span>
-				<span class="id {{idClass}}">{{id}}</span>
+				<span class="id {{id_class}}">{{id}}</span>
 			</div>
-            {{#if isClosed}}
+            {{#if is_closed}}
 			<div class="closed-time">
 				<span>{{timeago closed}}</span>
 			</div>
             {{/if}}
-			<div class="assignee {{assigneeState}}">
+			<div class="assignee {{assignee_state}}" title="{{assignee_title}}" data-toggle="tooltip" data-placement="top">
 				<img src="{{gravatar assignee.email 20}}"/>
-				<span>{{assigneeShortName}}</span>
+				<span>{{short_name assignee}}</span>
 			</div>
 			<p class="title">{{title}}</p>
-			<div class="comment-count" title="{{commentCount}} comments" data-toggle="tooltip" data-placement="top">
+			<div class="comment-count" title="{{comment_count}} comments" data-toggle="tooltip" data-placement="top">
 				<i class="glyphicon glyphicon-comment"/>
-				{{commentCount}}
+				{{comment_count}}
 			</div>
 		</a>
 	</li>
