@@ -2,7 +2,7 @@ Package.describe({
   summary: "FogBugz service for kanban"
 });
 
-Npm.depends({"fogbugz.js": "0.0.26"});
+Npm.depends({"fogbugz.js": "0.0.30"});
 
 Package.on_use(function (api) {
 	api.use('underscore', ['server']);

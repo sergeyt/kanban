@@ -1,10 +1,10 @@
 {
   "dependencies": {
     "fogbugz.js": {
-      "version": "0.0.26",
+      "version": "0.0.30",
       "dependencies": {
         "request": {
-          "version": "2.31.0",
+          "version": "2.33.0",
           "dependencies": {
             "qs": {
               "version": "0.6.6"
@@ -22,7 +22,7 @@
               "version": "1.2.11"
             },
             "tough-cookie": {
-              "version": "0.9.15",
+              "version": "0.12.1",
               "dependencies": {
                 "punycode": {
                   "version": "1.2.3"
