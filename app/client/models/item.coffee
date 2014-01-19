@@ -38,6 +38,12 @@ Template.item.helpers {
 	comment_count: -> (@events || []).length
 
 	is_closed: -> @status == 'done' or @status == 'closed'
+
+	popover_content: ->
+		data = @
+		frag = Meteor.render ->
+			Template.item_popover(data)
+		frag.firstChild.outerHTML
 }
 
 Template.item.events =
@@ -49,10 +55,8 @@ Template.item.events =
 
 		Meteor.Kanban.selectedItem.set tpl.data
 
-Template.item.rendered = ->
-	id = @data._id
-	item = @find('.work-item')
-	$(item).draggable {
+init_drag = (item, id) ->
+	item.draggable {
 		appendTo: ".board-host"
 		cursor: "move"
 		opacity: 0.7
@@ -60,3 +64,10 @@ Template.item.rendered = ->
 		start: ->
 			Session.set('dragItem', id)
 	}
+
+Template.item.rendered = ->
+	id = @data._id
+	item = $(@find('.work-item'))
+	init_drag item, id
+	# todo do not display popover on small devices
+	item.find('[rel="popover"]').popover()
