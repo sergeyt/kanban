@@ -16,19 +16,19 @@ Template.login.emails = typeaheadDataSet 'emails'
 Template.login.endpoints = typeaheadDataSet 'endpoints'
 
 Template.login.events =
-	'click .login-button': (event, tpl) ->
+	'click .login-button': (event) ->
 
 		event.preventDefault()
 
     # retrieve the input field values
 		options =
-			fogbugz: tpl.find('#endpoint').value
-			email: tpl.find('#login-email').value
-			password: tpl.find('#login-password').value
+			fogbugz: $('#endpoint').val()
+			email: $('#login-email').val()
+			password: $('#login-password').val()
 
 		Meteor.loginWithFogBugz options, (err) ->
 			return alert "login failed: #{err}" if err
-			Meteor.call 'onLogin', Meteor.userId()
+			Meteor.call 'on_login', Meteor.userId()
 
 Template.login.rendered = ->
 	$(@firstNode).find('.typeahead').each ->

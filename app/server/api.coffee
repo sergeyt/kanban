@@ -43,7 +43,7 @@ copy = (record) ->
 # Boards handling
 
 # loads boards (aka milestones)
-loadBoards = -> (user) ->
+loadBoards = (user) ->
 	console.log "fetching boards"
 
 	FogBugzService.fetchBoards(user).then (boards) ->
@@ -166,7 +166,7 @@ Meteor.methods {
 	# subscribe on some server event
 	# called when user is logged in to load boards, etc
 
-	onLogin: (userId) ->
+	on_login: (userId) ->
 		user = Meteor.users.findOne userId
 		throw new Error "Cant find user #{userId}" if not user
 		loadBoards(user)
