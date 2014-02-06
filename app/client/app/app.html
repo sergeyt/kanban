@@ -25,11 +25,11 @@
 				{{>itemDetails}}
 			</div>
 		{{else}}
-			{{>board}}
-			<div class="col-md-2">
-				{{>filters}}
-				{{>legend}}
-			</div>
+			{{#if dashboard_visible}}
+				{{>dashboard}}
+			{{else}}
+				{{>board}}
+			{{/if}}
 		{{/if}}
 	</div>
 	{{/if}}

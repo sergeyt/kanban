@@ -29,3 +29,8 @@ build_cfd = ->
 Template.dashboard.rendered = ->
 	chart = build_cfd()
 	$(@find('.cfd')).data('chart', chart).chart()
+
+
+Template.dashboard.events =
+	'click .close': ->
+		Session.set 'perspective', 'kanban'

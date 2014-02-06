@@ -8,31 +8,21 @@ Template.app.effects = -> UserSession.get('effects') || 'static'
 Template.app.selectedItem = ->
 	Meteor.Kanban?.selectedItem?.get()
 
+Template.app.dashboard_visible = ->
+	Session.get('perspective') == 'dashboard'
+
 Meteor.startup ->
 	# TODO HTML5 navigation history with routes
 	# Backbone.history.start {pushState: true}
-	initBootstrap()
+	$ on_ready
 
-initBootstrap = ->
+on_ready = ->
+	init_bootstrap()
+
+init_bootstrap = ->
 	# auto activation of bootstrap tooltips
 	create_tooltip = ->
 		$(this).tooltip()
 	destroy_dooltip = ->
 		$(this).tooltip('destroy')
-
-# todo attempt to fix tabs inside modal, remove when not-needed
-#	activate_tab = ->
-#		$this = $(this)
-#		$this.tab()
-#		a = $this.find('a');
-#		a.click (e) ->
-#			e.preventDefault()
-#			$this.tab('show')
-#
-#
-#	deactivate_tab = ->
-#		$(this).tab('destroy')
-
-	$ ->
-		$('[data-toggle="tooltip"]').livequery create_tooltip, destroy_dooltip
-#		$('.nav-tabs').livequery activate_tab, deactivate_tab
+	$('[data-toggle="tooltip"]').livequery create_tooltip, destroy_dooltip

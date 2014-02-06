@@ -22,3 +22,6 @@ Template.navbar.events =
 
 	'click .btn-refresh': ->
 		Meteor.call 'onLogin', Meteor.userId()
+
+	'click .btn-dashboard': ->
+		Session.set 'perspective', 'dashboard'
