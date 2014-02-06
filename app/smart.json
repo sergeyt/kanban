@@ -29,6 +29,7 @@
 			"git": "https://github.com/sergeyt/meteor-typeahead"
 		},
 		"d3": {},
-		"dimple": {}
+		"dimple": {},
+		"d3-gems": {}
 	}
 }
