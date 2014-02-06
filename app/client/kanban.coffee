@@ -1,4 +1,14 @@
-Meteor.Kanban = {} if not Meteor.Kanban
+Meteor.startup ->
+	console.log 'listen boards collection'
+	Meteor.subscribe 'boards'
+
+Meteor.Kanban = {} if typeof Meteor.Kanban == 'undefined'
+
+Meteor.Kanban.currentBoard = ->
+	# TODO auto select board
+	name = UserSession.get 'board'
+	Boards.findOne {name: name}
+
 Meteor.Kanban.selectedItem = new ReactiveProperty null
 
 # resolve email for given user object with id and name fields
