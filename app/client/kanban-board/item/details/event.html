@@ -1,5 +1,4 @@
 <template name="event" xmlns="http://www.w3.org/1999/html">
-	{{#if content}}
 	<div class="item-event panel panel-default">
 		<div class="panel-heading">
 			<p class="panel-title">
@@ -11,9 +10,10 @@
 				<span>{{description}}</span>>
 			</p>
 		</div>
+		{{#if content}}
 		<div class="panel-collapse collapse">
 			<p>{{{content}}}</p>
 		</div>
+		{{/if}}
 	</div>
-	{{/if}}
 </template>

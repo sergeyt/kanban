@@ -6,7 +6,7 @@ Template.event.content = ->
 		Meteor.call 'markdown', @text, (err, res) ->
 			self._markdown.set(res || '')
 			self._mdrendered.set(true)
-	html || @html || @text
+	html || @html || @text || @changes
 
 Template.event.email = ->
 	Meteor.Kanban.resolve_email @person
