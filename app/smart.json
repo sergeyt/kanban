@@ -25,11 +25,8 @@
 		"user-session": {
 			"git": "https://github.com/sergeyt/meteor-user-session"
 		},
-		"typeahead": {
-			"git": "https://github.com/sergeyt/meteor-typeahead"
-		},
+		"typeahead": {},
 		"d3": {},
-		"dimple": {},
 		"d3-gems": {}
 	}
 }

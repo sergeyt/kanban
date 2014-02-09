@@ -25,10 +25,7 @@
         "git": "https://github.com/sergeyt/meteor-user-session",
         "branch": "master"
       },
-      "typeahead": {
-        "git": "https://github.com/sergeyt/meteor-typeahead",
-        "branch": "master"
-      },
+      "typeahead": {},
       "d3": {},
       "dimple": {},
       "d3-gems": {}
@@ -105,9 +102,9 @@
         "commit": "f83f9a7d6d64121289ce47c9739d6c871fb8bec8"
       },
       "typeahead": {
-        "git": "https://github.com/sergeyt/meteor-typeahead",
-        "branch": "master",
-        "commit": "ed60bf5c2c442072a69b9dff5fd3e3d21ae31b8e"
+        "git": "https://github.com/sergeyt/meteor-typeahead.git",
+        "tag": "v0.0.5",
+        "commit": "7cfd5b5509f431cbbe4f779552417a0e3dbdf4a5"
       },
       "d3": {
         "git": "https://github.com/sergeyt/meteor-d3.git",
