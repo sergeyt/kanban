@@ -21,7 +21,7 @@ Template.navbar.events =
 		UserSession.set 'effects', if v == 'cool' then 'static' else 'cool'
 
 	'click .btn-refresh': ->
-		Meteor.call 'onLogin', Meteor.userId()
+		Meteor.call 'on_login', Meteor.userId()
 
 	'click .btn-dashboard': ->
 		Session.set 'perspective', 'dashboard'
