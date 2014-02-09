@@ -41,9 +41,10 @@ function is_virtual_user(name){
 // maps fogbugz case status to kanban invariant status
 function resolveStatus(it) {
 	var s = ((it.status || {}).name || '').toLowerCase();
-	if (s.indexOf('review') >= 0) return 'review';
-	if (s.indexOf('resolved') >= 0) return 'test';
-	if (s.indexOf('close') >= 0) return 'done';
+	// TODO use status map
+	if (s.indexOf('review') >= 0) return ItemStatus.review;
+	if (s.indexOf('resolved') >= 0) return ItemStatus.test;
+	if (s.indexOf('close') >= 0) return ItemStatus.done;
 	// TODO detect virtual users using data from fogbugz
 	var assignee = (it.assignee.name || '').toLowerCase();
 	var isTeam = is_virtual_user(assignee);
