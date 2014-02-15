@@ -9,6 +9,8 @@ Kanban boards powered by meteor
 
 ## Features
 
+> Note: some of below features are done, in progress or to be done
+
 * Integration with bug tracking systems
 	* FogBugz - basic functionality is done
 	* GitHub - to be done, not started yet
@@ -17,8 +19,11 @@ Kanban boards powered by meteor
 * Integration with version control systems
 	* Mercurial - to be done, not started yet
 	* Git - to be done, not started yet
-* Kanban Boards per milestone/sprint
-* Dashboard with sprint status
+* Kanban board perspective per milestone/sprint with:
+	* Quick filters
+	* Ctrl+Click to show card details (events, changesets)
+	* Markdown comments with preview
+* Dashboard perspective with sprint status
 	* Cumulative Flow Diagram
 	* Legend with status counts (on review, in testing, verified, etc)
 
