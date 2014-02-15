@@ -96,7 +96,7 @@ build_cfd = ->
 		days.push next.toDate()
 
 	# for every work item do the following:
-	# from start to end date, per each day determine status of work item in this day
+	# from start to end date, per each day determine status of work item
 	items = WorkItems.find({}).fetch()
 	dataset = items.map (it) -> item_statuses it, days
 
