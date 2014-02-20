@@ -107,9 +107,9 @@ update_priority_filter = (current, priority) ->
 		switch
 			when priority == p1 then {priority: {$lte: p2}}
 			when priority == p2 then {priority: {$lte: p1}}
-			when priority > p2 then priority_range p1, priority
 			when priority < p1 then priority_range priority, p2
-			else current
+			when priority > p1 and priority < p2 then priority_range priority, p2
+			else priority_range p1, priority
 	else
 		p = current.priority.$lte
 		return priority_range p, priority if priority > p
