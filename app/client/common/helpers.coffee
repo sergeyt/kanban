@@ -26,7 +26,7 @@ Handlebars.registerHelper "timeago", (date) ->
 
 # fetch avatar image from gravatar
 Handlebars.registerHelper "gravatar", (email, size) ->
-	Gravatar.imageUrl(email, {s: size, d: 'wavatar'})
+	Gravatar.imageUrl(email, {s: size, d: 'retro'})
 
 Handlebars.registerHelper "short_name", (user) ->
 	short_name user
