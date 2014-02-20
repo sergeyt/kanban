@@ -4,8 +4,10 @@
 			{{>column}}
 		{{/each}}
 	{{/with}}
+	{{#unless selectedItem}}
 	<div class="col-md-2">
 		{{>filters}}
 		{{>legend}}
 	</div>
+	{{/unless}}
 </template>

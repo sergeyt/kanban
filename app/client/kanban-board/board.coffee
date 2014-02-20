@@ -1,6 +1,8 @@
 Template.board.helpers {
 	# selected board
 	board: -> Meteor.Kanban.currentBoard()
+	# selected work item
+	selectedItem: -> Meteor.Kanban?.selectedItem?.get()
 	# current view type
 	view: -> UserSession.get 'view' || 'comfort'
 	# TODO rename
