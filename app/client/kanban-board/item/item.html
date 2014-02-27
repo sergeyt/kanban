@@ -1,8 +1,6 @@
 <template name="item">
-	<!-- title="{{assignee.name}}: {{title}}" data-toggle="tooltip" data-placement="right" -->
 	<li class="work-item {{category}} {{goal_class}}">
-		<a href="#" rel="popover" data-html="true" data-trigger="hover" data-content="{{popover_content}}"
-		   data-original-title="{{id}}: {{title}}">
+		<a href="#" title="{{assignee.name}}: {{title}}" data-toggle="tooltip" data-placement="right">
 			<div class="heading">
 				<span class="label label-info priority">P{{priority}}</span>
 				<span class="id {{id_class}}">{{id}}</span>
