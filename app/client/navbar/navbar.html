@@ -14,26 +14,8 @@
 			</ul>
 
 			{{>deadline}}
+			{{>toolbar}}
 
-			<form class="navbar-form navbar-left">
-				<div class="form-group">
-					<button type="button" class="btn btn-default btn-comfort-view {{comfortState}}" title="Comfortable view" data-toggle="tooltip" data-placement="bottom">
-						<i class="glyphicon glyphicon-th-large"></i>
-					</button>
-					<button type="button" class="btn btn-default btn-compact-view {{compactState}}" title="Compact view" data-toggle="tooltip" data-placement="bottom">
-						<i class="glyphicon glyphicon-th"></i>
-					</button>
-					<button type="button" class="btn btn-default btn-effects {{effectsState}}" title="Enable effects" data-toggle="tooltip" data-placement="bottom">
-						<i class="glyphicon glyphicon-thumbs-up"></i>
-					</button>
-					<button type="button" class="btn btn-default btn-refresh" title="Refresh" data-toggle="tooltip" data-placement="bottom">
-						<i class="glyphicon glyphicon-refresh"></i>
-					</button>
-					<button type="button" class="btn btn-default btn-dashboard" title="Dashboard" data-toggle="tooltip" data-placement="bottom">
-						<i class="glyphicon glyphicon-dashboard"></i>
-					</button>
-				</div>
-			</form>
 			{{/if}}
 
 			{{#if currentUser}}

@@ -1,0 +1,11 @@
+<template name="toolbar">
+	<form class="navbar-form navbar-left">
+		<div class="form-group">
+			{{#each buttons}}
+				<button type="button" class="btn btn-default {{state}}" title="{{title}}" data-toggle="tooltip" data-placement="bottom">
+					<i class="glyphicon {{icon}}"></i>
+				</button>
+			{{/each}}
+		</div>
+	</form>
+</template>
