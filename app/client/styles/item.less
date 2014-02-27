@@ -7,21 +7,21 @@
   float: left;
 }
 
-.work-item a {
+.work-item .content {
   display: block;
   text-decoration: none;
   color: black;
   background: @feature;
 }
 
-.comfort .work-item a {
+.comfort .work-item .content {
   width: 8em;
   height: 8em;
   padding: 0.5em;
   .rounded-top-right-corner(1.2em);
 }
 
-.compact .work-item a {
+.compact .work-item .content {
   width: 4em;
   height: 4em;
   padding: 0.5em;
@@ -43,7 +43,7 @@
   .line-clamp(2);
 }
 
-.work-item hidden {
+.work-item .hidden {
   display: none;
 }
 
@@ -73,23 +73,23 @@
 }
 
 /* item colors by category */
-.work-item.bug a {
+.work-item.bug .content {
   background: @bug;
 }
 
-.work-item.feature a {
+.work-item.feature .content {
   background: @feature;
 }
 
-.work-item.task a {
+.work-item.task .content {
   background: @task;
 }
 
-.work-item.inquiry a {
+.work-item.inquiry .content {
   background: @inquiry;
 }
 
-.work-item.goal a {
+.work-item.goal .content {
 	background: @goal;
 }
 
@@ -125,28 +125,28 @@
 }
 
 /* effects */
-.cool .work-item a {
+.cool .work-item .content {
   .shadow();
   .transition();
 }
 
-.cool .work-item a {
+.cool .work-item .content {
   .rotate(-6deg);
 }
 
-.cool .work-item:nth-child(even) a {
+.cool .work-item:nth-child(even) .content {
   .rotate(4deg);
   position: relative;
   top: 5px;
 }
 
-.cool .work-item:nth-child(3n) a {
+.cool .work-item:nth-child(3n) .content {
   .rotate(-3deg);
   position: relative;
   top: -5px;
 }
 
-.cool .work-item a:hover, .cool .work-item a:focus {
+.cool .work-item .content:hover, .cool .work-item .content:focus {
   .shadow(8px 8px 6px, rgba(0, 0, 0, .7));
   .scale(1.15);
   position: relative;

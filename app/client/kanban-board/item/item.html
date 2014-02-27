@@ -1,6 +1,6 @@
 <template name="item">
-	<li class="work-item {{category}} {{goal_class}}">
-		<a href="#" title="{{assignee.name}}: {{title}}" data-toggle="tooltip" data-placement="right">
+	<li class="work-item {{category}} {{goal_class}}" title="{{assignee.name}}: {{title}}" data-toggle="tooltip" data-placement="right">
+		<div class="content">
 			<div class="heading">
 				<span class="label label-info priority">P{{priority}}</span>
 				<span class="id {{id_class}}">{{id}}</span>
@@ -23,7 +23,7 @@
 				<i class="glyphicon glyphicon-comment"/>
 				{{comment_count}}
 			</div>
-		</a>
+		</div>
 	</li>
 
 </template>
