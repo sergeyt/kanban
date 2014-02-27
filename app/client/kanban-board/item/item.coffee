@@ -47,7 +47,7 @@ Template.item.helpers {
 }
 
 Template.item.events =
-	'click .work-item a': (event, tpl) ->
+	'click .work-item .content': (event, tpl) ->
 		selectedItem = Meteor.Kanban.selectedItem?.get()
 		return if not event.ctrlKey and not selectedItem
 

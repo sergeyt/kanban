@@ -91,6 +91,6 @@ Template.column.rendered = ->
 		Meteor.call 'updateStatus', Meteor.userId(), itemId, item.status, status
 
 	$(col).droppable {
-		accept: ".work-item a"
+		accept: ".work-item .content"
 		drop: -> on_drop
 	}
