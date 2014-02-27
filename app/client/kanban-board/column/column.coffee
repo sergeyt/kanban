@@ -7,6 +7,7 @@ Meteor.Kanban.Column = (name) ->
 	hidden = -> UserSession.get hiddenKey
 
 	col =
+		name: name
 		# determines whether the column is hidden
 		hidden: hidden
 		# determines whether the column is visible

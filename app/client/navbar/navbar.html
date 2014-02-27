@@ -37,14 +37,17 @@
 			{{/if}}
 
 			{{#if currentUser}}
-			{{>search}}
-			{{/if}}
+				{{>search}}
 
-			{{#if currentUser}}
-			{{>usermenu}}
-			{{>themeSelector}}
-			{{>columnsVisibility}}
+				{{>usermenu}}
+				{{>themeSelector}}
+				{{>columns_selector}}
 			{{/if}}
 		</div>
+	</nav>
+	<nav class="navbar navbar-default" role="navigation">
+		{{#if currentUser}}
+			{{>column_bar}}
+		{{/if}}
 	</nav>
 </template>

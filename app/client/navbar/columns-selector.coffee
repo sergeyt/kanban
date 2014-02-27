@@ -1,4 +1,4 @@
-Template.columnsVisibility.items = ->
+Template.columns_selector.items = ->
 	board = Meteor.Kanban.currentBoard()
 	return [] if not board
 
@@ -9,6 +9,6 @@ Template.columnsVisibility.items = ->
 			hidden: if hidden then 'hidden' else ''
 		col
 
-Template.columnsVisibility.events =
+Template.columns_selector.events =
 	'click li': ->
 		Meteor.Kanban.Column(this.name).toggle()
