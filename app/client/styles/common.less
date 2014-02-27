@@ -1,16 +1,29 @@
-@goal: rgb(0, 255, 102);
-@regression: #f68;
-@bug: #f68;
-@feature: #ffc;
-@task: #aaf;
-@inquiry: cyan;
+@goal: rgb(0, 205, 92);
+@regression: #cd4f6f;
+@bug: #cd4f6f;
+@feature: #e6e6ba;
+@task: #8484cd;
+@inquiry: #00d7d7;
+
+.gradient3 (@color: #F5F5F5, @start: #EEE, @stop: #FFF) {
+  background: @color;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, @start), color-stop(1, @stop));
+  background: -ms-linear-gradient(bottom, @start, @stop);
+  background: -moz-linear-gradient(center bottom, @start 0%, @stop 100%);
+  background: -o-linear-gradient(@stop, @start);
+  filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)", @stop, @start));
+}
+
+.gradient (@color) {
+  .gradient3(@color, @color, lighten(@color, 25%));
+}
 
 .rounded-top-right-corner (@radius: 4px) {
-	-webkit-border-top-right-radius: @radius;
-	-moz-border-top-right-radius: @radius;
-	-ms-border-top-right-radius: @radius;
-	-o-border-top-right-radius: @radius;
-	border-top-right-radius: @radius;
+  -webkit-border-top-right-radius: @radius;
+  -moz-border-top-right-radius: @radius;
+  -ms-border-top-right-radius: @radius;
+  -o-border-top-right-radius: @radius;
+  border-top-right-radius: @radius;
 }
 
 .rounded-corners (@radius: 4px) {
@@ -53,4 +66,10 @@
   -moz-transition: -moz-transform @duration @type;
   -o-transition: -o-transform @duration @type;
   -webkit-transition: -webkit-transform @duration @type;
+}
+
+.opacity (@opacity: 0.5) {
+  -webkit-opacity: @opacity;
+  -moz-opacity: @opacity;
+  opacity: @opacity;
 }

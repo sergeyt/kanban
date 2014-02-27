@@ -18,7 +18,6 @@
   width: 8em;
   height: 8em;
   padding: 0.5em;
-  .rounded-top-right-corner(1.2em);
 }
 
 .compact .work-item .content {
@@ -74,23 +73,23 @@
 
 /* item colors by category */
 .work-item.bug .content {
-  background: @bug;
+  .gradient(@bug);
 }
 
 .work-item.feature .content {
-  background: @feature;
+  .gradient(@feature);
 }
 
 .work-item.task .content {
-  background: @task;
+  .gradient(@task);
 }
 
 .work-item.inquiry .content {
-  background: @inquiry;
+  .gradient(@inquiry);
 }
 
 .work-item.goal .content {
-	background: @goal;
+  .gradient(@goal);
 }
 
 .work-item .priority {
