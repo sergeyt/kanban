@@ -1,0 +1,29 @@
+<template name="item_popover">
+	<div class="item-popover">
+		<div>
+			<table class="table table-condensed table-responsive">
+				<tbody>
+				<tr>
+					<td>Status:</td>
+					<td>{{status}}</td>
+				</tr>
+				<tr>
+					<td>Assigned To:</td>
+					<td>{{assignee.name}}</td>
+				</tr>
+				<tr>
+					<td>Category:</td>
+					<td>{{category}}</td>
+				</tr>
+				<tr>
+					<td>Priority:</td>
+					<td>{{priority}}</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+		<div>
+			<span class="label label-danger">TODO display latest comment</span>
+		</div>
+	</div>
+</template>
