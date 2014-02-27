@@ -1,29 +1,47 @@
 <template name="item">
-	<li class="work-item {{category}} {{goal_class}}" title="{{assignee.name}}: {{title}}" data-toggle="tooltip" data-placement="right">
-		<div class="content">
-			<div class="heading">
-				<span class="label label-info priority">P{{priority}}</span>
-				<span class="id {{id_class}}">{{id}}</span>
-			</div>
-            {{#if is_closed}}
-			<div class="closed-time">
-				<span>{{timeago closed}}</span>
-			</div>
-            {{/if}}
-			{{#if assignee}}
-			<div class="assignee {{assignee_state}}" title="{{assignee_title}}" data-toggle="tooltip" data-placement="top">
-				{{#unless assignee_virtual}}
-				<img src="{{gravatar assignee.email 20}}"/>
-				{{/unless}}
-				<span>{{short_name assignee}}</span>
-			</div>
-			{{/if}}
-			<p class="title">{{title}}</p>
-			<div class="comment-count" title="{{comment_count}} comments" data-toggle="tooltip" data-placement="top">
-				<i class="glyphicon glyphicon-comment"/>
-				{{comment_count}}
+	<li class="work-item {{category}} {{goal_class}}">
+		{{#unless is_closed}}
+		{{#if assignee}}
+		{{#unless assignee_virtual}}
+		<div class="avatar" title="{{assignee_title}}" data-toggle="tooltip" data-placement="top">
+			<img src="{{gravatar assignee.email 32}}"/>
+		</div>
+		{{/unless}}
+		{{/if}}
+		{{/unless}}
+
+		<div class="content flip-container">
+			<div class="flipper">
+				<div class="front">
+					<div class="heading">
+						<span class="label label-info priority">P{{priority}}</span>
+						<span class="id {{id_class}}">{{id}}</span>
+					</div>
+					<p class="item-title">{{title}}</p>
+				</div>
+				<div class="back">
+					<div class="heading">
+						<span class="label label-info priority">P{{priority}}</span>
+						<span class="id {{id_class}}">{{id}}</span>
+					</div>
+					{{#if is_closed}}
+					<div class="closed-time">
+						<span>{{timeago closed}}</span>
+					</div>
+					{{/if}}
+					{{#unless is_closed}}
+					{{#if assignee}}
+					<div class="assignee">
+						<span>{{short_name assignee}}</span>
+					</div>
+					{{/if}}
+					{{/unless}}
+					<!-- comment icon as html element -->
+					<div class="comment-count">
+						<i class="glyphicon glyphicon-comment"/> {{comment_count}}
+					</div>
+				</div>
 			</div>
 		</div>
 	</li>
-
 </template>

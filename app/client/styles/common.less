@@ -5,7 +5,9 @@
 @task: #8484cd;
 @inquiry: #00d7d7;
 
-.gradient3 (@color: #F5F5F5, @start: #EEE, @stop: #FFF) {
+// some mixins are based on https://github.com/dmitryf/elements/blob/master/elements.less
+
+.gradient (@color: #F5F5F5, @start: #EEE, @stop: #FFF) {
   background: @color;
   background: -webkit-gradient(linear, left bottom, left top, color-stop(0, @start), color-stop(1, @stop));
   background: -ms-linear-gradient(bottom, @start, @stop);
@@ -15,8 +17,19 @@
 }
 
 .gradient (@color) {
-  .gradient3(@color, @color, lighten(@color, 25%));
+  .gradient(@color, @color, lighten(@color, 25%));
 }
+
+.opacity(@opacity: 0.5) {
+  -moz-opacity: @opacity;
+  -khtml-opacity: @opacity;
+  -webkit-opacity: @opacity;
+  opacity: @opacity;
+  @opperc: @opacity * 100;
+  -ms-filter: ~"progid:DXImageTransform.Microsoft.Alpha(opacity=@{opperc})";
+  filter: ~"alpha(opacity=@{opperc})";
+}
+
 
 .rounded-top-right-corner (@radius: 4px) {
   -webkit-border-top-right-radius: @radius;
@@ -34,26 +47,35 @@
   border-radius: @radius;
 }
 
-/* support other browsers */
+/* TODO support other browsers */
 /* http://www.css-101.org/articles/line-clamp/line-clamp_for_non_webkit-based_browsers.php */
 .line-clamp (@lines: 3) {
   overflow: hidden;
   text-overflow: ellipsis;
+  word-wrap: break-word;
   display: -webkit-box;
   -webkit-line-clamp: @lines; /* number of lines to show */
   -webkit-box-orient: vertical;
 }
 
+.transform(...) {
+  -webkit-transform: @arguments;
+  -moz-transform: @arguments;
+  -o-transform: @arguments;
+  -ms-transform: @arguments;
+  transform: @arguments;
+}
+
 .rotate (@angle) {
-  -o-transform: rotate(@angle);
-  -webkit-transform: rotate(@angle);
-  -moz-transform: rotate(@angle);
+  .transform(rotate(@angle));
+}
+
+.rotate-y (@angle) {
+  .transform(rotateY(@angle));
 }
 
 .scale (@scale) {
-  -webkit-transform: scale(@scale);
-  -moz-transform: scale(@scale);
-  -o-transform: scale(@scale);
+  .transform(scale(@scale));
 }
 
 .shadow (@size: 4px 4px 6px, @color: rgba(33, 33, 33, 1)) {
@@ -68,8 +90,10 @@
   -webkit-transition: -webkit-transform @duration @type;
 }
 
-.opacity (@opacity: 0.5) {
-  -webkit-opacity: @opacity;
-  -moz-opacity: @opacity;
-  opacity: @opacity;
+.transition-duration (@duration: 0.5s) {
+  -webkit-transition: @duration;
+  -moz-transition: @duration;
+  -o-transition: @duration;
+  -ms-transition: @duration;
+  transition: @duration;
 }

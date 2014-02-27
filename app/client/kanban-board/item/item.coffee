@@ -25,10 +25,6 @@ Template.item.helpers {
 	goal_class: ->
 		if (@tags || []).indexOf('goal') >= 0 then 'goal' else ''
 
-	# todo inline in view
-	assignee_state: ->
-		if Meteor.Helpers.short_name(@assignee) == 'CLOSED' then 'hidden' else ''
-
 	assignee_title: ->
 		return "#{@assignee.name} <#{@assignee.email}>"
 

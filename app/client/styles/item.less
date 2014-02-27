@@ -5,6 +5,7 @@
   padding: 0;
   margin: 0.5em;
   float: left;
+  position: relative;
 }
 
 .work-item .content {
@@ -42,6 +43,13 @@
   .line-clamp(2);
 }
 
+.work-item .avatar {
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  z-index: 10;
+}
+
 .work-item .hidden {
   display: none;
 }
@@ -52,22 +60,22 @@
 
 .comfort .work-item .heading {
   font-size: 120%;
-	text-align: left;
-	white-space: nowrap;
+  text-align: left;
+  white-space: nowrap;
 }
 
 .compact .work-item .heading {
   font-size: 110%;
 }
 
-.work-item .title {
-  font-family: "Reenie Beanie", arial, sans-serif;
-  font-size: 130%;
-	line-height: 0.9;
-  .line-clamp(2);
+.work-item .item-title {
+  font-family: Flamenco, arial, sans-serif;
+  font-size: 11pt;
+  line-height: 1;
+  .line-clamp(5);
 }
 
-.compact .work-item .title {
+.compact .work-item .item-title {
   display: none;
 }
 
@@ -93,30 +101,26 @@
 }
 
 .work-item .priority {
-	vertical-align: top;
-	font-size: 8pt;
+  vertical-align: top;
+  font-size: 8pt;
 }
 .compact .work-item .priority {
-	display: none;
+  display: none;
 }
 
 .work-item .id {
-	vertical-align: top;
-	font-size: 8pt;
+  vertical-align: top;
+  font-size: 8pt;
 }
 
 /* comment count */
 .work-item .comment-count {
-	font-size: 8pt;
-}
-
-.compact .work-item .comment-count {
-	display: none;
+  font-size: 8pt;
 }
 
 .work-item .closed-time {
-	font-weight: bold;
-	font-size: 10pt;
+  font-weight: bold;
+  font-size: 10pt;
 }
 
 .compact .work-item .closed-time {

@@ -1,0 +1,64 @@
+@import "common.less";
+
+// based on http://davidwalsh.name/css-flip
+@duration: 0.7s;
+
+.perspective (@perspective: 1000) {
+  -webkit-perspective: @perspective;
+  -moz-perspective: @perspective;
+  -o-perspective: @perspective;
+  perspective: @perspective;
+}
+
+.preserve-3d () {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+// entire container, keeps perspective
+.flip-container {
+  .perspective();
+}
+
+// flip speed goes here
+.flipper {
+  -moz-transform: perspective(1000px);
+  .preserve-3d();
+  .transition-duration(@duration);
+  position: relative;
+}
+
+// hide back of pane during swap
+.front, .back {
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+
+  .preserve-3d();
+  .transition-duration(@duration);
+
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.back {
+  .rotate-y(-180deg);
+}
+
+// front pane, placed above back
+.front {
+  z-index: 2;
+}
+
+.flip-container:hover .back, .flip-container.hover .back {
+  .rotate-y(0deg);
+}
+
+.flip-container:hover .front, .flip-container.hover .front {
+  .rotate-y(180deg);
+}
