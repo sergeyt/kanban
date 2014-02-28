@@ -36,10 +36,11 @@
 					</div>
 					{{/if}}
 					{{/unless}}
-					<!-- comment icon as html element -->
-					<div class="comment-count">
-						<i class="glyphicon glyphicon-comment"/> {{comment_count}}
-					</div>
+					<!-- comment counter -->
+					<span class="bubble comment-count" title="{{comment_count}} comments">
+						<span class="bubble-content">{{comment_count}}</span>
+						<span class="bubble-tail"></span>
+					</span>
 				</div>
 			</div>
 		</div>

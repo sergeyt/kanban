@@ -84,7 +84,15 @@
   box-shadow: @size @color;
 }
 
-.transition (@duration: .15s, @type: linear) {
+.transition (...) {
+  -webkit-transition: @arguments;
+  -moz-transition: @arguments;
+  -o-transition: @arguments;
+  -ms-transition: @arguments;
+  transition: @arguments;
+}
+
+.transition-transform (@duration: .15s, @type: linear) {
   -moz-transition: -moz-transform @duration @type;
   -o-transition: -o-transform @duration @type;
   -webkit-transition: -webkit-transform @duration @type;

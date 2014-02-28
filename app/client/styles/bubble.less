@@ -1,0 +1,62 @@
+@import "common.less";
+
+.transition-property (...) {
+  -webkit-transition-property: @arguments;
+  -moz-transition-property: @arguments;
+  -o-transition-property: @arguments;
+  -ms-transition-property: @arguments;
+  transition-property: @arguments;
+}
+
+.transition-timing-function (@fn: ease-in) {
+  -webkit-transition-timing-function: @fn;
+  -moz-transition-timing-function: @fn;
+  -o-transition-timing-function: @fn;
+  -ms-transition-timing-function: @fn;
+  transition-timing-function: @fn;
+}
+
+@bg: rgba(102, 102, 102, 1);
+
+.bubble {
+  display: inline-block;
+  width: 26px;
+  padding: 2px 0;
+
+  background-color: @bg;
+  background-position: center center;
+
+  border-radius: 3px;
+  border: solid 1px @bg;
+
+  color: white;
+  cursor: default;
+
+  font-size: 12px;
+
+  position: relative;
+  text-align: center;
+
+  .transition-property(background-color, border-color);
+  .transition-duration(0.5s);
+  .transition-timing-function();
+}
+
+.bubble .bubble-tail, .bubble.empty .bubble-tail:after {
+  content: '';
+  position: absolute;
+
+  border-color: @bg transparent transparent transparent;
+  border-style: solid;
+  border-width: 5px;
+
+  width: 0;
+  height: 0;
+
+  left: 50%;
+  bottom: -10px;
+
+  margin-left: -5px;
+
+  .transition(border-color 0.5s ease-in);
+}
