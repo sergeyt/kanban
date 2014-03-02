@@ -27,9 +27,11 @@
 			{{/if}}
 		</div>
 	</nav>
+	{{#if column_bar_visible}}
 	<nav class="navbar navbar-default" role="navigation">
 		{{#if currentUser}}
 			{{>column_bar}}
 		{{/if}}
 	</nav>
+	{{/if}}
 </template>
