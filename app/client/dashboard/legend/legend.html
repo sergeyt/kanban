@@ -1,0 +1,15 @@
+<template name="dashboard_legend">
+	<div class="dashboard-legend panel panel-default">
+		<div class="panel-heading">
+			<p class="panel-title">Legend</p>
+		</div>
+		<div class="panel-body">
+			{{#each items}}
+				<div>
+					<span>{{label}}:</span>
+					<span class="badge">{{count}}</span>
+				</div>
+			{{/each}}
+		</div>
+	</div>
+</template>

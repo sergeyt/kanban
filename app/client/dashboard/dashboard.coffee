@@ -146,4 +146,4 @@ Template.dashboard.rendered = ->
 
 Template.dashboard.events =
 	'click .close': ->
-		Session.set 'perspective', 'kanban'
+		Session.set 'perspective', 'board'

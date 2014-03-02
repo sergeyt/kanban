@@ -1,7 +1,9 @@
 <template name="dashboard">
 	<div class="row">
-		<div class="col-lg-1"></div>
-		<div class="col-lg-10">
+		<div class="col-lg-2">
+			{{>dashboard_legend}}
+		</div>
+		<div class="col-lg-8">
 			<div class="dashboard panel panel-default">
 				<div class="panel-heading">
 					<button type="button" class="close" aria-hidden="true" title="Switch to board perspective"
@@ -14,6 +16,6 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-1"></div>
+		<div class="col-lg-2"></div>
 	</div>
 </template>
