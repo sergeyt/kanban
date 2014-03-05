@@ -1,20 +1,55 @@
 @import "common";
 
+.item-event-container {
+  padding-left: 48px;
+  position: relative;
+}
+
+.item-event-container .avatar {
+  position: absolute;
+  left: -4px;
+  .border-radius(4px);
+}
+
 .item-event {
   margin: 0.5em;
-  padding: 0.25em;
-  border: gray solid 1px;
-  .rounded-corners(4px);
 }
 
 .item-event .panel-heading {
   font-weight: bold;
 }
 
-.item-event .icon-expanded::before {
+.item-event .icon-expanded:before {
   content:"\25BC";
 }
 
-.item-event .icon-collapsed::before {
+.item-event .icon-collapsed:before {
   content:"\25BA";
+}
+
+.item-event:before, .item-event:after {
+  position: absolute;
+  top: 11px;
+  left: 40px;
+  right: 100%;
+  width: 0;
+  height: 0;
+  display: block;
+  content: " ";
+  border-color: transparent;
+  border-style: solid solid outset;
+}
+
+.item-event:before {
+  // TODO fix color for different themes
+  border-right-color: #ddd;
+  border-width: 8px;
+}
+
+.item-event:after {
+  border-width: 7px;
+  // TODO fix color for different themes
+  border-right-color: #f5f5f5;
+  margin-top: 1px;
+  margin-left: 2px;
 }

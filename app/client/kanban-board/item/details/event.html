@@ -1,19 +1,20 @@
 <template name="event" xmlns="http://www.w3.org/1999/html">
-	<div class="item-event panel panel-default">
-		<div class="panel-heading">
-			<p class="panel-title">
-				<i class="icon-collapsed pull-left btn-expand"/>
-				<span class="label label-info pull-right">{{timeago date}}</span>
-				{{#if email}}
-				<img src="{{gravatar email 24}}" title="{{person.name}} &lt;{{email}}&gt;" data-toggle="tooltip" data-placement="top"/>
-				{{/if}}
-				<span>{{description}}</span>>
-			</p>
-		</div>
-		{{#if content}}
-		<div class="panel-collapse collapse">
-			<p>{{{content}}}</p>
-		</div>
+	<div class="item-event-container">
+		{{#if email}}
+		<img class="avatar" src="{{gravatar email 48}}" title="{{person.name}} &lt;{{email}}&gt;" data-toggle="tooltip" data-placement="top"/>
 		{{/if}}
+		<div class="item-event panel panel-default">
+			<div class="panel-heading">
+				<p class="panel-title">
+					<span class="label label-info pull-right">{{timeago date}}</span>
+					<span>{{description}}</span>>
+				</p>
+			</div>
+			{{#if content}}
+			<div class="panel-body">
+				<p>{{{content}}}</p>
+			</div>
+			{{/if}}
+		</div>
 	</div>
 </template>

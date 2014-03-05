@@ -14,11 +14,3 @@ Template.event.email = ->
 Template.event.created = ->
 	@data._markdown = new ReactiveProperty ''
 	@data._mdrendered = new ReactiveProperty false
-
-Template.event.rendered = ->
-	$e =  $ @find '.item-event'
-	btn = $e.find '.btn-expand'
-	panel = $e.find '.panel-collapse'
-	btn.click ->
-		btn.toggleClass('icon-expanded').toggleClass('icon-collapsed')
-		panel.toggleClass 'in'
