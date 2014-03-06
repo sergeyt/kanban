@@ -1,3 +1,7 @@
+Template.column_bar.visible = ->
+	p = Session.get('perspective') || 'board'
+	p == 'board' || p == 'kanban' # TODO 'kanban' perspective is obsolete
+
 Template.column_bar.items = ->
 	board = Meteor.Kanban.currentBoard()
 	return [] if not board

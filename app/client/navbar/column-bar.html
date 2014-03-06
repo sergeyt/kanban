@@ -1,15 +1,19 @@
 <template name="column_bar">
-	<div class="navbar-header">
-		<span class="navbar-brand">Columns</span>
-	</div>
-	<form class="navbar-form navbar-left">
-		<div class="form-group">
-			{{#each items}}
+	{{#if visible}}
+	<div class="row">
+		<div class="navbar-header">
+			<span class="navbar-brand">Columns</span>
+		</div>
+		<form class="navbar-form navbar-left">
+			<div class="form-group">
+				{{#each items}}
 				<button type="button" class="btn btn-default btn-sm {{#unless hidden}}active{{/unless}}"
 						title="Toggle '{{name}}' column" data-toggle="tooltip" data-placement="bottom">
 					{{name}}
 				</button>
-			{{/each}}
-		</div>
-	</form>
+				{{/each}}
+			</div>
+		</form>
+	</div>
+	{{/if}}
 </template>
