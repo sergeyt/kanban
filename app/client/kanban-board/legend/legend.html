@@ -5,22 +5,15 @@
 			<span>Legend</span>
 		</div>
 		<div class="panel-body">
-			<table class="table table-condensed table-hover">
-				<thead>
-				<tr>
-					<th>Done</th>
-					<th>Total</th>
-				</tr>
-				</thead>
-				<tbody>
+			<ul class="list-group">
 				{{#each items}}
-				<tr class="item {{css}}" title="{{title}}" data-toggle="tooltip" data-placement="left">
-					<td>{{done}}%</td>
-					<td>{{total}}%</td>
-				</tr>
+				<li class="legend-item list-group-item">
+					<span class="colorbar {{css}} pull-left">&nbsp;</span>
+					<span>{{label}}</span>
+					<span class="badge">{{count}}</span>
+				</li>
 				{{/each}}
-				</tbody>
-			</table>
+			</ul>
 		</div>
 	</div>
 </template>
