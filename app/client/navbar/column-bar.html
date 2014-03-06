@@ -1,9 +1,11 @@
 <template name="column_bar">
-	<p class="navbar-text">Visible columns</p>
+	<div class="navbar-header">
+		<span class="navbar-brand">Columns</span>
+	</div>
 	<form class="navbar-form navbar-left">
 		<div class="form-group">
 			{{#each items}}
-				<button type="button" class="btn btn-default {{#unless hidden}}active{{/unless}}"
+				<button type="button" class="btn btn-default btn-sm {{#unless hidden}}active{{/unless}}"
 						title="Toggle '{{name}}' column" data-toggle="tooltip" data-placement="bottom">
 					{{name}}
 				</button>

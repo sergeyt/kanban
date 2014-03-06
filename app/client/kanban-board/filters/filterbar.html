@@ -1,0 +1,31 @@
+<template name="filterbar">
+	{{#if visible}}
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="navbar-header">
+			<span class="navbar-brand">Filters</span>
+		</div>
+		<p class="navbar-text">Categories:</p>
+		<form class="navbar-form navbar-left">
+			<div class="form-group">
+			{{#each categories}}
+				<button type="button" class="btn btn-default btn-sm {{css}}"
+						title="{{label}}" data-toggle="tooltip" data-placement="top">
+					<span>{{count}}</span>
+				</button>
+			{{/each}}
+			</div>
+		</form>
+		<p class="navbar-text">Tags:</p>
+		<form class="navbar-form navbar-left">
+			<div class="form-group">
+				{{#each tags}}
+				<button type="button" class="btn btn-default btn-sm {{css}}">
+					<span>{{label}}</span>
+					<span class="badge">{{count}}</span>
+				</button>
+				{{/each}}
+			</div>
+		</form>
+	</nav>
+	{{/if}}
+</template>
