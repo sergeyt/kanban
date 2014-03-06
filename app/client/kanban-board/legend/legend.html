@@ -1,19 +1,13 @@
 <template name="legend">
-	<div class="legend panel panel-default">
-		<div class="panel-heading">
-			<button type="button" class="close" aria-hidden="true" title="Hide" data-toggle="tooltip" data-placement="top">&times;</button>
-			<span>Legend</span>
-		</div>
-		<div class="panel-body">
-			<ul class="list-group">
-				{{#each items}}
-				<li class="legend-item list-group-item">
-					<span class="colorbar {{css}} pull-left">&nbsp;</span>
-					<span>{{label}}</span>
-					<span class="badge">{{count}}</span>
-				</li>
-				{{/each}}
-			</ul>
-		</div>
+	<div class="legend">
+		<ul class="list-group">
+			{{#each items}}
+			<li class="legend-item list-group-item" style="width: 200px">
+				<span class="colorbar {{css}} pull-left">&nbsp;</span>
+				<span>{{label}}</span>
+				<span class="badge">{{count}}</span>
+			</li>
+			{{/each}}
+		</ul>
 	</div>
 </template>

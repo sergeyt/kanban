@@ -20,6 +20,8 @@
 
 	<!-- board view -->
 	{{#if currentUser}}
+	{{>legend}}
+
 	<div class="row board-host {{view}} {{effects}}">
 		{{#if selectedItem}}
 			{{>board}}

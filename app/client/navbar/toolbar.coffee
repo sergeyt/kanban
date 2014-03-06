@@ -36,4 +36,15 @@ Template.toolbar.buttons = ->
 
 Template.toolbar.events =
 	'click .btn': ->
-		this.click()
+		@click() if @click
+
+Template.toolbar.rendered = ->
+	legend_popover =
+		title: 'Legend'
+		placement: 'bottom'
+		container: 'body'
+		trigger: 'hover'
+		html: true
+		content: -> $('.legend').html()
+	btn = @find('.btn-legend')
+	$(btn).popover(legend_popover)
