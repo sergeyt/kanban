@@ -8,9 +8,9 @@
 		<form class="navbar-form navbar-left">
 			<div class="form-group">
 			{{#each categories}}
-				<button type="button" class="btn btn-default btn-sm {{css}}"
+				<button type="button" class="btn btn-default btn-sm btn-filter {{state}}"
 						title="{{label}}" data-toggle="tooltip" data-placement="top">
-					<span>{{count}}</span>
+					<span class="colorbar {{css}}">{{count}}</span>
 				</button>
 			{{/each}}
 			</div>
@@ -19,8 +19,8 @@
 		<form class="navbar-form navbar-left">
 			<div class="form-group">
 				{{#each tags}}
-				<button type="button" class="btn btn-default btn-sm {{css}}">
-					<span>{{label}}</span>
+				<button type="button" class="btn btn-default btn-sm btn-filter {{state}}">
+					<span class="{{css}}">{{label}}</span>
 					<span class="badge">{{count}}</span>
 				</button>
 				{{/each}}

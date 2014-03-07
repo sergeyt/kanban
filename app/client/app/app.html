@@ -22,20 +22,23 @@
 	{{#if currentUser}}
 	{{>legend}}
 
-	<div class="row board-host {{view}} {{effects}}">
-		{{#if selectedItem}}
-			{{>board}}
-			<div class="col-md-8">
-				{{>itemDetails}}
-			</div>
-		{{else}}
-			{{#if dashboard_visible}}
-				{{>dashboard}}
-			{{else}}
+	<div class="container-fluid">
+		<div class="row board-host {{view}} {{effects}}">
+			{{#if selectedItem}}
 				{{>board}}
+				<div class="col-md-8">
+					{{>itemDetails}}
+				</div>
+			{{else}}
+				{{#if dashboard_visible}}
+					{{>dashboard}}
+				{{else}}
+					{{>board}}
+				{{/if}}
 			{{/if}}
-		{{/if}}
+		</div>
 	</div>
+
 	{{/if}}
 
 </template>

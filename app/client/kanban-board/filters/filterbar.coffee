@@ -2,6 +2,18 @@ Template.filterbar.visible = ->
 	p = Session.get('perspective') || 'board'
 	p == 'board' || p == 'kanban' # TODO 'kanban' perspective is obsolete
 
+extend_filter = (it) ->
+	filter = it.filter
+	count = WorkItems.find(filter).count()
+	extra =
+		count: count
+		state: ->
+			if Meteor.Kanban.Filters.indexOf(filter) >= 0 then 'active' else ''
+		click: ->
+			Meteor.Kanban.Filters.toggle filter
+	_.extend it, extra
+
+# gets category filters
 Template.filterbar.categories = ->
 	cats = []
 
@@ -12,10 +24,9 @@ Template.filterbar.categories = ->
 	cats = cats.map (it) ->
 		{css: it, label: it, filter: {category: it}}
 
-	cats.map (it) ->
-		count = WorkItems.find(it.filter).count()
-		_.extend it, {count: count}
+	cats.map extend_filter
 
+# gets tag filters
 Template.filterbar.tags = ->
 	tags = []
 
@@ -26,6 +37,9 @@ Template.filterbar.tags = ->
 	tags = tags.map (it) ->
 		{css: it, label: it, filter: {tags: it}}
 
-	tags.map (it) ->
-		count = WorkItems.find(it.filter).count()
-		_.extend it, {count: count}
+	tags.map extend_filter
+
+# event handlers
+Template.filterbar.events =
+	'click .btn-filter': ->
+		@click() if @click

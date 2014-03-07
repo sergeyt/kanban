@@ -33,24 +33,13 @@ find_index = (list, predicate) ->
 		return index if predicate(it)
 	-1
 
-toggle_filter = (filter) ->
-	filters = (Session.get('filters') || []).slice()
-
-	index = index_of filter
-	if index < 0
-		filters.push(filter)
-	else
-		filters.splice(index, 1)
-
-	Session.set 'filters', filters
-
 # returns selected css class
 Template.filter.selected = ->
 	if index_of(@filter) >= 0 then 'selected' else ''
 
 Template.filter.events =
 	'click .filter': (event, tpl) ->
-		toggle_filter tpl.data.filter
+		Meteor.Kanban.Filters.toggle tpl.data.filter
 
 # ----------------
 # Priority Filters
@@ -123,11 +112,11 @@ Template.priority_filter.events =
 		filters = Session.get('filters') || []
 		index = find_index filters, is_priority_filter
 
-		return toggle_filter filter if index < 0
+		return Meteor.Kanban.Filters.toggle filter if index < 0
 
 		current = filters[index]
 		if JSON.stringify(current) == JSON.stringify(filter)
-			return toggle_filter filter
+			return Meteor.Kanban.Filters.toggle filter
 
 		filters[index] = update_priority_filter current, priority
 
