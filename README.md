@@ -1,11 +1,12 @@
-# kanban [![Build Status][buildstatus]][buildstatusurl] [![Deps Status][depstatus]][depstatusurl]
+[![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
+[![Build Status](https://drone.io/github.com/sergeyt/kanban/status.png)](https://drone.io/github.com/sergeyt/kanban/latest)
+
+[![Deps Status](https://david-dm.org/sergeyt/kanban.png)](https://david-dm.org/sergeyt/kanban)
+[![DevDeps Status](https://david-dm.org/sergeyt/kanban/dev-status.png)](https://david-dm.org/sergeyt/kanban#info=devDependencies)
+
+# kanban
 
 Kanban boards powered by meteor
-
-[buildstatus]: https://drone.io/github.com/sergeyt/kanban/status.png
-[buildstatusurl]: https://drone.io/github.com/sergeyt/kanban/latest
-[depstatus]: https://david-dm.org/sergeyt/kanban.png
-[depstatusurl]: https://david-dm.org/sergeyt/kanban
 
 ## Features
 
