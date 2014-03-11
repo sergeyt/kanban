@@ -4,7 +4,7 @@ Template.column_bar.visible = ->
 
 Template.column_bar.items = ->
 	board = Meteor.Kanban.currentBoard()
-	return [] if not board
+	return [] unless board
 
 	board.columns.map (it) ->
 		Meteor.Kanban.Column(it.name)

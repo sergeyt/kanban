@@ -1,6 +1,6 @@
 Template.columns_selector.items = ->
 	board = Meteor.Kanban.currentBoard()
-	return [] if not board
+	return [] unless board
 
 	board.columns.map (it) ->
 		hidden = Meteor.Kanban.Column(it.name).hidden()

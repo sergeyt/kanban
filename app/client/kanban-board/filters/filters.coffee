@@ -64,7 +64,7 @@ current_priority_filter = ->
 
 is_selected_priority = (priority) ->
 	current = current_priority_filter()
-	return false if not current
+	return false unless current
 
 	if _.isArray current.$and
 		[p1, p2] = unwrap_and current

@@ -34,7 +34,7 @@ Template.themeSelector.events =
 		event.preventDefault()
 
 		$e = $(event.target)
-		$e = $e.parent('a[theme]') if not $e.is('a[theme]')
+		$e = $e.parent('a[theme]') unless $e.is('a[theme]')
 
 		theme = $e.attr 'theme'
 		UserSession.set 'theme', theme

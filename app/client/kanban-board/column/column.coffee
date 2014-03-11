@@ -53,7 +53,7 @@ Template.column.helpers {
 		return 4 if selectedItem
 
 		board = Meteor.Kanban.currentBoard()
-		return 2 if not board
+		return 2 unless board
 
 		acc = (v, it) ->
 			Meteor.Kanban.Column(it.name).visibile() ? v + 1 : v
@@ -77,10 +77,10 @@ Template.column.rendered = ->
 
 	on_drop = ->
 		itemId = Session.get 'dragItem'
-		return console.log 'no active drag item' if not itemId
+		return console.log 'no active drag item' unless itemId
 
 		item = WorkItems.findOne itemId
-		return console.log 'unable to find item with id %s', itemId if not item
+		return console.log 'unable to find item with id %s', itemId unless item
 
 		# nothing to change
 		return if item.status == status

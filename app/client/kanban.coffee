@@ -35,12 +35,12 @@ Meteor.Kanban.Filters = Filters
 
 # resolve email for given user object with id and name fields
 Meteor.Kanban.resolve_email = (user) ->
-	return '' if not user
+	return '' unless user
 
 	key = 'fogbugz-users'
 	users = UserSession.get(key) || []
 
-	if not users.length
+	unless users.length
 		Meteor.call 'fetch_users', Meteor.userId(), (err, res) ->
 			return if err
 			UserSession.set key, res

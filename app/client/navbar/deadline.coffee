@@ -1,6 +1,6 @@
 Template.deadline.data = ->
 	board = Meteor.Kanban.currentBoard()
-	return null if not board or not board.end
+	return null unless board and board.end
 
 	m = moment new Date(board.end)
 

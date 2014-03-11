@@ -23,7 +23,7 @@ reduce_event = (event) ->
 	# detect status change
 	if event.changes and (/^status changed/i).test(event.changes)
 		m = event.changes.match /from '([^']+)' to '([^']+)'/i
-		return null if not m
+		return null unless m
 		status = map_status m[2]
 		return {date: event.date, status: status}
 	# detect dev taken a case (assigned to self)
@@ -81,7 +81,7 @@ build_cfd = ->
 	# gathering series from WorkItems
 	# get sprint days
 	board = Meteor.Kanban.currentBoard()
-	return null if not board
+	return null unless board
 
 	end_day = moment(board.end).dayOfYear()
 	today = moment(new Date()).dayOfYear()

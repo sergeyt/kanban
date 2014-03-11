@@ -10,7 +10,7 @@ Template.board_selector.boards = ->
 Template.board_selector.events {
 	'click a[name]': (event) ->
 		$e = $(event.target)
-		$e = $e.parent('a[name]') if not $e.is('a[name]')
+		$e = $e.parent('a[name]') unless $e.is('a[name]')
 
 		boardName = $e.attr('name')
 

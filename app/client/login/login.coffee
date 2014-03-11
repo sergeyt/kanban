@@ -3,7 +3,7 @@ typeaheadDataSet = (key, method) ->
 	_method = method
 
 	return ->
-		_method = _key if not _method
+		_method = _key unless _method
 		data = Session.get _key || []
 
 		Meteor.call _method, (err, res) ->

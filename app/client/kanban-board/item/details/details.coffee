@@ -44,7 +44,7 @@ Template.itemDetails.events =
 	'click .btn-add-comment': ->
 		input = $ '.comment-input'
 		comment = input.val()
-		return if not comment
+		return unless comment
 
 		btn = $ '.btn-add-comment'
 		input.attr 'disabled', 'disabled'
