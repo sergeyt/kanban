@@ -2,3 +2,4 @@
 .vagrant
 npm-debug.log
 node_modules
+smart.lock

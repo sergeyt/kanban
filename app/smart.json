@@ -1,16 +1,8 @@
 {
-	"meteor": {
-		"tag": "v0.7.0.1"
-	},
-	"packages": {
-		"reactive-property": {
-			"git": "https://github.com/CollectionFS/Meteor-reactive-property.git",
-			"branch": "master"
-		},
-		"reactive-list": {
-			"git": "https://github.com/CollectionFS/Meteor-reactive-list.git",
-			"branch": "master"
-		},
+	"packages":
+	{
+		"reactive-property": {},
+		"reactive-list": {},
 		"moment": {},
 		"gravatar": {},
 		"crypto-base": {},

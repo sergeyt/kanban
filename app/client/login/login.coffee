@@ -10,7 +10,7 @@ typeaheadDataSet = (key, method) ->
 			return if EJSON.equals res, data
 			Session.set _key, res
 
-		JSON.stringify data
+		data
 
 Template.login.emails = typeaheadDataSet 'emails'
 Template.login.endpoints = typeaheadDataSet 'endpoints'
