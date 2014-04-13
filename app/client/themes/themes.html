@@ -1,28 +1,11 @@
-<template name="themes">
-	{{#each list}}
-		{{#if selected}}
-		<link rel="stylesheet" type="text/css" href="/themes/{{name}}/bootstrap.css"/>
-		{{/if}}
-	{{/each}}
-</template>
-
-<template name="themeSelector">
+<template name="theme_selector">
 	<ul class="nav navbar-nav navbar-right" title="Select theme" data-toggle="tooltip" data-placement="bottom">
 		<li class="dropdown">
 			<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 				<span>Themes</span>
 				<b class="caret"></b>
 			</a>
-			<ul class="dropdown-menu">
-				{{#each themes}}
-					<li>
-						<a href="#" theme="{{name}}">
-							<i class="glyphicon glyphicon-ok pull-right {{iconClass}}"></i>
-							<span>{{label}}</span>
-						</a>
-					</li>
-				{{/each}}
-			</ul>
+			<ul class="dropdown-menu themes"></ul>
 		</li>
 	</ul>
 </template>

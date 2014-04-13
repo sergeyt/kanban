@@ -17,6 +17,7 @@ accounts-fogbugz
 jquery
 jquery-ui-bootstrap
 jquery-ui
+jquery-bootswatch
 livequery
 insecure
 bootstrap-3

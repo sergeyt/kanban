@@ -13,6 +13,7 @@
 		"accounts-fogbugz": {},
 		"jquery-ui": {},
 		"jquery-ui-bootstrap": {},
+		"jquery-bootswatch": {},
 		"livequery": {},
 		"user-session": {
 			"git": "https://github.com/sergeyt/meteor-user-session"

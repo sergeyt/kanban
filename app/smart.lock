@@ -14,6 +14,7 @@
       "accounts-fogbugz": {},
       "jquery-ui": {},
       "jquery-ui-bootstrap": {},
+      "jquery-bootswatch": {},
       "livequery": {},
       "user-session": {
         "git": "https://github.com/sergeyt/meteor-user-session",
@@ -83,6 +84,11 @@
         "git": "https://github.com/TimHeckel/meteor-jquery-ui-bootstrap.git",
         "tag": "v0.1.2",
         "commit": "fa742a85639307003e105898e15b631394b63509"
+      },
+      "jquery-bootswatch": {
+        "git": "https://github.com/sergeyt/jquery-bootswatch.git",
+        "tag": "v0.0.2",
+        "commit": "43e58353b14e362f55bb6c950e6a810dc5427067"
       },
       "livequery": {
         "git": "https://github.com/sergeyt/livequery.git",
