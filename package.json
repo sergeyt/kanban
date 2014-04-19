@@ -20,7 +20,7 @@
   "devDependencies": {
     "grunt": "~0.4",
     "grunt-contrib-jshint": "~0.10",
-    "grunt-coffeelint": "0.0.8",
+    "grunt-coffeelint": "~0.0.10",
     "grunt-htmlhint": "~0.4",
     "grunt-cli": "~0.1"
   },
