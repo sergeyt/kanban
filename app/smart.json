@@ -1,25 +1,25 @@
 {
 	"packages":
 	{
-		"reactive-property": {},
-		"reactive-list": {},
-		"moment": {},
-		"gravatar": {},
-		"crypto-base": {},
-		"crypto-md5": {},
-		"npm": {},
-		"power-queue": {},
-		"bootstrap-3": {},
-		"accounts-fogbugz": {},
-		"jquery-ui": {},
-		"jquery-ui-bootstrap": {},
-		"jquery-bootswatch": {},
-		"livequery": {},
+		"cfs:reactive-property": {},
+		"cfs:reactive-list": {},
+		"cfs:power-queue": {},
+		"mrt:moment": {},
+		"mrt:gravatar": {},
+		"tmeasday:crypto-base": {},
+		"tmeasday:crypto-md5": {},
+		"arunoda:npm": {},
+		"mizzao:bootstrap-3": {},
+		"mrt:jquery-ui": {},
+		"mrt:jquery-ui-bootstrap": {},
+		"d3": {},
 		"user-session": {
 			"git": "https://github.com/sergeyt/meteor-user-session"
 		},
-		"typeahead": {},
-		"d3": {},
-		"d3-gems": {}
+		"sergeyt:jquery-bootswatch": {},
+		"sergeyt:accounts-fogbugz": {},
+		"sergeyt:livequery": {},
+		"sergeyt:typeahead": {},
+		"sergeyt:d3-gems": {}
 	}
 }
